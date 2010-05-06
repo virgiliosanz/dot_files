@@ -71,7 +71,7 @@ set smartcase
 set incsearch  " show the `best match so far' as search strings are typed:
 set gdefault   " assume the /g flag on :s substitutions to replace all matches in a line:
 set enc=utf-8  " UTF-8 Default encoding
-set ts=4
+set tabstop=8 softtabstop=3 shiftwidth=3 noexpandtab
 set smartindent
 set expandtab
 
