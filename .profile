@@ -23,3 +23,5 @@ fi
 export PATH=/var/lib/gems/1.8/bin/:$PATH
 
 export EDITOR=vim
+
+if [[ -s /home/v/.rvm/scripts/rvm ]] ; then source /home/v/.rvm/scripts/rvm ; fi

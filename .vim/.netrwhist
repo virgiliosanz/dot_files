@@ -4,4 +4,8 @@ let g:netrw_dirhist_1='/home/v/Code/traddia/traddia'
 let g:netrw_dirhist_2='/home/v'
 let g:netrw_dirhist_3='/home/v/.adobe'
 let g:netrw_dirhist_4='/home/v/Code/traddia/payment'
+<<<<<<< HEAD
 let g:netrw_dirhist_5='/mnt/hgfs/home/Code/traddia/traddia'
+=======
+let g:netrw_dirhist_5='/home/v/Code/traddia/traddia'
+>>>>>>> 9814c9513718dc27331b273d7aa618aa1c4b63b7
