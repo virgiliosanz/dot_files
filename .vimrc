@@ -10,6 +10,8 @@ set incsearch		" do incremental searching
 map Q gq
 
 syntax on
+set t_Co=256
+colorscheme gardener
 set hlsearch
 
 " Only do this part when compiled with support for autocommands.

@@ -22,3 +22,5 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 export EDITOR=vim
+
+if [[ -s /home/v/.rvm/scripts/rvm ]] ; then source /home/v/.rvm/scripts/rvm ; fi
