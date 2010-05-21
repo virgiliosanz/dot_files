@@ -20,5 +20,6 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+export PATH=/var/lib/gems/1.8/bin/:$PATH
 
 export EDITOR=vim

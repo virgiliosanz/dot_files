@@ -75,6 +75,22 @@ set tabstop=8 softtabstop=3 shiftwidth=3 noexpandtab
 set smartindent
 set expandtab
 
+" Colors
+" **********************************************************************
+set t_Co=256 " 256 colors
+set background=dark 
+syntax on " syntax highlighting
+"colorscheme Dark2
+"colorscheme darkdevel
+colorscheme gardener
+"colorscheme ir_black
+"colorscheme nature
+"colorscheme darkburn
+"colorscheme darkspectrum
+"colorscheme gentooish
+"colorscheme jammy
+
+
 "ruby
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1

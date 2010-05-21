@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/v/Code/traddia/traddia'
 let g:netrw_dirhist_2='/home/v'
 let g:netrw_dirhist_3='/home/v/.adobe'
 let g:netrw_dirhist_4='/home/v/Code/traddia/payment'
+let g:netrw_dirhist_5='/mnt/hgfs/home/Code/traddia/traddia'
