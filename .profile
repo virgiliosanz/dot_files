@@ -16,12 +16,5 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-export PATH=/var/lib/gems/1.8/bin/:$PATH
 
-export EDITOR=vim
-
-if [[ -s /home/v/.rvm/scripts/rvm ]] ; then source /home/v/.rvm/scripts/rvm ; fi
+if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi

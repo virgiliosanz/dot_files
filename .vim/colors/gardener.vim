@@ -87,28 +87,28 @@ if has("gui_running")
     hi NonText          guibg=#445566     guifg=#ffeecc    gui=bold 
     hi Visual           guibg=#557799     guifg=white      gui=none 
 
-    hi Directory        guibg=bg	      guifg=#337700    gui=none
+    hi Directory        guibg=bg          guifg=#337700    gui=none
 
     hi IncSearch        guibg=#0066cc     guifg=white      gui=none
     hi link Seach       IncSearch
 
-    hi SpecialKey       guibg=bg	      guifg=fg         gui=none 
-    hi Titled           guibg=bg	      guifg=fg         gui=none 
+    hi SpecialKey       guibg=bg          guifg=fg         gui=none 
+    hi Titled           guibg=bg          guifg=fg         gui=none 
 
-    hi ErrorMsg         guibg=bg	      guifg=#ff0000    gui=bold 
-    hi ModeMsg          guibg=bg	      guifg=#ffeecc    gui=none 
-    hi link	            MoreMsg           ModeMsg
-    hi Question         guibg=bg	      guifg=#ccffcc    gui=bold 
-    hi link	            WarningMsg        ErrorMsg
+    hi ErrorMsg         guibg=bg          guifg=#ff0000    gui=bold 
+    hi ModeMsg          guibg=bg          guifg=#ffeecc    gui=none 
+    hi link             MoreMsg           ModeMsg
+    hi Question         guibg=bg          guifg=#ccffcc    gui=bold 
+    hi link             WarningMsg        ErrorMsg
 
-    hi StatusLineNC     guibg=#ffeecc	  guifg=black	   gui=none 
-    hi StatusLine       guibg=#cc4455	  guifg=white	   gui=bold 
-    hi VertSplit        guibg=#ffeecc	  guifg=black	   gui=none 
+    hi StatusLineNC     guibg=#ffeecc      guifg=black       gui=none 
+    hi StatusLine       guibg=#cc4455      guifg=white       gui=bold 
+    hi VertSplit        guibg=#ffeecc      guifg=black       gui=none 
 
-    hi DiffAdd          guibg=#446688     guifg=fg	       gui=none 
-    hi DiffChange       guibg=#558855     guifg=fg	       gui=none 
-    hi DiffDelete       guibg=#884444     guifg=fg	       gui=none 
-    hi DiffText         guibg=#884444     guifg=fg	       gui=bold 
+    hi DiffAdd          guibg=#446688     guifg=fg           gui=none 
+    hi DiffChange       guibg=#558855     guifg=fg           gui=none 
+    hi DiffDelete       guibg=#884444     guifg=fg           gui=none 
+    hi DiffText         guibg=#884444     guifg=fg           gui=bold 
 
     " Colors for Syntax Highlighting.
     if exists("g:gardener_light_comments")
@@ -117,11 +117,10 @@ if has("gui_running")
         hi Comment          guibg=bg          guifg=#888888    gui=none    
     endif
 
-
-    hi Define	        guibg=bg          guifg=#66ccdd    gui=bold
+    hi Define           guibg=bg          guifg=#66ccdd    gui=bold
     hi Conditional      guibg=bg          guifg=#aadd55    gui=bold
 
-    hi Constant         guibg=bg          guifg=white	   gui=bold    
+    hi Constant         guibg=bg          guifg=white       gui=bold    
     hi Identifier       guibg=bg          guifg=#ffddaa    gui=none    
     hi String           guibg=bg          guifg=#ffffcc    gui=none    
     hi Character        guibg=bg          guifg=#ffffcc    gui=bold    
@@ -138,29 +137,29 @@ if has("gui_running")
     hi Keyword          guibg=bg          guifg=#66ffcc    gui=bold    
     hi Exception        guibg=bg          guifg=#66ffcc    gui=bold    
 
-    hi PreProc	        guibg=bg          guifg=#ffcc99    gui=bold    
-    hi Include	        guibg=bg          guifg=#99cc99    gui=bold    
-    hi link Macro	  Include
-    hi link PreCondit Include
+    hi PreProc          guibg=bg          guifg=#ffcc99    gui=bold    
+    hi Include          guibg=bg          guifg=#99cc99    gui=bold    
+    hi link Macro       Include
+    hi link PreCondit   Include
 
-    hi Type		        guibg=bg	      guifg=#ccffaa    gui=bold    
-    hi Structure	    guibg=bg	      guifg=#99ff99    gui=bold    
-    hi Typedef	        guibg=bg	      guifg=#99cc99    gui=italic  
+    hi Type             guibg=bg          guifg=#ccffaa    gui=bold    
+    hi Structure        guibg=bg          guifg=#99ff99    gui=bold    
+    hi Typedef          guibg=bg          guifg=#99cc99    gui=italic  
 
-    hi StorageClass	    guibg=bg	      guifg=#99cc99    gui=bold    
-    hi Special	        guibg=bg	      guifg=#bbddff	   gui=bold    
-    hi SpecialChar	    guibg=bg	      guifg=#bbddff	   gui=bold    
-    hi Tag		        guibg=bg	      guifg=#bbddff	   gui=bold    
-    hi Delimiter	    guibg=bg	      guifg=fg	       gui=bold    
-    hi SpecialComment   guibg=#334455     guifg=#dddddd	   gui=italic  
-    hi Debug	        guibg=bg          guifg=#ff9999	   gui=none    
+    hi StorageClass     guibg=bg          guifg=#99cc99    gui=bold    
+    hi Special          guibg=bg          guifg=#bbddff       gui=bold    
+    hi SpecialChar      guibg=bg          guifg=#bbddff       gui=bold    
+    hi Tag              guibg=bg          guifg=#bbddff       gui=bold    
+    hi Delimiter        guibg=bg          guifg=fg           gui=bold    
+    hi SpecialComment   guibg=#334455     guifg=#dddddd       gui=italic  
+    hi Debug            guibg=bg          guifg=#ff9999       gui=none    
 
     hi Underlined       guibg=bg          guifg=#99ccff    gui=underline
 
-    hi Title            guibg=#445566     guifg=white	   gui=bold    
-    hi Ignore           guibg=bg	      guifg=#cccccc    gui=italic  
-    hi Error            guibg=#ff0000     guifg=white	   gui=bold    
-    hi Todo	            guibg=#556677     guifg=#ff0000    gui=bold    
+    hi Title            guibg=#445566     guifg=white       gui=bold    
+    hi Ignore           guibg=bg          guifg=#cccccc    gui=italic  
+    hi Error            guibg=#ff0000     guifg=white       gui=bold    
+    hi Todo             guibg=#556677     guifg=#ff0000    gui=bold    
 
     hi htmlH1           guibg=bg          guifg=#ffffff    gui=bold
     hi htmlH2           guibg=bg          guifg=#dadada    gui=bold
@@ -198,8 +197,10 @@ else
     exec "hi MoreMsg        cterm=NONE   ctermfg=230   ctermbg=NONE"
     exec "hi Question       cterm=NONE   ctermfg=194   ctermbg=NONE"
 
-    exec "hi StatusLineNC   cterm=NONE   ctermfg=16    ctermbg=229"
-    exec "hi StatusLine     cterm=BOLD   ctermfg=255   ctermbg=167"
+"    exec "hi StatusLineNC   cterm=NONE   ctermfg=16    ctermbg=229"
+"    exec "hi StatusLine     cterm=BOLD   ctermfg=255   ctermbg=167"
+    exec "hi StatusLineNC   cterm=NONE   ctermfg=16    ctermbg=blue"
+    exec "hi StatusLine     cterm=BOLD   ctermfg=255   ctermbg=blue"
     exec "hi VertSplit      cterm=NONE   ctermfg=16    ctermbg=229"
 
     exec "hi DiffAdd        cterm=NONE   ctermfg=255   ctermbg=60"
