@@ -48,6 +48,7 @@ set background=dark
 syntax on " syntax highlighting
 "colorscheme ir_black
 colorscheme gardener
+"colorscheme railscasts
 
 " ruby
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
