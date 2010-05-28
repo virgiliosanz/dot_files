@@ -182,7 +182,8 @@ else
     exec "hi CursorIM       cterm=BOLD   ctermfg=255   ctermbg=167"
 
     exec "hi Normal         cterm=NONE   ctermfg=255   ctermbg=0"
-    exec "hi NonText        cterm=NONE   ctermfg=230   ctermbg=60"
+"    exec "hi NonText        cterm=NONE   ctermfg=230   ctermbg=60"
+    exec "hi NonText        cterm=NONE   ctermfg=230   ctermbg=NONE"
     exec "hi Visual         cterm=NONE   ctermfg=255   ctermbg=68"
 
     exec "hi Linear         cterm=NONE   ctermfg=248   ctermbg=NONE"
@@ -252,7 +253,7 @@ else
     exec "hi SpecialComment cterm=BOLD   ctermfg=253   ctermbg=24"
     exec "hi Debug          cterm=NONE   ctermfg=210   ctermbg=NONE"
 
-    exec "hi Title          cterm=BOLD   ctermfg=255   ctermbg=60"
+    exec "hi Title          cterm=BOLD   ctermfg=255   ctermbg=NONE"
     exec "hi Ignore         cterm=NONE   ctermfg=251   ctermbg=NONE"
     exec "hi Error          cterm=NONE   ctermfg=255   ctermbg=196"
     exec "hi Ignore         cterm=NONE   ctermfg=196   ctermbg=60"
