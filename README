@@ -1,0 +1,20 @@
+El profile y el shell son los originales modificados para trabajar con rvm
+Un esquema de colores de 256 bits bastante aparente
+La configuración de vim está muy preparada para trabajar con Ruby On Rails, en particular tiene los siguientes plugins:
+
+NERDTree: Saca un arbol de navegación para poder hacer "vim ." como en TextMate, se des/activa con F2
+Snippets: Puedes añadir nuevos en .vim/snippets, funciona como en TextMate con el tab
+Plugins de Ruby on Rails (http://www.vimrails.org/)
+delimitMate: Autocierra comillas, corchetes, ....
+taglist: Necesitas tener instalado exuberant-ctags, se desactiva/activa con F3
+
+
+Para instalar:
+
+$ git clone git://github.com/virgiliosanz/dot_files.git
+$ cd ~
+$ ln -s dot_files/.profile .
+$ ln -s dot_files/.bashrc .
+$ ln -s dot_files/.vimrc .
+$ ln -s dot_files/.vim .
+
