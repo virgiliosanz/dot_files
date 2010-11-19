@@ -18,17 +18,18 @@ set ignorecase           " make searches case-insensitive, unless they contain u
 set smartcase
 set incsearch            " show the `best match so far' as search strings are typed:
 set enc=utf-8            " UTF-8 Default encoding
-set tabstop=8 softtabstop=3 shiftwidth=3 expandtab
+set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 set autoindent           
 set smartindent
 set hidden               " You can change buffer without saving
 set noerrorbells         " Stop noise
 set visualbell
 set showmatch            " Show matching brackets
-"set cursorline           " highlight current line
+set cursorline           " highlight current line
 set laststatus=2         " always show the status line
 set lazyredraw           " do not redraw while running macros
 set linespace=0          " don't insert any extra pixel lines
+"set number
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -46,9 +47,9 @@ helptags ~/.vim/doc
 set t_Co=256 " 256 colors
 set background=dark 
 syntax on " syntax highlighting
-colorscheme ir_black
-""colorscheme gardener
-"colorscheme railscasts
+"colorscheme ir_black
+"colorscheme gardener
+colorscheme railscasts
 
 " ruby
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete

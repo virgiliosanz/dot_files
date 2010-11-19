@@ -85,6 +85,10 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-export PATH=/var/lib/gems/1.8/bin/:$PATH
+PATH="/usr/local/bin":$PATH
+PATH="/usr/local/sbin":$PATH
+export PATH
+
+export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 export EDITOR=vim
