@@ -92,3 +92,9 @@ export PATH
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 export EDITOR=vim
+if [ "$SSH_CONNECTION" ]; then
+    if [ -z "$STY" ]; then
+        # Screen is not currently running, but we are in SSH, so start a sses   sion
+        exec screen -d -R
+    fi
+fi
