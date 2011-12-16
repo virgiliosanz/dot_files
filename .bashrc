@@ -87,9 +87,10 @@ PATH="/usr/local/sbin":$PATH
 export PATH
 export EDITOR=vim
 
-# AWS
-alias cocinario_dev='ssh -i ~/Dropbox/\@Cocinario/AWS/cocinario.pem ubuntu@ec2-79-125-52-198.eu-west-1.compute.amazonaws.com'
-alias cocinario_front='ssh -i ~/Dropbox/\@Cocinario/AWS/cocinario.pem ec2-user@ec2-46-137-49-2.eu-west-1.compute.amazonaws.com'
-
-alias v_dev='ssh -i ~/Dropbox/Personal/virgiliosanz.me/virgiliosanzme.pem ubuntu@ec2-79-125-76-54.eu-west-1.compute.amazonaws.com'
-
+export EDITOR=vim
+if [ "$SSH_CONNECTION" ]; then
+    if [ -z "$STY" ]; then
+        # Screen is not currently running, but we are in SSH, so start a sses   sion
+        exec screen -d -R
+    fi
+fi
