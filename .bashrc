@@ -60,11 +60,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -81,6 +76,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home/"
+PATH="$PATH:$JAVA_HOME/bin"
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
@@ -88,7 +85,11 @@ fi
 PATH="/usr/local/bin":$PATH
 PATH="/usr/local/sbin":$PATH
 export PATH
-
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
-
 export EDITOR=vim
+
+# AWS
+alias cocinario_dev='ssh -i ~/Dropbox/\@Cocinario/AWS/cocinario.pem ubuntu@ec2-79-125-52-198.eu-west-1.compute.amazonaws.com'
+alias cocinario_front='ssh -i ~/Dropbox/\@Cocinario/AWS/cocinario.pem ec2-user@ec2-46-137-49-2.eu-west-1.compute.amazonaws.com'
+
+alias v_dev='ssh -i ~/Dropbox/Personal/virgiliosanz.me/virgiliosanzme.pem ubuntu@ec2-79-125-76-54.eu-west-1.compute.amazonaws.com'
+

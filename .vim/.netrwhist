@@ -1,11 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/home/v/Code/traddia/traddia'
-let g:netrw_dirhist_2='/home/v'
-let g:netrw_dirhist_3='/home/v/.adobe'
-let g:netrw_dirhist_4='/home/v/Code/traddia/payment'
-let g:netrw_dirhist_5='/home/v/Code/traddia/traddia'
-let g:netrw_dirhist_6='/mnt/hgfs/home/Code/personal/cocinario/config/environments'
-let g:netrw_dirhist_7='/mnt/hgfs/home/Code/traddia/payment'
-let g:netrw_dirhist_8='/home/traddia'
-let g:netrw_dirhist_9='/mnt/hgfs/home/Code/traddia/payment'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/Users/v/Code/personal/diaspora'

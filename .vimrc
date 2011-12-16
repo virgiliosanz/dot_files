@@ -48,8 +48,11 @@ set t_Co=256 " 256 colors
 set background=dark 
 syntax on " syntax highlighting
 "colorscheme ir_black
-"colorscheme gardener
-colorscheme railscasts
+colorscheme gardener
+"colorscheme railscasts
+
+" Snipets
+let g:snips_author="Virgilio Sanz <virgilio.sanz@cocinario.es>"
 
 " ruby
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
