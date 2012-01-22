@@ -33,21 +33,53 @@ case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-if [ "$TERM" != 'dumb' ] && [ -n "$BASH" ] && [ -n "$PS1" ]
-then
-   if [ `/usr/bin/whoami` = 'root' ]
-   then
-      export PS1='\[\033[01;31m\]\u@\h \[\033[01;34m\]\w\n\$ \[\033[00m\]'
-   else
-      export PS1='\[\033[01;32m\]\u@\h \[\033[01;34m\]\w\n\$ \[\033[00m\]'
-   fi
-fi
-
+source /usr/local/etc/bash_completion.d/git-completion.bash
+prompt_command () {
+    if [ $? -eq 0 ]; then # set an error string for the prompt, if applicable
+        ERRPROMPT=" "
+    else
+        ERRPROMPT='-&gt;($?) '
+    fi
+    if [ "\$(type -t __git_ps1)" ]; then # if we're in a Git repo, show current branch
+        BRANCH="\$(__git_ps1 '[ %s ] ')"
+    fi
+    local TIME=`fmt_time` # format time for prompt string
+    local LOAD=`uptime|awk '{min=NF-2;print $min}'`
+    local GREEN="\[\033[0;32m\]"
+    local CYAN="\[\033[0;36m\]"
+    local BCYAN="\[\033[1;36m\]"
+    local BLUE="\[\033[0;34m\]"
+    local GRAY="\[\033[0;37m\]"
+    local DKGRAY="\[\033[1;30m\]"
+    local WHITE="\[\033[1;37m\]"
+    local RED="\[\033[0;31m\]"
+    # return color to Terminal setting for text color
+    local DEFAULT="\[\033[0;39m\]"
+    # set the titlebar to the last 2 fields of pwd
+    local TITLEBAR='\[\e]2;`pwdtail`\a'
+    export PS1="\[${TITLEBAR}\]${CYAN}[ ${BCYAN}\u${GREEN}@${BCYAN}\
+\h${DKGRAY}(${LOAD}) ${WHITE}${TIME} ${CYAN}]${RED}$ERRPROMPT${GRAY}\
+\w\n${GREEN}${BRANCH}${DEFAULT}$ "
+}
+PROMPT_COMMAND=prompt_command
+ 
+fmt_time () { #format time just the way I likes it
+    date +"%H:%M"|sed 's/ //g'
+}
+pwdtail () { #returns the last 2 fields of the working directory
+    pwd|awk -F/ '{nlast = NF -1;print $nlast"/"$NF}'
+}
+chkload () { #gets the current 1m avg CPU load
+    local CURRLOAD=`uptime|awk '{print $8}'`
+    if [ "$CURRLOAD" &gt; "1" ]; then
+        local OUTP="HIGH"
+    elif [ "$CURRLOAD" &lt; "1" ]; then
+        local OUTP="NORMAL"
+    else
+        local OUTP="UNKNOWN"
+    fi
+    echo $CURRLOAD
+}
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -86,11 +118,3 @@ PATH="/usr/local/bin":$PATH
 PATH="/usr/local/sbin":$PATH
 export PATH
 export EDITOR=vim
-
-export EDITOR=vim
-if [ "$SSH_CONNECTION" ]; then
-    if [ -z "$STY" ]; then
-        # Screen is not currently running, but we are in SSH, so start a sses   sion
-        exec screen -d -R
-    fi
-fi

@@ -48,18 +48,18 @@ set t_Co=256 " 256 colors
 set background=dark 
 syntax on " syntax highlighting
 "colorscheme ir_black
-colorscheme gardener
-"colorscheme railscasts
+"colorscheme gardener
+colorscheme railscasts
 
 " Snipets
-let g:snips_author="Virgilio Sanz <virgilio.sanz@cocinario.es>"
+let g:snips_author="Virgilio Sanz <virgilio.sanz@gmail.com>"
 
 " NERDTree
 "autocmd VimEnter * NERDTree
 "autocmd VimEnter * wincmd p
 
 " BufExplorer
-let g:bufExplorerShowDirectories=0   " Don't show directories.
+let g:bufExplorerShowDirectories=1
 
 " ruby
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
@@ -70,8 +70,8 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType c,cpp        setlocal foldmethod=syntax foldnestmax=2 cinoptions=(0,h0
 autocmd FileType erlang,ocaml setlocal foldmethod=indent expandtab tabstop=4 shiftwidth=4
 autocmd FileType python       setlocal foldmethod=indent
-autocmd BufEnter *.txt,README,TODO,*.markdown,*.md if &filetype == '' | setlocal filetype=txt | endif
-autocmd FileType txt,tex,mail,asciidoc setlocal textwidth=72 colorcolumn=+1 spell
+"autocmd BufEnter *.txt,README,TODO,*.markdown,*.md if &filetype == '' | setlocal filetype=txt | endif
+"autocmd FileType txt,tex,mail,asciidoc setlocal textwidth=72 colorcolumn=+1 spell
 
 " Clang Complete plugin:
 let clang_use_library     = 1
@@ -87,8 +87,8 @@ autocmd FileType c,cpp map <buffer> <silent> <Leader>e :call g:ClangUpdateQuickF
 let erlang_folding     = 1
 let erlang_show_errors = 0
 let erlang_man_path    = '/usr/local/lib/erlang/man'
-let erlang_skel_header = {'author': 'Ricardo Catalinas Jiménez <jimenezrick@gmail.com>',
-                       \  'owner' : 'Ricardo Catalinas Jiménez'}
+let erlang_skel_header = {'author': 'Virgilio Sanz <virgilio.sanz@gmail.com>',
+                       \  'owner' : 'Virgilio Sanz'}
 
 " Syntastic plugin:
 let syntastic_enable_signs       = 1
