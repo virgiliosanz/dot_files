@@ -1,196 +1,228 @@
+" Iniciamos el entorno
+filetype off
+call pathogen#runtime_append_all_bundles()
+filetype plugin indent on
 set nocompatible
+
+" Configuración básica
+set encoding=utf-8
+set autoindent
+set showmode
+set showcmd
+set hidden
+set visualbell
+set cursorline
+set ttyfast
+set ruler
 set backspace=indent,eol,start
-set nobackup		 " do not keep a backup file, use versions instead
-set history=50		 " keep 50 lines of command line history
-set ruler		 " show the cursor position all the time
-set showcmd		 " display incomplete commands
-set incsearch		 " do incremental searching
+set nonumber
+"set norelativenumber
+set laststatus=2
+set history=1000
+"set undofile
+"set undoreload=10000
+set cpoptions+=J
+"set list  " Marca el final de línea: no me gusta
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set lazyredraw
+set matchtime=3
+set showbreak=↪
+set splitbelow
+set splitright
+set fillchars=diff:⣿
+set ttimeout
+set notimeout
+set nottimeout
+set autowrite
+set shiftround
+set autoread
+set title
+set dictionary=/usr/share/dict/words
+
+" Wildmenu - Como pude vivir sin esto...
+set wildmenu
+set wildmode=list:longest,full
+set wildignore+=.hg,.git,.svn,.cvs               " Version control
+set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.a,*.so                         " compiled object files
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store                       " OSX bullshit
+set wildignore+=*.luac                           " Lua byte code
+set wildignore+=migrations                       " Django migrations
+set wildignore+=*.pyc                            " Python byte code
+set wildignore+=*.beam                           " Erlang byte code
+
+" Buffer tabs
+"set showtabline=2
+"set tabpagemax=20
+
+" Make Vim able to edit crontab files again.
+set backupskip=/tmp/*,/var/tmp/*"
+
+" Save when losing focus
+au FocusLost * :wa
+
+" Resize splits when the window is resized
+au VimResized * exe "normal! \<c-w>="
+
+" Tabs, spaces, wrapping
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+syntax match Tab /\t/
+hi Tab gui=underline guifg=blue ctermbg=blue
+set wrap
+set textwidth=80
+set formatoptions=qrn1
+"set colorcolumn=+1
+
+" Backups
+"set undodir=~/.vim/tmp/undo/
+set backupdir=~/.vim/tmp/backup/
+set directory=~/.vim/tmp/swap/
+set backup
+set noswapfile
+
+" Cambiamos la tecla leader a una coma
+let mapleader = ","
+let maplocalleader = "\\"
+
+" Color scheme
+"let c_comment_strings=1
+set t_Co=256
+syn on
+"colorscheme leo
+"colorscheme desert256
+"colorscheme railscasts
+"colorscheme gardener
+colorscheme herald
+
+" Shortcuts
+nmap <leader>w :w!<cr>
+"nmap <leader>b :b <tab>
+"nmap <leader>e :e <tab>
+
+" Highlight VCS conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" START: Status line -----------------------------------------
+set statusline=%f    " Path.
+set statusline+=%m   " Modified flag.
+set statusline+=%r   " Readonly flag.
+set statusline+=%w   " Preview window flag.
+set statusline+=\    " Space.
+set statusline+=%#redbar#                " Highlight the following as a warning.
+set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+set statusline+=%*                           " Reset highlighting.
+set statusline+=%=   " Right align.
+" File format, encoding and type.  Ex: "(unix/utf-8/python)"
+set statusline+=(
+set statusline+=%{&ff}                        " Format (unix/DOS).
+set statusline+=/
+set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+set statusline+=/
+set statusline+=%{&ft}                        " Type (python).
+set statusline+=)
+" Line and column position and counts.
+set statusline+=\ %l\/%L,%c
+" END: Status line -----------------------------------------
+
+" Search & Movement
+set ignorecase
+set smartcase
+set incsearch
+set showmatch
+set hlsearch
+set gdefault
 
 " Folding
-set foldcolumn=3         " 2 lines of column for fold showing, always
+set foldlevelstart=999 " Me gusta ver el contenido de las funciones, comentarios....
 set foldmethod=syntax
-set foldlevelstart=99
 
-" Otros
-set titlestring=%f title " Display filename in terminal window
-set nohlsearch           " nohighlight searches
-set ignorecase           " make searches case-insensitive, unless they contain upper-case letters:
-set smartcase
-set incsearch            " show the `best match so far' as search strings are typed:
-set enc=utf-8            " UTF-8 Default encoding
-set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
-set autoindent           
-set smartindent
-set hidden               " You can change buffer without saving
-set noerrorbells         " Stop noise
-set visualbell
-set showmatch            " Show matching brackets
-set cursorline           " highlight current line
-set laststatus=2         " always show the status line
-set lazyredraw           " do not redraw while running macros
-set linespace=0          " don't insert any extra pixel lines
-"set number
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
-if has("gui_running")
-   set lines=43 columns=120 " perfect size for me
-   set mousehide " hide the mouse cursor when typing
-endif
+" Make zO recursively open whatever top level fold we're in, 
+" no matter where the cursor happens to be.
+nnoremap zO zCzO
 
-filetype plugin on
-filetype plugin indent on
-helptags ~/.vim/doc
 
-" Colors
-" **********************************************************************
-set t_Co=256 " 256 colors
-set background=dark 
-syntax on " syntax highlighting
-"colorscheme ir_black
-"colorscheme gardener
-colorscheme railscasts
+" KEYS -----------------
+" Formatting, TextMate-style
+nnoremap Q gqip
 
-" Snipets
-let g:snips_author="Virgilio Sanz <virgilio.sanz@gmail.com>"
+" Better Completion
+set completeopt=longest,menuone,preview
 
-" NERDTree
-"autocmd VimEnter * NERDTree
-"autocmd VimEnter * wincmd p
+" PLUGINS -----------------------------------------------
 
-" BufExplorer
-let g:bufExplorerShowDirectories=1
+" c.vim         -----------------------------------------
 
-" ruby
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+" delimitMate   -----------------------------------------
 
-autocmd FileType c,cpp        setlocal foldmethod=syntax foldnestmax=2 cinoptions=(0,h0
-autocmd FileType erlang,ocaml setlocal foldmethod=indent expandtab tabstop=4 shiftwidth=4
-autocmd FileType python       setlocal foldmethod=indent
-"autocmd BufEnter *.txt,README,TODO,*.markdown,*.md if &filetype == '' | setlocal filetype=txt | endif
-"autocmd FileType txt,tex,mail,asciidoc setlocal textwidth=72 colorcolumn=+1 spell
+" matchit       -----------------------------------------
+runtime macros/matchit.vim
+map <tab> %
 
-" Clang Complete plugin:
-let clang_use_library     = 1
-let clang_complete_auto   = 0
-let clang_complete_macros = 1
-let clang_complete_copen  = 1
-autocmd FileType c,cpp setlocal completeopt=menuone
-autocmd FileType c,cpp highlight clear SpellBad   | highlight SpellBad ctermfg=white ctermbg=red
-autocmd FileType c,cpp highlight clear SpellLocal | highlight SpellLocal ctermfg=white ctermbg=blue
-autocmd FileType c,cpp map <buffer> <silent> <Leader>e :call g:ClangUpdateQuickFix()<Enter>
+" mru           -----------------------------------------
 
-" Vimerl plugin:
-let erlang_folding     = 1
-let erlang_show_errors = 0
-let erlang_man_path    = '/usr/local/lib/erlang/man'
-let erlang_skel_header = {'author': 'Virgilio Sanz <virgilio.sanz@gmail.com>',
-                       \  'owner' : 'Virgilio Sanz'}
+" nerdcommenter -----------------------------------------
+" <leader>cc <leader>cn - Comenta línea o selección
+" <leader>cu            - Descomenta línea o selección
 
-" Syntastic plugin:
-let syntastic_enable_signs       = 1
-let syntastic_auto_loc_list      = 1
-let syntastic_disabled_filetypes = ['c', 'cpp', 'erlang', 'ocaml', 'python', 'tex', 'sh',
-                                 \  'cuda', 'css', 'html', 'xhtml', 'xml', 'xslt']
+" NERDTRee    -------------------------------------------
+noremap  <F2> :NERDTreeToggle<cr>
+inoremap <F2> <esc>:NERDTreeToggle<cr>
 
-match Todo /TODO\|FIXME\|XXX\|FUCKME/
+au Filetype nerdtree setlocal nolist
+let NERDTreeHighlightCursorline=1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
-" keys
-map <silent> <F1>  :write<Enter>
-map <silent> <F2>  :NERDTreeToggle<Enter>
-"map <silent> <F3>  :nohlsearch<Enter>
-nnoremap <silent> <F3> :TlistToggle<CR>
-map <silent> <F4>  :TagbarToggle<Enter>
-map <silent> <F5>  :make<Enter>
-map <silent> <F6>  :shell<Enter>
-map <silent> <F7>  :if <SID>ToggleAutoHighlight()<Bar>set hlsearch<Bar>else<Bar>nohlsearch<Bar>endif<Enter>
-map <silent> <F8>  :vimgrep /TODO\\|FIXME\\|XXX\\|FUCKME/ %<Enter>:copen<Enter>
-map <silent> <F9>  :checktime<Enter>
-map <silent> <F11> :w!<Enter>:!aspell check %<Enter>:w %<Enter>
-map <silent> <F12> :SpellThis<Enter>
+" PIV         -------------------------------------------
+" Simply hit K (shift+k) on any function to see full documentation
 
-" Use Tabular plugin to align variable assignments
-map <silent> <Leader>t=       :Tabularize /^[^=]*\zs=<Enter>
-" Use Tabular plugin to align variable declarations
-map <silent> <Leader>t<Space> :Tabularize /^\s*\S*\zs\(\s\*\\|\s&\\|\s\)/l0r0<Enter>
+" QuickBuf    -------------------------------------------
+" No funciona ni por defecto ni esta:
+" let g:qb_hotkey = "<F3>" 
 
-" Adds spaces around current block of lines
-map <silent> <Leader><Space> :call <SID>AddSpaces()<Enter>
-" Removes spaces around current block of lines
-map <silent> <Leader><BS>    :call <SID>RemoveSpaces()<Enter>
-" Collapses current block of blank lines to one
-map <silent> <Leader><Del>   :call <SID>CollapseSpaces()<Enter>
+" snipMate    -------------------------------------------
+" @see ~/.vim/bundle/snipmate.vim/snippets
 
-function s:AddSpaces() range
-        let separation = 2
-        let blanks     = repeat([''], separation)
-        call append(a:lastline, blanks)
-        call append(a:firstline - 1, blanks)
-endfunction
+" sparkup     -------------------------------------------
+let g:sparkup = '$HOME/.vim/bundle/sparkup/ftplugin/html/sparkup.py'
+" Este plugin no me funciona... :'(
 
-function s:RemoveSpaces()
-        if getline('.') == ''
-                let fromline = prevnonblank(line('.')) + 1
-                let toline   = nextnonblank(line('.')) - 1
-                call s:DeleteLines(fromline, toline, 0)
-                return
-        endif
+" Syntastic -------------------------------------------
+" Lista de syntax checkers en
+" ~/.vim/bundle/syntastic/syntax_checkers
+let g:syntastic_enable_signs = 1
+let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
+let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
+let g:syntastic_check_on_open=1
+let g:syntastic_auto_jump=1
+let g:syntastic_auto_loc_list=2
+let g:syntastic_mode_map = { 'mode': 'active',
+    \ 'active_filetypes': ['ruby', 'php', 'cpp', 'css', 'erlang', 'html', 'javascript', 'json', 'python', 'tex', 'xml'],
+    \ 'passive_filetypes': ['puppet'] }
 
-        let toline = search('^$', 'bn')
-        if toline != 0
-                let fromline = prevnonblank(toline) + 1
-                call s:DeleteLines(fromline, toline)
-        endif
+" Surround  -------------------------------------------
 
-        let fromline = search('^$', 'n')
-        if fromline != 0
-                let toline = nextnonblank(fromline) - 1
-                call s:DeleteLines(fromline, toline)
-        endif
-endfunction
+" Vimerl    -------------------------------------------
+let g:erlang_skel_header = { "author": "Virgilio Sanz", "owner" : "" } 
+let g:erlang_show_errors = 1
 
-function s:CollapseSpaces()
-        if getline('.') != ''
-                return
-        endif
+" TagBar    -------------------------------------------
+nnoremap <silent> <F3> :TagbarToggle<CR>
 
-        if line('.') > 1 && getline(line('.') - 1) == ''
-                let toline   = line('.') - 1
-                let fromline = prevnonblank(toline) + 1
-                call s:DeleteLines(fromline, toline)
-        endif
+" UTL       -------------------------------------------
+let utl_opt_verbose=1
 
-        if line('.') < line('$') && getline(line('.') + 1) == ''
-                let fromline = line('.') + 1
-                let toline   = nextnonblank(fromline) - 1
-                call s:DeleteLines(fromline, toline)
-        endif
-endfunction
-
-function s:DeleteLines(fromline, toline, ...)
-        let toline = a:toline < 1 ? line('$') : a:toline
-        silent execute a:fromline . ',' . toline . 'delete'
-        if a:0 == 0 || a:0 == 1 && a:1
-                normal ``
-        endif
-endfunction
-
-function s:ToggleAutoHighlight()
-        if exists('#auto_highlight')
-                autocmd! auto_highlight
-                augroup! auto_highlight
-                augroup END
-                set updatetime&
-                return 0
-        else
-                augroup auto_highlight
-                        autocmd!
-                        autocmd CursorHold * let @/ = '\V\<' . escape(expand('<cword>'), '\') . '\>'
-                augroup END
-                set updatetime=500
-                return 1
-        endif
-endfunction
+" vimGTD      -------------------------------------------
+map ,gtd :!gtd %<C-M>:e<C-M><C-M>

@@ -38,7 +38,7 @@ prompt_command () {
     if [ $? -eq 0 ]; then # set an error string for the prompt, if applicable
         ERRPROMPT=" "
     else
-        ERRPROMPT='-&gt;($?) '
+        ERRPROMPT="-> ($?) "
     fi
     if [ "\$(type -t __git_ps1)" ]; then # if we're in a Git repo, show current branch
         BRANCH="\$(__git_ps1 '[ %s ] ')"
@@ -71,9 +71,9 @@ pwdtail () { #returns the last 2 fields of the working directory
 }
 chkload () { #gets the current 1m avg CPU load
     local CURRLOAD=`uptime|awk '{print $8}'`
-    if [ "$CURRLOAD" &gt; "1" ]; then
+    if [ "$CURRLOAD" > "1" ]; then
         local OUTP="HIGH"
-    elif [ "$CURRLOAD" &lt; "1" ]; then
+    elif [ "$CURRLOAD" < "1" ]; then
         local OUTP="NORMAL"
     else
         local OUTP="UNKNOWN"
