@@ -29,6 +29,7 @@ hardstatus alwayslastline "%{yk}( %{Y}%H %{y})%=  %{wk}%?%-Lw%?%{R}(%{W}%n*%f %t
 
 
 # Screens by default
-screen -t 'root'                0       sudo bash
-screen -t 'v shell'             1       bash
-screen -t 'v shell'             2       bash
+screen -t 'root'                1       su -
+screen -t 'root'                2       su -
+screen -t 'v shell'             3       bash
+screen -t 'v shell'             4       bash
