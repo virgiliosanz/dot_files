@@ -25,11 +25,12 @@ Bundle 'millermedeiros/vim-statline'
 let g:statline_trailing_space=0
 Bundle 'scrooloose/syntastic'
 Bundle 'Townk/vim-autoclose'
-Bundle 'bolasblack/csslint.vim.git'
-Bundle 'hallettj/jslint.vim.git'
 Bundle 'tpope/vim-markdown'
 Bundle 'othree/html5.vim'
 Bundle 'msanders/cocoa.vim'
+Bundle 'buftabs'
+noremap <S-left> :bprev<CR>
+noremap <S-right> :bnext<CR>
 
 " --- Otras configuraciones ---------------------------------------------------
 filetype plugin indent on     " required!
