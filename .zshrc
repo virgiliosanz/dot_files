@@ -35,9 +35,10 @@ plugins=(brew gnu-utils osx vundle vagrant)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+PATH=/usr/local/bin:$PATH
 PATH=/usr/local/share/npm/bin:$PATH
 PATH=~/Bin:$PATH
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 
 
 # alias

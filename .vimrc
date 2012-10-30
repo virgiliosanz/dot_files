@@ -1,15 +1,11 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
+set nocompatible
+filetype off
 
 " --- Vundles -----------------------------------------------------------------
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
-" required! 
 Bundle 'gmarik/vundle'
-
-" original repos on github
 Bundle 'scrooloose/nerdtree'
 map <F2> :NERDTreeToggle<cr>
 Bundle 'msanders/snipmate.vim'
@@ -33,35 +29,53 @@ noremap <S-left> :bprev<CR>
 noremap <S-right> :bnext<CR>
 
 " --- Otras configuraciones ---------------------------------------------------
-filetype plugin indent on     " required!
+filetype plugin indent on
 syntax enable
 colorscheme jellybeans
 set autoindent
 set autoread
 set nobackup
-"set colorcolumn=80
 set cursorline
+set cursorcolumn
+set encoding=utf8
 set expandtab
+set ffs=unix,mac,dos
 set gcr=a:blinkon0
 set hlsearch
 set incsearch
 set laststatus=2
+set lazyredraw
 set linebreak
+set magic
 set noswapfile
 set nowb
 set number
 set ruler
-set shiftwidth=2
+set shiftwidth=4
 set showcmd
+set showmatch
 set showmode
+set smarttab
+set smartcase
 set smartindent
-set softtabstop=2
-set tabstop=2
+set softtabstop=4
+set so=7
+set noswapfile
+set tabstop=4
 set viminfo='100,f1
 set visualbell
+set wildmenu
+set wildignore=*.o,*~,*.pyc,*.bak,*.swp
+set nowb
 set nowrap
 
 set hidden
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
 
 " Brief help  -----------------------------------------------------------------
 " :BundleList          - list configured bundles
