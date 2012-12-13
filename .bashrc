@@ -32,7 +32,26 @@ case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
 
-# PROMPT
+########## PROMPT
+
+# GIT!
+# MacPorts Bash shell command completion
+if [ -f /opt/local/etc/bash_completion ]; then
+    . /opt/local/etc/bash_completion
+fi
+ 
+#or for MacPorts since version 2.1.2 on Mountain Lion:
+# MacPorts Bash shell command completion
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+  . /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+# or for MacPorts with newer versions of git:
+if [ -f /opt/local/share/git-core/git-prompt.sh ]; then
+    . /opt/local/share/git-core/git-prompt.sh
+fi
+
+
 export GIT_PS1_SHOWDIRTYSTATE=1
 prompt_command () {
     local CYAN="\[\033[0;36m\]"
@@ -99,7 +118,7 @@ fi
 export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home/"
 PATH=$JAVA_HOME/bin:$PATH
 PATH=$HOME/Library/Python/2.7/bin/:$PATH
-PATH=$HOME/bin:$PATH
+PATH=$HOME/Bin:$PATH
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/sbin:$PATH
 export PATH
