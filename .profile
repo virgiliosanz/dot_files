@@ -16,5 +16,5 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-
-if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+source_if_exists $HOME/.rvm/scripts/rvm 

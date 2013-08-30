@@ -1,126 +1,50 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
-
-########## PROMPT
-
-# GIT!
-# MacPorts Bash shell command completion
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
-fi
- 
-#or for MacPorts since version 2.1.2 on Mountain Lion:
-# MacPorts Bash shell command completion
-if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-  . /opt/local/etc/profile.d/bash_completion.sh
-fi
-
-# or for MacPorts with newer versions of git:
-if [ -f /opt/local/share/git-core/git-prompt.sh ]; then
-    . /opt/local/share/git-core/git-prompt.sh
-fi
-
-
-export GIT_PS1_SHOWDIRTYSTATE=1
-prompt_command () {
-    local CYAN="\[\033[0;36m\]"
-    local BCYAN="\[\033[1;36m\]"
-    local BLUE="\[\033[0;34m\]"
-    local GRAY="\[\033[0;37m\]"
-    local DKGRAY="\[\033[1;30m\]"
-    local WHITE="\[\033[1;37m\]"
-    local RED="\[\033[0;31m\]"
-    local GREEN="\[\033[0;32m\]"
-    local DEFAULT="\[\033[0;39m\]"
+function source_if_exists() {
+    if [ -d $1 ]; then
+        for f in $1/*; do
+            . $f
+        done
     
-    if [ $? -eq 0 ]; then # set an error string for the prompt, if applicable
-        ERRPROMPT=" "
-    else
-        ERRPROMPT="-> ($?) "
+    elif [ -f $1 ]; then
+        . $1
     fi
-#    source /usr/local/etc/bash_completion.d/git-completion.bash
-    if [ "\$(type -t __git_ps1)" ]; then # if we're in a Git repo, show current branch
-        BRANCH="\$(__git_ps1 '[ %s ] ')"
-    fi
-
-    local TIME=`fmt_time` # format time for prompt string
-    local LOAD=`uptime | awk '{min=NF-2; print $min}'`
-    local TITLEBAR='\[\e]2;`pwd`\a'
-    export PS1="\[${TITLEBAR}\]${CYAN}[${BCYAN}\u${GREEN}@${BCYAN}\
-\h${DKGRAY} ${LOAD} ${WHITE}${TIME}${CYAN}]${RED}$ERRPROMPT${GRAY}\
-\w\n${GREEN}${BRANCH}${DEFAULT}$ "
-}
-PROMPT_COMMAND=prompt_command
- 
-fmt_time () { #format time just the way I likes it
-    date +"%H:%M"|sed 's/ //g'
 }
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+########## Configuración 
+source_if_exists /etc/profile
+source_if_exists /etc/bash.bashrc
+source_if_exists ~/.aliases
+source_if_exists ~/.bash_aliases
+source_if_exists ~/.bash_completion
+source_if_exists ~/.bash_prompt
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+########### VIM
+export EDITOR=vim
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+########### CASTELLANO
+export LANGUAGE="es_ES"
+export LC_MESSAGES="es_ES.UTF-8"
+export LC_CTYPE="es_ES.UTF-8"
+export LC_COLLATE="es_ES.UTF-8"
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
-# Path
+########### JAVA
 export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home/"
 PATH=$JAVA_HOME/bin:$PATH
-PATH=$HOME/Library/Python/2.7/bin/:$PATH
-PATH=$HOME/Bin:$PATH
-PATH=/usr/local/bin:$PATH
+
+########### Haskell
+PATH=$HOME/Library/Haskell/bin:$PATH
+
+########### Go Lang
+export GOPATH=~/Code/gopath
+export GOROOT=/usr/local/go/
+PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+########### PATH
 PATH=/usr/local/sbin:$PATH
+PATH=/usr/local/bin:$PATH
+PATH=/opt/local/bin/:$PATH
+PATH=$HOME/Bin:$PATH
 export PATH
 
-export EDITOR=vim
