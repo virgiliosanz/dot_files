@@ -9,8 +9,11 @@ alias egrep='egrep --color=auto'
 
 alias df='df -h'
 
-alias vi=vim
-#alias vim='mvim '
+# EDITOR
+#alias emacs="/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs"
+alias e='emacsclient -n -a '
+alias vim=e
+alias vi=e
 
 alias mkdir='mkdir -pv'
 
@@ -33,9 +36,12 @@ alias fastping='ping -c 100 -s 2'
 
 # get web server headers #
 alias header='curl -I'
+alias HEAD=header
  
 # find out if remote server supports gzip / mod_deflate or not #
- alias headerc='curl -I --compress'
+alias headerc='curl -I --compress'
  
 # Resume by default
 alias wget='wget -c'
+alias lsg="ssh -2 vsanz@lsg-west.akamai.com"
+alias myvm="ssh -2 vsanz@mad-lvovi.munich.corp.akamai.com"

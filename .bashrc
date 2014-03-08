@@ -13,8 +13,8 @@ function source_if_exists() {
 }
 
 ########## Configuración 
-source_if_exists /etc/profile
-source_if_exists /etc/bash.bashrc
+#source_if_exists /etc/profile
+#source_if_exists /etc/bash.bashrc
 source_if_exists ~/.aliases
 source_if_exists ~/.bash_aliases
 source_if_exists ~/.bash_completion
@@ -46,5 +46,6 @@ PATH=/usr/local/sbin:$PATH
 PATH=/usr/local/bin:$PATH
 PATH=/opt/local/bin/:$PATH
 PATH=$HOME/Bin:$PATH
+PATH="$HOME/Library/Haskell/bin:$PATH"
+PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin/:$PATH"
 export PATH
-

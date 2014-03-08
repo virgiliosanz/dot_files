@@ -9,6 +9,9 @@ vbell on
 term screen-256color
 termcapinfo xterm*|Eterm|mlterm|rxvt 'hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007'
 
+bindkey "^[[1;9C" next
+bindkey "^[[1;9D" prev
+
 # 8-16 Color Support
 termcap  xterm AF=\E[3%dm
 terminfo xterm AF=\E[3%p1%dm

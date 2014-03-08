@@ -5,18 +5,30 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="steeef"
+#ZSH_THEME="xiong-chiamiov-plus"
+#ZSH_THEME="steeef"
+#ZSH_THEME='ys'
+#ZSH_THEME='juanghurtado'
+#ZSH_THEME='af-magic'
+#ZSH_THEME='agnoster'
+#ZSH_THEME='dstufft'
+#ZSH_THEME='fino-time' # Modificar este y convertirlo en el nuev vsanz
+ZSH_THEME='vsanz'
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias komodo=open -a "Komodo Edit 8"
+alias vim=open -a "MacVim"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
-# Comment this out to disable weekly auto-update checks
+# Comment this out to disable bi-weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how many often would you like to wait before auto-updates occur? (in days)
+# export UPDATE_ZSH_DAYS=13
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -30,19 +42,14 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew gnu-utils osx vundle vagrant)
+plugins=(git git-flow osx vagrant macports python ssh-agent virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-PATH=/usr/local/bin:$PATH
-PATH=/usr/local/share/npm/bin:$PATH
-PATH=~/Bin:$PATH
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
+export PATH=/opt/local/bin:/opt/local/sbin:/Users/vsanz/Bin:/usr/local/bin:/usr/local/sbin:/System/Library/Frameworks/JavaVM.framework/Home//bin:/Users/vsanz/Library/Haskell/bin:/bin:/sbin:/usr/bin:/usr/sbin
+alias lsg="ssh -2 -i ~/.ssh/deployed/2014-01-08 vsanz@lsg-west.akamai.com"
+alias myvm="ssh -2 -i ~/.ssh/internal/2013-09-09  vsanz@mad-lvovi.munich.corp.akamai.com"
 
-
-# alias
-AWS_PEM_COCINARIO=/Users/v/Dropbox/@Cocinario/AWS/cocinario.pem
-alias front="ssh -i $AWS_PEM_COCINARIO ubuntu@ec2-54-246-7-72.eu-west-1.compute.amazonaws.com"
-#alias vim=mvim
-#alias vi=mvim
+# Configuración de algunos plugins de oh-my-zsh
+zstyle :omz:plugins:ssh-agent identities id_rsa ~/.ssh/deployed/2014-01-08 ~/.ssh/internal/2014-01-08 ~/.ssh/internal/2013-09-09
