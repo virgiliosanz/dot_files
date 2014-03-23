@@ -6,20 +6,17 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="xiong-chiamiov-plus"
-#ZSH_THEME="steeef"
+ZSH_THEME="steeef"
 #ZSH_THEME='ys'
 #ZSH_THEME='juanghurtado'
 #ZSH_THEME='af-magic'
 #ZSH_THEME='agnoster'
 #ZSH_THEME='dstufft'
 #ZSH_THEME='fino-time' # Modificar este y convertirlo en el nuev vsanz
-ZSH_THEME='vsanz'
+#ZSH_THEME='vsanz'
 
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias komodo=open -a "Komodo Edit 8"
-alias vim=open -a "MacVim"
+source $HOME/.bash_aliases
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"

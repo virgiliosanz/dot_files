@@ -21,7 +21,7 @@ source_if_exists ~/.bash_completion
 source_if_exists ~/.bash_prompt
 
 ########### VIM
-export EDITOR=vim
+export EDITOR=~/Bin/edit
 
 ########### CASTELLANO
 export LANGUAGE="es_ES"

@@ -11,9 +11,10 @@ alias df='df -h'
 
 # EDITOR
 #alias emacs="/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs"
-alias e='emacsclient -n -a '
-alias vim=e
-alias vi=e
+#alias e=edit
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias e=vim
+alias vi=vim
 
 alias mkdir='mkdir -pv'
 

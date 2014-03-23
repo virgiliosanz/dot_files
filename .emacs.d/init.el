@@ -1,7 +1,7 @@
 ;;; Package --- Summary
 
 ;;; Commentary:
-(message "Loading my Emacs init file...")
+(message "-- Starting my emacs init file...")
 
 ;;; Code:
 ;; Turn on debugging (comment this out for normal use)
@@ -50,6 +50,8 @@
                      magit
                      org
                      cc-mode
+                     haskell-mode scion
+                     elpy
                      ecb))
 
 ;; fetch the list of packages available 
@@ -78,15 +80,15 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-;; SLIME
-(require 'slime-autoloads)
-(setq inferior-lisp-program "/opt/local/bin/sbcl")
-(setq slime-contribs '(slime-fancy))
-;; To make SLIME connect to your lisp whenever a lisp file is opened
-(add-hook 'slime-mode-hook
-          (lambda ()
-            (unless (slime-connected-p)
-              (save-excursion (slime)))))
+;;; SLIME
+;(require 'slime-autoloads)
+;(setq inferior-lisp-program "/opt/local/bin/sbcl")
+;(setq slime-contribs '(slime-fancy))
+;;; To make SLIME connect to your lisp whenever a lisp file is opened
+;(add-hook 'slime-mode-hook
+;          (lambda ()
+;            (unless (slime-connected-p)
+;              (save-excursion (slime)))))
 
 ;; web-mode
 (require 'web-mode)
@@ -95,6 +97,19 @@
 ;; js2-mode
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;; Python
+; https://github.com/jorgenschaefer/elpy/wiki/Keybindings
+; https://github.com/jorgenschaefer/elpy/wiki/Usage
+(when (require 'elpy nil t)
+  (elpy-enable)
+  (elpy-clean-modeline))
+;(define-key ac-completing-map (kbd "<up>") nil)
+;(define-key ac-completing-map (kbd "<down>") nil)
+;(define-key ac-completing-map (kbd "RET") nil)
+;(define-key ac-completing-map (kbd "<return>") nil)
+(setq elpy-rpc-backend "jedi")
+;(setq elpy-rpc-backend "rope")
 
 ;; eshell
 (require 'eshell)
@@ -116,6 +131,11 @@
 (require 'cc-mode)
 (setq c-default-style "k&r")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
+
+;; Haskell
+;; http://tim.dysinger.net/posts/2014-02-18-haskell-with-emacs.html
+(require 'haskell-mode)
+(require 'scion)
 
 ;; Emacs code browser
 (require 'ecb)
@@ -157,6 +177,6 @@
 (unless (server-running-p)
   (server-start))
 
-(message "Emacs ends...")
+(message "-- Ending my emacs init file...")
 (provide 'init)
 ;;; init.el ends here
