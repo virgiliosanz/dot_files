@@ -2,10 +2,8 @@ Para instalar:
 
 cd ~
 git clone git://github.com/virgiliosanz/dot_files.git
-ln -s dot_files/.profile .
-ln -s dot_files/.bashrc .
-ln -s dot_files/.vimrc .
-ln -s dot_files/.vim .
+ln -s dot_files/.* .
+rm ~/.git
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim +BundleInstall +qall
