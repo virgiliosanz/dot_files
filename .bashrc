@@ -6,13 +6,13 @@ function source_if_exists() {
         for f in $1/*; do
             . $f
         done
-    
+
     elif [ -f $1 ]; then
         . $1
     fi
 }
 
-########## Configuración 
+########## Configuración
 #source_if_exists /etc/profile
 #source_if_exists /etc/bash.bashrc
 source_if_exists ~/.aliases
@@ -38,7 +38,7 @@ PATH=$HOME/Library/Haskell/bin:$PATH
 
 ########### Go Lang
 export GOPATH=~/Code/gopath
-export GOROOT=/usr/local/go/
+export GOROOT=/opt/local/go/
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 ########### PATH

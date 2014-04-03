@@ -7,53 +7,48 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
-Bundle 'vim-scripts/taglist.vim'
-let Tlist_Use_Right_Window = 1
-nnoremap <silent> <F8> :TlistToggle<CR>
-
-Bundle 'scrooloose/nerdtree'
-nnoremap <silent> <F7> :NERDTreeToggle<CR>
-
 Bundle 'vim-scripts/SearchComplete'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'Townk/vim-autoclose'
+Bundle 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+Bundle 'scrooloose/nerdtree'
+nnoremap <silent> <F7> :NERDTreeToggle<CR>
 
-" Comment with gc
-Bundle 'tomtom/tcomment_vim'
+Bundle 'altercation/vim-colors-solarized'
+set t_Co=256
+"let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="normal"
+colors solarized
 
 Bundle 'bling/vim-airline'
 set laststatus=2
+Bundle 'SirVer/UltiSnips'
+Bundle 'honza/vim-snippets'
+Bundle 'Valloric/YouCompleteMe'
+" Use gc to comment/uncomment
+Bundle 'tomtom/tcomment_vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'scrooloose/syntastic'
+let g:syntastic_always_populate_loc_list=1
+"let g:syntastic_python_checkers=['pylint', 'pyflakes']
+let g:syntastic_python_checkers=['flake8']
 
 Bundle 'tpope/vim-markdown'
 Bundle 'othree/html5.vim'
 autocmd BufNewFile,BufRead *.json set ft=javascript
-
-" Git
-Bundle 'tpope/vim-fugitive'
-
 "Bundle 'vim-scripts/php.vim'
-"Bundle 'jnwhiteh/vim-golang'
-"autocmd FileType go autocmd BufWritePre <buffer> Fmt
-
-" Snippets -> https://github.com/SirVer/ultisnips
-Bundle 'SirVer/UltiSnips'
-Bundle 'honza/vim-snippets'
-
-" Python -> https://github.com/davidhalter/jedi-vim
-Bundle 'davidhalter/jedi-vim'
-
-" Syntax checking
-Bundle 'scrooloose/syntastic'
-"let g:syntastic_python_checkers=['pylint', 'pyflakes']
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_always_populate_loc_list=1
+Bundle 'fatih/vim-go'
+let g:go_snippet_engine = "ultisnips"
+au Filetype go nnoremap <buffer> <leader>i :exe 'GoImport ' . expand('<cword>')<CR>
+Bundle 'Rip-Rip/clang_complete'
 
 " --- Otras configuraciones ---------------------------------------------------
 filetype plugin indent on
-set background=dark
 syntax enable
-colorscheme jellybeans
+set background=dark
 set autoindent
 set autoread
 set nobackup

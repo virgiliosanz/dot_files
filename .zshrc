@@ -44,9 +44,16 @@ plugins=(git git-flow osx vagrant macports python ssh-agent virtualenv)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/opt/local/bin:/opt/local/sbin:/Users/vsanz/Bin:/usr/local/bin:/usr/local/sbin:/System/Library/Frameworks/JavaVM.framework/Home//bin:/Users/vsanz/Library/Haskell/bin:/bin:/sbin:/usr/bin:/usr/sbin
+export PATH=/Applications/MacVim.app/Contents/MacOS:/opt/local/bin:/opt/local/sbin:/Users/vsanz/Bin:/usr/local/bin:/usr/local/sbin:/System/Library/Frameworks/JavaVM.framework/Home//bin:/Users/vsanz/Library/Haskell/bin:/bin:/sbin:/usr/bin:/usr/sbin
 alias lsg="ssh -2 -i ~/.ssh/deployed/2014-01-08 vsanz@lsg-west.akamai.com"
 alias myvm="ssh -2 -i ~/.ssh/internal/2013-09-09  vsanz@mad-lvovi.munich.corp.akamai.com"
 
+# Go Lang
+export GOPATH=~/Code/gopath
+export GOROOT=/opt/local/go/
+PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+
 # Configuración de algunos plugins de oh-my-zsh
-zstyle :omz:plugins:ssh-agent identities id_rsa ~/.ssh/deployed/2014-01-08 ~/.ssh/internal/2014-01-08 ~/.ssh/internal/2013-09-09
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa deployed/2014-01-08 internal/2014-01-08 internal/2013-09-09
