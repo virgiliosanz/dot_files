@@ -9,6 +9,7 @@ vbell on
 term screen-256color
 termcapinfo xterm*|Eterm|mlterm|rxvt 'hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007'
 
+# alt+cursor
 bindkey "^[[1;9C" next
 bindkey "^[[1;9D" prev
 
@@ -24,7 +25,7 @@ termcap  xterm Co=256
 termcap  xterm AF=\E[38;5;%dm
 terminfo xterm AF=\E[38;5;%p1%dm
 termcap  xterm AB=\E[48;5;%dm
-terminfo xterm AB=\E[48;5;%p1%dm  
+terminfo xterm AB=\E[48;5;%p1%dm
 
 # Set status line in window title, preview:
 # ( rsk )         0$ top  3-$ watch  (4*$ bash)        ( load: 0,01 0,01 0,00 )
@@ -32,7 +33,7 @@ hardstatus alwayslastline "%{yk}( %{Y}%H %{y})%=  %{wk}%?%-Lw%?%{R}(%{W}%n*%f %t
 
 
 # Screens by default
-screen -t 'root'                1       su -
-screen -t 'root'                2       su -
-screen -t 'v shell'             3       bash
-screen -t 'v shell'             4       bash
+screen -t 'sh'             1       bash
+screen -t 'sh'             2       bash
+screen -t 'sh'             3       bash
+screen -t 'sh'             4       bash

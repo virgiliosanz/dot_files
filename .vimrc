@@ -10,7 +10,7 @@ Bundle 'gmarik/vundle'
 Bundle 'vim-scripts/SearchComplete'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'Townk/vim-autoclose'
+Bundle 'jiangmiao/auto-pairs'
 Bundle 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 Bundle 'scrooloose/nerdtree'
