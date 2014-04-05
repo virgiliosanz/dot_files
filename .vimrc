@@ -17,8 +17,6 @@ Bundle 'scrooloose/nerdtree'
 nnoremap <silent> <F7> :NERDTreeToggle<CR>
 
 Bundle 'altercation/vim-colors-solarized'
-set t_Co=256
-"let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 colors solarized
@@ -31,19 +29,18 @@ Bundle 'Valloric/YouCompleteMe'
 " Use gc to comment/uncomment
 Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-fugitive'
+
 Bundle 'scrooloose/syntastic'
 let g:syntastic_always_populate_loc_list=1
 "let g:syntastic_python_checkers=['pylint', 'pyflakes']
 let g:syntastic_python_checkers=['flake8']
 
-Bundle 'tpope/vim-markdown'
 Bundle 'othree/html5.vim'
 autocmd BufNewFile,BufRead *.json set ft=javascript
-"Bundle 'vim-scripts/php.vim'
+
 Bundle 'fatih/vim-go'
 let g:go_snippet_engine = "ultisnips"
 au Filetype go nnoremap <buffer> <leader>i :exe 'GoImport ' . expand('<cword>')<CR>
-Bundle 'Rip-Rip/clang_complete'
 
 " --- Otras configuraciones ---------------------------------------------------
 filetype plugin indent on
