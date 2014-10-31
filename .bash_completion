@@ -1,4 +1,0 @@
-#!/bin/bash
-#source_if_exists /etc/bash_completion
-source_if_exists /opt/local/etc/bash_completion
-source_if_exists ~/Code/git-flow-completion/git-flow-completion.bash
