@@ -53,6 +53,7 @@ export GOPATH=~/Code/gopath
 export GOROOT=/opt/local/go/
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
+export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
 # Configuración de algunos plugins de oh-my-zsh
 zstyle :omz:plugins:ssh-agent agent-forwarding on

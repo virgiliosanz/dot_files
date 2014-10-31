@@ -1,7 +1,7 @@
 # Turn off the annoying startup message
 startup_message off
 
-defscrollback 10000
+defscrollback 5000
 hardcopy_append on
 defutf8 on
 vbell on
@@ -9,9 +9,28 @@ vbell on
 term screen-256color
 termcapinfo xterm*|Eterm|mlterm|rxvt 'hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007'
 
-# alt+cursor
+# Default shell
+shell "/bin/bash"
+
+#####Â Keys
+# Ctr+z sustituye a ctrl+a
+escape ^Zz
+
+# Alt+right Alt+left -> move between windows
 bindkey "^[[1;9C" next
 bindkey "^[[1;9D" prev
+
+## do not trash BackSpace, usually DEL
+bindkey -k kb
+bindkey -d -k kb
+# do not trash Delete, usually ESC [ 3 ~
+bindkey -k kD
+bindkey -d -k kD
+
+# Para hacer scroll!!!
+# Press "Ctrl-A" on the keyboard and press "Esc."
+# Press the "Up" and "Down" arrow keys or the "PgUp" and "PgDn" keys to scroll through previous output.
+
 
 # 8-16 Color Support
 termcap  xterm AF=\E[3%dm
@@ -27,13 +46,15 @@ terminfo xterm AF=\E[38;5;%p1%dm
 termcap  xterm AB=\E[48;5;%dm
 terminfo xterm AB=\E[48;5;%p1%dm
 
-# Set status line in window title, preview:
-# ( rsk )         0$ top  3-$ watch  (4*$ bash)        ( load: 0,01 0,01 0,00 )
-hardstatus alwayslastline "%{yk}( %{Y}%H %{y})%=  %{wk}%?%-Lw%?%{R}(%{W}%n*%f %t%?(%u)%?%{R})%{w}%?%+Lw%?%?%= %{y}( %{Y}load: %l %{y})"
-
+hardstatus on
+#hardstatus alwayslastline "%{yk}[%{Y}%H%{y}]%=  %{wk}%?%-Lw%?%{R}[%{W}%n*%f %t%?[%u]%?%{R}]%{w}%?%+Lw%?%?%= %{yk}[%{Y}%D, %d-%m-%Y %C%{y}]" #[%{Y}load: %l%{y}]"
+hardstatus alwayslastline "%{= kb}[ %=%{w}%?%-Lw%?%{b}(%{W}%n*%f %t%?(%u)%?%{b})%{w}%?%+Lw%?%?%= %{b} ][%{B} %H %{W}%l %{b}][%{B} %d-%m-%Y %{W}%0c %{b}]"
 
 # Screens by default
-screen -t 'sh'             1       bash
-screen -t 'sh'             2       bash
-screen -t 'sh'             3       bash
-screen -t 'sh'             4       bash
+screen -t 'tail'   1   sudo tail -f /var/log/messages /var/log/syslog /var/log/auth.log /var/log/kern.log /var/log/daemon.log /var/log/nginx/*.log
+screen -t 'htop'   2   htop
+screen -t '1'   3   bash -l
+screen -t '2'   4   bash -l
+screen -t '3'   5   bash -l
+screen -t '4'   6   bash -l
+screen -t '5'   7   bash -l

@@ -4,8 +4,8 @@
 
 ;;; Code:
 ;; Turn on debugging (comment this out for normal use)
-;;(setq debug-on-error t)
-;;(setq debug-init t)
+(setq debug-on-error t)
+(setq debug-init t)
 
 ;; Global configuration
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -29,19 +29,18 @@
 (setq-default show-trailing-whitespace t)
 (setq next-line-add-newlines t)
 
-;;; Configuration Packages
+;;; packages
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+                         ("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
-
-;; My packages
 (setq package-list '(better-defaults
 ;;                     flyspell
                      flymake flymake-cursor
                      tramp
-                     guru-mode
+;;                     guru-mode
                      ido smex
                      autopair
                      yasnippet
@@ -49,25 +48,25 @@
                      web-mode js2-mode
                      magit
                      go-mode go-autocomplete go-errcheck go-snippets flymake-go
-                     cc-mode
-                     elpy))
+                     cc-mode auto-complete-clang
+                     elpy
+                     org org-plus-contrib))
 
-;; fetch the list of packages available
+;; fetch package list and install the missing ones
 (unless package-archive-contents
   (package-refresh-contents))
-
-;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
 
+;;; Packages configuration
 ;; Theme
 (load-theme 'wombat)
 
 ;;; Tools
 ;; Guru-mode -> Learnnnn!!!
-(require 'guru-mode)
-(guru-global-mode +1)
+;;(require 'guru-mode)
+;;(guru-global-mode +1)
 
 ;; ido-mode
 (ido-mode t)
@@ -81,13 +80,14 @@
 (autopair-global-mode)
 (setq autopair-autowrap t)
 
-;; yasnippet
-(require 'yasnippet)
-(yas-global-mode)
-
 ;; auto-complete.org
+(require 'auto-complete)
 (require 'auto-complete-config)
 (ac-config-default)
+
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
 
 ;; magit
 (require 'magit)
@@ -120,6 +120,29 @@
 (setq c-default-style "k&r")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 
+;; auto-complete-clang-async for C/C++
+(require 'auto-complete-clang)
+
+(setq ac-auto-start nil)
+(setq ac-quick-help-delay 0.5)
+;; (ac-set-trigger-key "TAB")
+;; (define-key ac-mode-map  [(control tab)] 'auto-complete)
+(define-key ac-mode-map  [(control return)] 'auto-complete)
+(defun my-ac-config ()
+  (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))
+  (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
+  ;; (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
+  (add-hook 'css-mode-hook 'ac-css-mode-setup)
+  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+  (global-auto-complete-mode t))
+(defun my-ac-cc-mode-setup ()
+  (setq ac-sources (append '(ac-source-clang ac-source-yasnippet) ac-sources)))
+(add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
+;; ac-source-gtags
+(my-ac-config)
+
+
 ;; Haskell
 ;; http://tim.dysinger.net/posts/2014-02-18-haskell-with-emacs.html
 ;;(require 'haskell-mode)
@@ -129,8 +152,7 @@
 (require 'go-mode-load)
 (add-hook 'before-save-hook 'gofmt-before-save)
 (require 'go-autocomplete)
-(require 'auto-complete-config)
-(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+;;(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 
 ;;; Keyboard
 ;; Move between buffers: C-x <right> y C-x <left>
@@ -150,10 +172,13 @@
 ;; Clean trailing white space
 (add-hook 'write-file-hooks 'delete-trailing-whitespace)
 
-;; Initialize server
-(load "server")
-(unless (server-running-p)
-  (server-start))
+;; Key modifiers for Mac OS X Emacs.app in spanish MBP keyboard
+(global-set-key (kbd "M-1") "|")
+(global-set-key (kbd "M-2") "@")
+(global-set-key (kbd "M-3") "#")
+(global-set-key (kbd "M-º") "\\")
+(global-set-key (kbd "M-ç") "}")
+(global-set-key (kbd "M-+") "]")
 
 (provide 'init)
 ;;; init.el ends here
