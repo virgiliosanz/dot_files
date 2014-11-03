@@ -1,45 +1,46 @@
+set nocompatible
 filetype off
 
 " --- Vundles -----------------------------------------------------------------
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
 
-Bundle 'flazz/vim-colorschemes'
+Plugin 'flazz/vim-colorschemes'
 colorscheme jellybeans
 
-Bundle 'vim-scripts/SearchComplete'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'bling/vim-airline'
+Plugin 'vim-scripts/SearchComplete'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-airline'
 set laststatus=2
 " Use gc to comment/uncomment
-Bundle 'tomtom/tcomment_vim'
+Plugin 'tomtom/tcomment_vim'
 
-Bundle 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 nnoremap <silent> <F7> :NERDTreeToggle<CR>
 
 """ Snippets
 "" Ctr+j -> exec snip
-Bundle 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<C-j>"
-Bundle 'honza/vim-snippets'
+Plugin 'honza/vim-snippets'
 
 "" Supertab
 "Bundle 'ervandew/supertab'
 
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 let g:syntastic_always_populate_loc_list=1
 "let g:syntastic_python_checkers=['pylint', 'pyflakes']
 let g:syntastic_python_checkers=['flake8']
 let g:flake8_ignore="E302"
 
-Bundle 'othree/html5.vim'
+Plugin 'othree/html5.vim'
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
 " GO Lang:
@@ -66,7 +67,8 @@ autocmd BufNewFile,BufRead *.json set ft=javascript
 
 "" Python
 "Bundle 'klen/python-mode'
-Bundle 'davidhalter/jedi-vim'
+"Bundle 'davidhalter/jedi-vim'
+"
 " Para hacer REPL desde vim
 "Bundle 'ivanov/vim-ipython'
 " Like Slime for Vim
@@ -76,7 +78,9 @@ Bundle 'davidhalter/jedi-vim'
 "Bundle 'derekwyatt/vim-scala'
 
 "" Rust
-Bundle 'wting/rust.vim'
+"Bundle 'wting/rust.vim'
+
+Plugin 'Valloric/YouCompleteMe'
 
 
 " --- Otras configuraciones ---------------------------------------------------
@@ -118,9 +122,9 @@ set colorcolumn=100
 "set hidden
 
 "------- Para GUI
-set guifont=Monaco:h12
-set lines=40
-set columns=110
+"set guifont=Monaco:h12
+"set lines=40
+"set columns=110
 
 " make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
@@ -145,3 +149,7 @@ map <C-l> <C-W>l
 " Move between buffers
 noremap <S-left> :bprev<CR>
 noremap <S-right> :bnext<CR>
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
