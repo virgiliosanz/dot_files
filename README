@@ -5,7 +5,7 @@ git clone git://github.com/virgiliosanz/dot_files.git
 ln -s dot_files/.* .
 rm ~/.git
 
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +BundleInstall +qall
 
 git clone https://github.com/revans/bash-it.git ~/.bash_it

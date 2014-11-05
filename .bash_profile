@@ -14,9 +14,6 @@ export EDITOR=vim
 PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 alias vi=vim
 
-# Go
-export GOPATH=$HOME/Code/gopath
-PATH=$PATH:$GOPATH/bin
 
 export PATH
 
