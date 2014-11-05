@@ -1,6 +1,8 @@
 flags = [
 '-Wall',
 '-Wextra',
+'-ansi',
+'-pedantic',
 '-std=c++11',
 'c++',
 

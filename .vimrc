@@ -24,9 +24,6 @@ filetype plugin indent on
 
 colorscheme jellybeans
 set laststatus=2
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :NERDTreeToggle<CR>
-let g:UltiSnipsExpandTrigger="<C-j>"
 set makeprg=scons
 
 syntax enable
@@ -77,13 +74,17 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.json set ft=javascript
 
 " ------------ Keys -------------------------------------------
+nmap <F8> :TagbarToggle<CR>
+nmap <F7> :NERDTreeToggle<CR>
+let g:UltiSnipsExpandTrigger="<C-j>"
+
 let mapleader = ","
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
 
 " Move between buffers
 noremap <S-left> :bprev<CR>
