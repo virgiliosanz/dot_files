@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# Añado path local
-PATH=~/Bin:$PATH
+PATH=~/Bin:/usr/local/bin:/opt/boost/bin:$PATH
 
 # Path to the bash it configuration
 export BASH_IT=$HOME/.bash_it
@@ -12,13 +11,12 @@ export BASH_IT_THEME='sexy'
 
 # VIM
 export EDITOR=vim
+PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 alias vi=vim
 
-# Go
-#export GOPATH=$HOME/Code/gopath
-#PATH=$PATH:$GOPATH/bin
 
 export PATH
 
 # Load Bash It
 source $BASH_IT/bash_it.sh
+
