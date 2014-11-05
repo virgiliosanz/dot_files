@@ -117,7 +117,8 @@
 
 ;; c-programming
 (require 'cc-mode)
-(setq c-default-style "k&r")
+;(setq c-default-style "k&r")
+(setq c-default-style "stroustrup")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 
 ;; auto-complete-clang-async for C/C++
