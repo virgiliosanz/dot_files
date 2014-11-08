@@ -12,9 +12,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
-Plugin 'ervandew/supertab'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'othree/html5.vim'
 Plugin 'wting/rust.vim'
@@ -73,10 +72,12 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.json set ft=javascript
 
+ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
 " ------------ Keys -------------------------------------------
 nmap <F8> :TagbarToggle<CR>
 nmap <F7> :NERDTreeToggle<CR>
-let g:UltiSnipsExpandTrigger="<C-j>"
+"let g:UltiSnipsExpandTrigger="<C-j>"
 
 let mapleader = ","
 

@@ -47,7 +47,7 @@
                      auto-complete
                      web-mode js2-mode
                      magit
-                     go-mode go-autocomplete go-errcheck go-snippets flymake-go
+;                     go-mode go-autocomplete go-errcheck go-snippets flymake-go
                      cc-mode auto-complete-clang
                      elpy
                      org org-plus-contrib))
@@ -62,11 +62,6 @@
 ;;; Packages configuration
 ;; Theme
 (load-theme 'wombat)
-
-;;; Tools
-;; Guru-mode -> Learnnnn!!!
-;;(require 'guru-mode)
-;;(guru-global-mode +1)
 
 ;; ido-mode
 (ido-mode t)
@@ -98,8 +93,8 @@
 ;; https://github.com/jorgenschaefer/elpy/wiki/Keybindings
 ;; https://github.com/jorgenschaefer/elpy/wiki/Usage
 (when (require 'elpy nil t)
-  (elpy-enable)
-  (elpy-clean-modeline))
+  (elpy-enable))
+;  (elpy-clean-modeline))
 ;;(define-key ac-completing-map (kbd "<up>") nil)
 ;;(define-key ac-completing-map (kbd "<down>") nil)
 ;;(define-key ac-completing-map (kbd "RET") nil)
@@ -120,9 +115,7 @@
 ;(setq c-default-style "k&r")
 (setq c-default-style "stroustrup")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
-
-;; auto-complete-clang-async for C/C++
-(require 'auto-complete-clang)
+(require 'auto-complete-clang) ;; auto-complete-clang-async for C/C++
 
 (setq ac-auto-start nil)
 (setq ac-quick-help-delay 0.5)
@@ -143,18 +136,6 @@
 ;; ac-source-gtags
 (my-ac-config)
 
-
-;; Haskell
-;; http://tim.dysinger.net/posts/2014-02-18-haskell-with-emacs.html
-;;(require 'haskell-mode)
-;;(require 'scion)
-
-;; Go
-(require 'go-mode-load)
-(add-hook 'before-save-hook 'gofmt-before-save)
-(require 'go-autocomplete)
-;;(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-
 ;;; Keyboard
 ;; Move between buffers: C-x <right> y C-x <left>
 ;; M-r cycle top, bottom and middle of current screen.
@@ -172,14 +153,6 @@
 
 ;; Clean trailing white space
 (add-hook 'write-file-hooks 'delete-trailing-whitespace)
-
-;; Key modifiers for Mac OS X Emacs.app in spanish MBP keyboard
-(global-set-key (kbd "M-1") "|")
-(global-set-key (kbd "M-2") "@")
-(global-set-key (kbd "M-3") "#")
-(global-set-key (kbd "M-º") "\\")
-(global-set-key (kbd "M-ç") "}")
-(global-set-key (kbd "M-+") "]")
 
 (provide 'init)
 ;;; init.el ends here
