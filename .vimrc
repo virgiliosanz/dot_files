@@ -12,22 +12,26 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
-Plugin 'ervandew/supertab'
+"Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'othree/html5.vim'
 Plugin 'wting/rust.vim'
-Plugin 'vim-scripts/scons.vim'
 call vundle#end()
 filetype plugin indent on
 
-colorscheme jellybeans
+"colorscheme jellybeans
+colorscheme Monokai
 set laststatus=2
 nmap <F8> :TagbarToggle<CR>
 nmap <F7> :NERDTreeToggle<CR>
 let g:UltiSnipsExpandTrigger="<C-j>"
-set makeprg=scons
+
+"let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+let g:ycm_confirm_extra_conf = 0
 
 syntax enable
 set autoindent
@@ -35,7 +39,7 @@ set autoread
 set nobackup
 set noswapfile
 set cursorline
-set cursorcolumn
+"set cursorcolumn
 set number
 set encoding=utf8
 set ffs=unix,mac,dos
@@ -49,7 +53,7 @@ set showmatch
 set showmode
 set shiftwidth=4
 set softtabstop=4
-set tabstop=4
+set tabstop=8
 set expandtab
 set smarttab
 set smartindent
@@ -59,8 +63,9 @@ set visualbell
 set wildmenu
 set wildignore=*.o,*~,*.pyc,*.bak,*.swp
 set wrap
-set textwidth=100
-set colorcolumn=100
+set textwidth=80
+set colorcolumn=80
+set autowriteall
 
 set guifont=Monaco:h12
 
@@ -78,12 +83,6 @@ autocmd BufNewFile,BufReadPost *.json set ft=javascript
 
 " ------------ Keys -------------------------------------------
 let mapleader = ","
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
 
 " Move between buffers
 noremap <S-left> :bprev<CR>
