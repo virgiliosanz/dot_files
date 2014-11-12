@@ -24,11 +24,12 @@ filetype plugin indent on
 "colorscheme jellybeans
 colorscheme Monokai
 set laststatus=2
+
 nmap <F8> :TagbarToggle<CR>
 nmap <F7> :NERDTreeToggle<CR>
 let g:UltiSnipsExpandTrigger="<C-j>"
 
-"let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 let g:ycm_confirm_extra_conf = 0
@@ -81,7 +82,13 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.json set ft=javascript
 
+ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
 " ------------ Keys -------------------------------------------
+nmap <F8> :TagbarToggle<CR>
+nmap <F7> :NERDTreeToggle<CR>
+"let g:UltiSnipsExpandTrigger="<C-j>"
+
 let mapleader = ","
 
 " Move between buffers
