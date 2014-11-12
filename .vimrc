@@ -23,6 +23,7 @@ filetype plugin indent on
 
 "colorscheme jellybeans
 colorscheme Monokai
+"colorscheme twilight256
 set laststatus=2
 
 nmap <F8> :TagbarToggle<CR>
@@ -63,7 +64,7 @@ set viminfo='100,f1
 set visualbell
 set wildmenu
 set wildignore=*.o,*~,*.pyc,*.bak,*.swp
-set wrap
+set nowrap
 set textwidth=80
 set colorcolumn=80
 set autowriteall
