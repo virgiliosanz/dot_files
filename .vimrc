@@ -23,11 +23,8 @@ call vundle#end()
 filetype plugin indent on
 
 set t_Co=256
-"colorscheme jellybeans
+colorscheme jellybeans
 colorscheme Monokai
-"colorscheme ir_black
-"colorscheme twilight
-"colorscheme zenburn
 set laststatus=2
 
 nmap <F8> :TagbarToggle<CR>
@@ -68,7 +65,7 @@ set viminfo='100,f1
 set visualbell
 set wildmenu
 set wildignore=*.o,*~,*.pyc,*.bak,*.swp
-set wrap
+set nowrap
 set textwidth=80
 set colorcolumn=80
 set autowriteall
