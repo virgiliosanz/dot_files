@@ -37,20 +37,21 @@
                          ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 (setq package-list '(better-defaults
-;;                     flyspell
+;                     flyspell
                      flymake flymake-cursor
-                     tramp
-;;                     guru-mode
+;                     tramp
+;                     guru-mode
                      ido smex
                      autopair
                      yasnippet
                      auto-complete
-                     web-mode js2-mode
+;                     web-mode js2-mode
                      magit
 ;                     go-mode go-autocomplete go-errcheck go-snippets flymake-go
                      cc-mode auto-complete-clang
-                     elpy
-                     org org-plus-contrib))
+;                     elpy
+;                     org org-plus-contrib
+                     ))
 
 ;; fetch package list and install the missing ones
 (unless package-archive-contents
@@ -67,8 +68,8 @@
 (ido-mode t)
 
 ;; TRAMP (Transport Remote Access, Multi Protocol)
-(require 'tramp)
-(setq tramp-default-method "ssh")
+;(require 'tramp)
+;(setq tramp-default-method "ssh")
 
 ;; parens
 (require 'autopair)
@@ -92,28 +93,29 @@
 ;; Python
 ;; https://github.com/jorgenschaefer/elpy/wiki/Keybindings
 ;; https://github.com/jorgenschaefer/elpy/wiki/Usage
-(when (require 'elpy nil t)
-  (elpy-enable))
-;  (elpy-clean-modeline))
+;(when (require 'elpy nil t)
+;  (elpy-enable))
+;;  (elpy-clean-modeline))
 ;;(define-key ac-completing-map (kbd "<up>") nil)
 ;;(define-key ac-completing-map (kbd "<down>") nil)
 ;;(define-key ac-completing-map (kbd "RET") nil)
 ;;(define-key ac-completing-map (kbd "<return>") nil)
-(setq elpy-rpc-backend "jedi")
+;(setq elpy-rpc-backend "jedi")
 ;;(setq elpy-rpc-backend "rope")
 
 ;; web-mode
-(require 'web-mode)
-(setq web-mode-indent-style 2)
+;(require 'web-mode)
+;(setq web-mode-indent-style 2)
 
 ;; js2-mode
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;(autoload 'js2-mode "js2" nil t)
+;(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;; c-programming
 (require 'cc-mode)
 ;(setq c-default-style "k&r")
-(setq c-default-style "stroustrup")
+;(setq c-default-style "stroustrup")
+(setq c-default-style "linux")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 (require 'auto-complete-clang) ;; auto-complete-clang-async for C/C++
 
@@ -153,6 +155,15 @@
 
 ;; Clean trailing white space
 (add-hook 'write-file-hooks 'delete-trailing-whitespace)
+
+;; Indent whole file
+(defun iwb ()
+  "indent whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
+
 
 (provide 'init)
 ;;; init.el ends here
