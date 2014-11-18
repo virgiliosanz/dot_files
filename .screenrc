@@ -46,7 +46,6 @@ terminfo xterm AB=\E[4%p1%dm
 
 # 256 Color Support
 terminfo xterm Co=256
-termcap  xterm Co=256
 termcap  xterm AF=\E[38;5;%dm
 terminfo xterm AF=\E[38;5;%p1%dm
 termcap  xterm AB=\E[48;5;%dm

@@ -5,6 +5,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
+"Plugin 'godlygeek/csapprox'
 Plugin 'vim-scripts/matchit.zip'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
@@ -21,9 +22,10 @@ Plugin 'wting/rust.vim'
 call vundle#end()
 filetype plugin indent on
 
-"colorscheme jellybeans
+set t_Co=256
+colorscheme jellybeans
 colorscheme twilight256
-colorscheme Monokai
+"colorscheme Monokai
 set laststatus=2
 
 nmap <F8> :TagbarToggle<CR>
