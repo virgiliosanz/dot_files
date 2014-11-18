@@ -17,8 +17,14 @@ shell "/bin/bash"
 escape ^Zz
 
 # Alt+right Alt+left -> move between windows
+# LINUX
+bindkey ^[[1;3D prev
+bindkey ^[[1;3C next
+
+# OSX
 bindkey "^[[1;9C" next
 bindkey "^[[1;9D" prev
+
 
 ## do not trash BackSpace, usually DEL
 bindkey -k kb

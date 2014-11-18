@@ -61,7 +61,8 @@
 
 ;;; Packages configuration
 ;; Theme
-(load-theme 'wombat)
+;(load-theme 'wombat)
+(load-theme 'monokai)
 
 ;; ido-mode
 (ido-mode t)
@@ -112,8 +113,8 @@
 
 ;; c-programming
 (require 'cc-mode)
-;(setq c-default-style "k&r")
-(setq c-default-style "stroustrup")
+(setq c-default-style "k&r")
+;(setq c-default-style "stroustrup")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 (require 'auto-complete-clang) ;; auto-complete-clang-async for C/C++
 
