@@ -62,7 +62,8 @@
 
 ;;; Packages configuration
 ;; Theme
-(load-theme 'wombat)
+;(load-theme 'wombat)
+(load-theme 'monokai)
 
 ;; ido-mode
 (ido-mode t)
