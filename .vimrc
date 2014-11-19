@@ -6,7 +6,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 "Plugin 'godlygeek/csapprox'
-Plugin 'vim-scripts/matchit.zip'
+"Plugin 'vim-scripts/matchit.zip'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
@@ -17,8 +17,10 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'othree/html5.vim'
-Plugin 'wting/rust.vim'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'vim-scripts/Smart-Tabs'
+"Plugin 'othree/html5.vim'
+"Plugin 'wting/rust.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -27,22 +29,13 @@ colorscheme jellybeans
 colorscheme Monokai
 set laststatus=2
 
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :NERDTreeToggle<CR>
-let g:UltiSnipsExpandTrigger="<C-j>"
-
-let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-let g:ycm_confirm_extra_conf = 0
-
 syntax enable
 set autoindent
 set autoread
 set nobackup
 set noswapfile
 set cursorline
-"set cursorcolumn
+set cursorcolumn
 set number
 set encoding=utf8
 set ffs=unix,mac,dos
@@ -54,12 +47,7 @@ set linebreak
 set showcmd
 set showmatch
 set showmode
-set shiftwidth=4
-set softtabstop=4
-set tabstop=8
-set expandtab
-set smarttab
-set smartindent
+"set smarttab
 set noswapfile
 set viminfo='100,f1
 set visualbell
@@ -69,6 +57,15 @@ set nowrap
 set textwidth=80
 set colorcolumn=80
 set autowriteall
+set smartindent
+
+set noexpandtab
+set copyindent
+set preserveindent
+set softtabstop=0
+set shiftwidth=8
+set tabstop=8
+set cindent
 
 set guifont=Monaco:h12
 
@@ -84,14 +81,34 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.json set ft=javascript
 
- let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+" YouCompleteMe conf
+let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_key_list_select_completion=['<Enter>', '<Down>']
+let g:ycm_key_list_previous_completion=[]
+
+" Autoformat conf
+let g:formatprg_c = "astyle"
+let g:formatprg_args_c = "--mode=c --style=knf -t -l"
 
 " ------------ Keys -------------------------------------------
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :NERDTreeToggle<CR>
-"let g:UltiSnipsExpandTrigger="<C-j>"
+" F3 -> Autoformat C style
+noremap <F3> :Autoformat<CR><CR>
 
 let mapleader = ","
+
+nmap <F8> :TagbarToggle<CR>
+nmap <F7> :NERDTreeToggle<CR>
+
+let g:UltiSnipsExpandTrigger="<C-j>"
+
 
 " Move between buffers
 noremap <S-left> :bprev<CR>
