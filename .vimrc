@@ -1,6 +1,5 @@
 set nocompatible
 filetype off
-
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
@@ -13,29 +12,24 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'ervandew/supertab'
 "Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'othree/html5.vim'
-Plugin 'wting/rust.vim'
+"Plugin 'othree/html5.vim'
+"Plugin 'wting/rust.vim'
+Plugin 'tomasr/molokai'
 call vundle#end()
 filetype plugin indent on
 
 set t_Co=256
-colorscheme jellybeans
-colorscheme twilight256
+"colorscheme jellybeans
+"colorscheme twilight256
 "colorscheme Monokai
+colorscheme molokai
+let g:molokai_original = 1
+let g:rehash256 = 1
+
 set laststatus=2
-
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :NERDTreeToggle<CR>
-let g:UltiSnipsExpandTrigger="<C-j>"
-
-let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-let g:ycm_confirm_extra_conf = 0
 
 syntax enable
 set autoindent
@@ -55,23 +49,22 @@ set linebreak
 set showcmd
 set noshowmatch
 set showmode
-set shiftwidth=4
-set softtabstop=4
 set tabstop=8
-set expandtab
-set smarttab
-set smartindent
-set noswapfile
+set softtabstop=8
+set shiftwidth=8
+set noexpandtab
+"set smarttab
+"set smartindent
 set viminfo='100,f1
 set visualbell
 set wildmenu
 set wildignore=*.o,*~,*.pyc,*.bak,*.swp
 set nowrap
-set textwidth=80
-set colorcolumn=80
+"set textwidth=100
+set colorcolumn=110
 set autowriteall
-
-"set guifont=Monospace:h9
+set exrc
+set secure
 
 " make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
@@ -85,12 +78,25 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.json set ft=javascript
 
- let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+nnoremap <leader>h :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>d :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>i :YcmCompleter GoToDefinition<CR>
+
+
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"let g:ycm_key_list_select_completion=[]
+"let g:ycm_key_list_previous_completion=[]
+let g:ycm_confirm_extra_conf = 0
+
 
 " ------------ Keys -------------------------------------------
 nmap <F8> :TagbarToggle<CR>
 nmap <F7> :NERDTreeToggle<CR>
-"let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsExpandTrigger="<C-j>"
 
 let mapleader = ","
 
