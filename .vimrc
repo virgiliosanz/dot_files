@@ -25,10 +25,10 @@ call vundle#end()
 filetype plugin indent on
 
 set t_Co=256
-"colorscheme jellybeans
+colorscheme jellybeans
 "colorscheme twilight256
 "colorscheme Monokai
-colorscheme zenburn
+"colorscheme zenburn
 set laststatus=2
 
 syntax enable
@@ -36,8 +36,8 @@ set autoindent
 set autoread
 set nobackup
 set noswapfile
-"set cursorline
-"set cursorcolumn
+set cursorline
+set cursorcolumn
 set number
 set encoding=utf8
 set ffs=unix,mac,dos
