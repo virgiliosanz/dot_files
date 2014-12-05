@@ -13,9 +13,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'ervandew/supertab'
-"Plugin 'SirVer/ultisnips'
-"Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'vim-scripts/Smart-Tabs'
@@ -25,9 +24,8 @@ call vundle#end()
 filetype plugin indent on
 
 set t_Co=256
+"colorscheme zenburn
 colorscheme jellybeans
-colorscheme twilight256
-"colorscheme Monokai
 set laststatus=2
 
 syntax enable
@@ -35,8 +33,8 @@ set autoindent
 set autoread
 set nobackup
 set noswapfile
-set cursorline
-set cursorcolumn
+"set cursorline
+"set cursorcolumn
 set number
 set encoding=utf8
 set ffs=unix,mac,dos
@@ -68,7 +66,7 @@ set shiftwidth=8
 set tabstop=8
 set cindent
 
-"set guifont=Monospace:h9
+set guifont=Monospace:h10
 
 " make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.

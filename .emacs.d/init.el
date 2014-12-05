@@ -37,21 +37,17 @@
                          ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 (setq package-list '(better-defaults
-;                     flyspell
                      flymake flymake-cursor
-;                     tramp
-;                     guru-mode
                      ido smex
                      autopair
                      yasnippet
+                     cmake-mode cmake-project
                      auto-complete
-;                     web-mode js2-mode
                      magit
-;                     go-mode go-autocomplete go-errcheck go-snippets flymake-go
+                     cedet ecb
                      cc-mode auto-complete-clang
-;                     elpy
-;                     org org-plus-contrib
-                     ))
+                     elpy
+))
 
 ;; fetch package list and install the missing ones
 (unless package-archive-contents
@@ -62,15 +58,14 @@
 
 ;;; Packages configuration
 ;; Theme
-;(load-theme 'wombat)
-(load-theme 'monokai)
+(load-theme 'wombat)
+;(load-theme 'monokai)
+
+;; flmake
+(flymake-mode t)
 
 ;; ido-mode
 (ido-mode t)
-
-;; TRAMP (Transport Remote Access, Multi Protocol)
-;(require 'tramp)
-;(setq tramp-default-method "ssh")
 
 ;; parens
 (require 'autopair)
@@ -82,6 +77,20 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+;; ecb
+(require 'ecb)
+(ecb-activate)
+;(require 'ecb-autoloads)
+;(setq ecb-layout-name 'left8)
+;                                        ;
+;[C-c . g h] : Go to history
+;[C-c . g m] : Go to methods
+;[C-c . g s] : Go to sources:
+;[C-c . g d] : Go to directories
+;[C-c . g 1] : Main buffer
+
+
+
 ;; yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
@@ -89,28 +98,24 @@
 ;; magit
 (require 'magit)
 
+;; CMake
+(require 'cmake-mode)
+(require 'cmake-project)
+
 ;;; Languages
 
 ;; Python
 ;; https://github.com/jorgenschaefer/elpy/wiki/Keybindings
 ;; https://github.com/jorgenschaefer/elpy/wiki/Usage
-;(when (require 'elpy nil t)
-;  (elpy-enable))
-;;  (elpy-clean-modeline))
-;;(define-key ac-completing-map (kbd "<up>") nil)
-;;(define-key ac-completing-map (kbd "<down>") nil)
-;;(define-key ac-completing-map (kbd "RET") nil)
-;;(define-key ac-completing-map (kbd "<return>") nil)
-;(setq elpy-rpc-backend "jedi")
-;;(setq elpy-rpc-backend "rope")
-
-;; web-mode
-;(require 'web-mode)
-;(setq web-mode-indent-style 2)
-
-;; js2-mode
-;(autoload 'js2-mode "js2" nil t)
-;(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(when (require 'elpy nil t)
+  (elpy-enable))
+;  (elpy-clean-modeline))
+;(define-key ac-completing-map (kbd "<up>") nil)
+;(define-key ac-completing-map (kbd "<down>") nil)
+;(define-key ac-completing-map (kbd "RET") nil)
+;(define-key ac-completing-map (kbd "<return>") nil)
+(setq elpy-rpc-backend "jedi")
+;(setq elpy-rpc-backend "rope")
 
 ;; c-programming
 (require 'cc-mode)
@@ -165,6 +170,17 @@
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
 
-
 (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
