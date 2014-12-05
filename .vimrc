@@ -13,6 +13,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
+"Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
@@ -26,6 +27,7 @@ filetype plugin indent on
 set t_Co=256
 "colorscheme zenburn
 colorscheme jellybeans
+"colorscheme Monokai
 set laststatus=2
 
 syntax enable
@@ -95,7 +97,7 @@ let g:ycm_key_list_previous_completion=[]
 
 " Autoformat conf
 let g:formatprg_c = "astyle"
-let g:formatprg_args_c = "--mode=c --style=knf -t -l"
+let g:formatprg_args_c = "--mode=c --style=knf -t "
 
 " ------------ Keys -------------------------------------------
 " F3 -> Autoformat C style
@@ -108,7 +110,19 @@ nmap <F7> :NERDTreeToggle<CR>
 
 let g:UltiSnipsExpandTrigger="<C-j>"
 
-
 " Move between buffers
 noremap <S-left> :bprev<CR>
 noremap <S-right> :bnext<CR>
+
+""" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
+"
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
