@@ -83,15 +83,17 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.json set ft=javascript
 
+""" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
 " ------------ Keys -------------------------------------------
 " F3 -> Autoformat C style
 noremap <F3> :Autoformat<CR><CR>
-
 let mapleader = ","
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F7> :NERDTreeToggle<CR>
-
 
 " Move between buffers
 noremap <S-left> :bprev<CR>
@@ -131,16 +133,34 @@ let g:formatprg_args_c = "--mode=c --style=knf -t "
 
 " ------------ Go -------------------------------------------
 let g:go_fmt_command = "goimports"
+map <F4> :GoDef<CR>
+map <F5> :GoRename<CR>
+map <F6> :GoReferrers<CR>
+let g:tagbar_type_go = {
+    			\ 'ctagstype' : 'go',
+    			\ 'kinds'     : [
+        		\ 'p:package',
+        		\ 'i:imports:1',
+        		\ 'c:constants',
+        		\ 'v:variables',
+        		\ 't:types',
+        		\ 'n:interfaces',
+        		\ 'w:fields',
+        		\ 'e:embedded',
+        		\ 'm:methods',
+        		\ 'r:constructor',
+        		\ 'f:functions'
+    			\ ],
+    			\ 'sro' : '.',
+    			\ 'kind2scope' : {
+        		\ 't' : 'ctype',
+        		\ 'n' : 'ntype'
+    			\ },
+    			\ 'scope2kind' : {
+        		\ 'ctype' : 't',
+        		\ 'ntype' : 'n'
+    			\ },
+    			\ 'ctagsbin'  : 'gotags',
+    			\ 'ctagsargs' : '-sort -silent'
+			\ }
 
-""" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
-"
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
-"
-" Note: Must allow nesting of autocmds to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the autocmd, this doesn't
-" seem to happen.
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
