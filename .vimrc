@@ -1,29 +1,31 @@
 set nocompatible
 filetype off
 
+" ------------ plugins -------------------------------------------
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
-"Plugin 'godlygeek/csapprox'
-"Plugin 'vim-scripts/matchit.zip'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'vim-scripts/Smart-Tabs'
-"Plugin 'othree/html5.vim'
-"Plugin 'wting/rust.vim'
+Plugin 'othree/html5.vim'
+Plugin 'fatih/vim-go'
+" IMPORTANT NOTE: nsf/gocode is what does the autocompletion.
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
+
 call vundle#end()
 filetype plugin indent on
 
+" ------------ global -------------------------------------------
 set t_Co=256
 "colorscheme zenburn
 colorscheme jellybeans
@@ -59,7 +61,6 @@ set textwidth=80
 set colorcolumn=80
 set autowriteall
 set smartindent
-
 set noexpandtab
 set copyindent
 set preserveindent
@@ -82,6 +83,21 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.json set ft=javascript
 
+" ------------ Keys -------------------------------------------
+" F3 -> Autoformat C style
+noremap <F3> :Autoformat<CR><CR>
+
+let mapleader = ","
+
+nmap <F8> :TagbarToggle<CR>
+nmap <F7> :NERDTreeToggle<CR>
+
+
+" Move between buffers
+noremap <S-left> :bprev<CR>
+noremap <S-right> :bnext<CR>
+
+" ------------ completion -------------------------------------------
 " YouCompleteMe conf
 let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
@@ -94,25 +110,27 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_key_list_select_completion=['<Enter>', '<Down>']
 let g:ycm_key_list_previous_completion=[]
+let g:ycm_add_preview_to_completeopt = 0
 
+" ------------ Snippets -------------------------------------------
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-h>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-m>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+" ------------ C -------------------------------------------
 " Autoformat conf
 let g:formatprg_c = "astyle"
 let g:formatprg_args_c = "--mode=c --style=knf -t "
 
-" ------------ Keys -------------------------------------------
-" F3 -> Autoformat C style
-noremap <F3> :Autoformat<CR><CR>
 
-let mapleader = ","
-
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :NERDTreeToggle<CR>
-
-let g:UltiSnipsExpandTrigger="<C-j>"
-
-" Move between buffers
-noremap <S-left> :bprev<CR>
-noremap <S-right> :bnext<CR>
+" ------------ Go -------------------------------------------
+let g:go_fmt_command = "goimports"
 
 """ http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 "
