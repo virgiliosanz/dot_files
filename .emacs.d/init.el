@@ -47,6 +47,8 @@
                      cedet ecb
                      cc-mode auto-complete-clang
                      elpy
+                     slime
+                     color-theme
 ))
 
 ;; fetch package list and install the missing ones
@@ -57,9 +59,12 @@
     (package-install package)))
 
 ;;; Packages configuration
+
 ;; Theme
-(load-theme 'wombat)
-;(load-theme 'monokai)
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-robin-hood)
+
 
 ;; flmake
 (flymake-mode t)
@@ -78,8 +83,8 @@
 (ac-config-default)
 
 ;; ecb
-(require 'ecb)
-(ecb-activate)
+;(require 'ecb)
+;(ecb-activate)
 ;(require 'ecb-autoloads)
 ;(setq ecb-layout-name 'left8)
 ;                                        ;
@@ -88,8 +93,6 @@
 ;[C-c . g s] : Go to sources:
 ;[C-c . g d] : Go to directories
 ;[C-c . g 1] : Main buffer
-
-
 
 ;; yasnippet
 (require 'yasnippet)
@@ -125,6 +128,10 @@
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 (require 'auto-complete-clang) ;; auto-complete-clang-async for C/C++
 
+;; Lisp
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
+(setq slime-contribs '(slime-fancy))
+
 ;;; Keyboard
 ;; Move between buffers: C-x <right> y C-x <left>
 ;; M-r cycle top, bottom and middle of current screen.
@@ -150,18 +157,3 @@
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
-
-(provide 'init)
-;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
