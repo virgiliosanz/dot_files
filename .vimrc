@@ -18,9 +18,11 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'vim-scripts/Smart-Tabs'
 Plugin 'othree/html5.vim'
-Plugin 'fatih/vim-go'
+"Plugin '/fatih/vim-go'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 " IMPORTANT NOTE: nsf/gocode is what does the autocompletion.
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
+"Plugin 'nsf/gocode', {'rtp': 'vim/'}
 
 call vundle#end()
 filetype plugin indent on
@@ -92,8 +94,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 noremap <F3> :Autoformat<CR><CR>
 let mapleader = ","
 
-nmap <F8> :TagbarToggle<CR>
 nmap <F7> :NERDTreeToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 
 " Move between buffers
 noremap <S-left> :bprev<CR>
@@ -129,13 +131,13 @@ let g:UltiSnipsEditSplit="vertical"
 " Autoformat conf
 let g:formatprg_c = "astyle"
 let g:formatprg_args_c = "--mode=c --style=knf -t "
-
+" Ctrl+] -> Goto Def Ctrl+T go back from def
 
 " ------------ Go -------------------------------------------
 let g:go_fmt_command = "goimports"
-map <F4> :GoDef<CR>
-map <F5> :GoRename<CR>
-map <F6> :GoReferrers<CR>
+autocmd FileType go map <F4> :GoDef<CR>
+autocmd FileType go map <F5> :GoRename<CR>
+autocmd FileType go map <F6> :GoReferrers<CR>
 let g:tagbar_type_go = {
     			\ 'ctagstype' : 'go',
     			\ 'kinds'     : [

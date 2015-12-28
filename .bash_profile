@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PATH=~/Bin:/usr/local/bin:$PATH
+PATH=~/bin:$PATH
 export BASH_IT=$HOME/.bash_it
 
 export BASH_IT_THEME='powerline-plain'
@@ -13,8 +13,10 @@ export GIT_HOSTING='git@gihub.com'
 # Set vcprompt executable path for scm advance info in prompt (demula theme)
 # https://github.com/xvzf/vcprompt
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
-#alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
-#alias vi=/Applications/MacVim.app/Contents/MacOS/Vim
 
+export GOPATH=$HOME/go
+PATH=$GOPATH/bin:$PATH
+
+export PATH
 # Load Bash It
 source $BASH_IT/bash_it.sh
