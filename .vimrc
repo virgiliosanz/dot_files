@@ -7,7 +7,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
@@ -15,23 +15,23 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'vim-scripts/Smart-Tabs'
-Plugin 'othree/html5.vim'
-Plugin 'fatih/vim-go'
-"Plugin 'nsf/gocode', {'rtp': 'vim/'}
-
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 call vundle#end()
 filetype plugin indent on
 
 " ------------ global -------------------------------------------
 set t_Co=256
-colorscheme zenburn
-"colorscheme jellybeans
-"colorscheme Monokai
-set laststatus=2
-
+"colorscheme gardener
+"colorscheme zenburn
+colorscheme jellybeans
 syntax enable
+set guifont=Monospace:h10
+
+set laststatus=2
 set autoindent
 set autoread
 set nobackup
@@ -57,7 +57,7 @@ set wildmenu
 set wildignore=*.o,*~,*.pyc,*.bak,*.swp
 set nowrap
 set textwidth=80
-set colorcolumn=80
+"set colorcolumn=80
 set autowriteall
 set smartindent
 set noexpandtab
@@ -70,29 +70,36 @@ set cindent
 
 "set guifont=Monospace:h10
 
-" make vim save and load the folding of the document each time it loads
+" Make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
-" Automatically remove all trailing spaces
+""""""" Automatically remove all trailing spaces
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Redefine ficheros por extensión
+""""""" Redefine ficheros por extensión
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.json set ft=javascript
 
+autocmd Filetype html       setlocal ts=2 sw=2 expandtab
+autocmd Filetype ruby       setlocal ts=4 sw=4 expandtab
+autocmd Filetype python     setlocal ts=4 sw=4 expandtab
+autocmd Filetype javascript setlocal ts=4 sw=4 sts=0 noexpandtab
+autocmd Filetype c          setlocal ts=8 sw=8 sts=0 noexpandtab
+autocmd Filetype cpp        setlocal ts=4 sw=4 sts=0 expandtab
+
+""""""" YouCompleteMe conf
 """ http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
 " ------------ Keys -------------------------------------------
-" F3 -> Autoformat C style
-noremap <F3> :Autoformat<CR><CR>
 let mapleader = ","
+noremap <F3> :Autoformat<CR><CR>
 
-nmap <F8> :TagbarToggle<CR>
 nmap <F7> :NERDTreeToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 
 " Move between buffers
 noremap <S-left> :bprev<CR>
@@ -113,6 +120,36 @@ let g:ycm_key_list_select_completion=['<Enter>', '<Down>']
 let g:ycm_key_list_previous_completion=[]
 let g:ycm_add_preview_to_completeopt = 0
 
+""""""" Autoformat conf
+let g:formatprg_c = "astyle"
+let g:formatprg_args_c = "--mode=c --style=linux -T "
+autocmd FileType c map <buffer> <F3> :Autoformat<CR><CR>
+
+let g:formatprg_args_cpp = "--mode=c --style=stroustrup -t4 "
+autocmd FileType cpp map <buffer> <F3> :Autoformat<CR><CR>
+"noremap <F3> :Autoformat<CR><CR>
+
+" Create tags with: ctags -R .
+" Ctrl+] -> Goto Def Ctrl+T go back from def
+" S+K -> Search manpage under cursor
+
+""""""" Generic Keys
+let mapleader = ","
+nmap <F7> :NERDTreeToggle<CR>
+nmap <F8> :TagbarToggle<CR>
+nmap <F9> :TaskList<CR>
+let g:UltiSnipsExpandTrigger="<C-j>"
+
+" Move between buffers
+noremap <S-left> :bprev<CR>
+noremap <S-right> :bnext<CR>
+
+""" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
 " ------------ Snippets -------------------------------------------
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
@@ -124,42 +161,19 @@ let g:UltiSnipsJumpBackwardTrigger="<c-m>"
 let g:UltiSnipsEditSplit="vertical"
 
 
-" ------------ C -------------------------------------------
-" Autoformat conf
-let g:formatprg_c = "astyle"
-let g:formatprg_args_c = "--mode=c --style=knf -t "
+" ------------ C++ -------------------------------------------
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+autocmd FileType cpp set keywordprg=cppman
 
-
-" ------------ Go -------------------------------------------
-let g:go_fmt_command = "goimports"
-map <F4> :GoDef<CR>
-map <F5> :GoRename<CR>
-map <F6> :GoReferrers<CR>
-let g:tagbar_type_go = {
-    			\ 'ctagstype' : 'go',
-    			\ 'kinds'     : [
-        		\ 'p:package',
-        		\ 'i:imports:1',
-        		\ 'c:constants',
-        		\ 'v:variables',
-        		\ 't:types',
-        		\ 'n:interfaces',
-        		\ 'w:fields',
-        		\ 'e:embedded',
-        		\ 'm:methods',
-        		\ 'r:constructor',
-        		\ 'f:functions'
-    			\ ],
-    			\ 'sro' : '.',
-    			\ 'kind2scope' : {
-        		\ 't' : 'ctype',
-        		\ 'n' : 'ntype'
-    			\ },
-    			\ 'scope2kind' : {
-        		\ 'ctype' : 't',
-        		\ 'ntype' : 'n'
-    			\ },
-    			\ 'ctagsbin'  : 'gotags',
-    			\ 'ctagsargs' : '-sort -silent'
-			\ }
-
+"" ------------ Go -------------------------------------------
+"let g:go_fmt_command = "goimports"
+"let g:go_highlight_functions = 1
+"let g:go_highlight_methods = 1
+"let g:go_highlight_structs = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_build_constraints = 1
+"
+"autocmd FileType go map <F4> :GoDef<CR>
+"autocmd FileType go map <F5> :GoRename<CR>
+"autocmd FileType go map <F6> :GoReferrers<CR>

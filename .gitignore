@@ -7,3 +7,4 @@
 .urlview
 .vim/bundle
 .vim/view/
+*.pyc

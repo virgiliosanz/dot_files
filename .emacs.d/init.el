@@ -4,8 +4,8 @@
 
 ;;; Code:
 ;; Turn on debugging (comment this out for normal use)
-(setq debug-on-error t)
-(setq debug-init t)
+;;(setq debug-on-error t)
+;;(setq debug-init t)
 
 ;; Global configuration
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -37,16 +37,16 @@
                          ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 (setq package-list '(better-defaults
-                     flymake flymake-cursor
+                     flycheck
                      ido smex
                      autopair
                      yasnippet
-                     cmake-mode cmake-project
+                     cmake-mode
                      auto-complete
                      magit
-                     cedet ecb
                      cc-mode auto-complete-clang
-                     elpy
+                     color-theme
+                     cmake-ide rtags
 ))
 
 ;; fetch package list and install the missing ones
@@ -57,14 +57,19 @@
     (package-install package)))
 
 ;;; Packages configuration
-;; Theme
-(load-theme 'wombat)
-;(load-theme 'monokai)
 
-;; flmake
+;; Theme
+(require 'color-theme)
+(color-theme-initialize)
+(load-theme 'wombat)
+
+
+;; flymake
 (flymake-mode t)
+(flycheck-mode t)
 
 ;; ido-mode
+(require 'ido)
 (ido-mode t)
 
 ;; parens
@@ -78,8 +83,8 @@
 (ac-config-default)
 
 ;; ecb
-(require 'ecb)
-(ecb-activate)
+;(require 'ecb)
+;(ecb-activate)
 ;(require 'ecb-autoloads)
 ;(setq ecb-layout-name 'left8)
 ;                                        ;
@@ -88,8 +93,6 @@
 ;[C-c . g s] : Go to sources:
 ;[C-c . g d] : Go to directories
 ;[C-c . g 1] : Main buffer
-
-
 
 ;; yasnippet
 (require 'yasnippet)
@@ -100,31 +103,19 @@
 
 ;; CMake
 (require 'cmake-mode)
-(require 'cmake-project)
+(require 'rtags) ;; optional, must have rtags installed
+(cmake-ide-setup)
 
 ;;; Languages
 
-;; Python
-;; https://github.com/jorgenschaefer/elpy/wiki/Keybindings
-;; https://github.com/jorgenschaefer/elpy/wiki/Usage
-(when (require 'elpy nil t)
-  (elpy-enable))
-;  (elpy-clean-modeline))
-;(define-key ac-completing-map (kbd "<up>") nil)
-;(define-key ac-completing-map (kbd "<down>") nil)
-;(define-key ac-completing-map (kbd "RET") nil)
-;(define-key ac-completing-map (kbd "<return>") nil)
-(setq elpy-rpc-backend "jedi")
-;(setq elpy-rpc-backend "rope")
-
 ;; c-programming
 (require 'cc-mode)
-;(setq c-default-style "k&r")
-;(setq c-default-style "stroustrup")
+;(Setq c-default-style "k&r")
 (setq c-default-style "linux")
 (setq c++-default-style "stroustrup")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 (require 'auto-complete-clang) ;; auto-complete-clang-async for C/C++
+(define-key c++-mode-map (kbd "C-S-<return>") 'ac-complete-clang)
 
 ;;; Keyboard
 ;; Move between buffers: C-x <right> y C-x <left>
@@ -151,6 +142,8 @@
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
+
+(desktop-save-mode 1) ; save/restore opened files
 
 (provide 'init)
 ;;; init.el ends here
