@@ -19,16 +19,15 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'vim-scripts/Smart-Tabs'
 Plugin 'othree/html5.vim'
 Plugin 'fatih/vim-go'
-" IMPORTANT NOTE: nsf/gocode is what does the autocompletion.
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
+"Plugin 'nsf/gocode', {'rtp': 'vim/'}
 
 call vundle#end()
 filetype plugin indent on
 
 " ------------ global -------------------------------------------
 set t_Co=256
-"colorscheme zenburn
-colorscheme jellybeans
+colorscheme zenburn
+"colorscheme jellybeans
 "colorscheme Monokai
 set laststatus=2
 
@@ -69,7 +68,7 @@ set shiftwidth=8
 set tabstop=8
 set cindent
 
-set guifont=Monospace:h10
+"set guifont=Monospace:h10
 
 " make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
