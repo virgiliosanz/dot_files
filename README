@@ -11,5 +11,6 @@ vim +BundleInstall +qall
 cd ~/.vim/bundle/YouCompleteMe
 ./install.sh --clang-completer --system-libclang
 
+# Prueba a instalar https://github.com/aitjcize/cppman  si vas a programar en c++
 
 git clone https://github.com/revans/bash-it.git ~/.bash_it

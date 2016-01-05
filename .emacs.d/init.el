@@ -4,8 +4,8 @@
 
 ;;; Code:
 ;; Turn on debugging (comment this out for normal use)
-(setq debug-on-error t)
-(setq debug-init t)
+;;(setq debug-on-error t)
+;;(setq debug-init t)
 
 ;; Global configuration
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -37,18 +37,16 @@
                          ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 (setq package-list '(better-defaults
-                     flymake flymake-cursor
+                     flycheck
                      ido smex
                      autopair
                      yasnippet
-                     cmake-mode cmake-project
+                     cmake-mode
                      auto-complete
                      magit
-                     cedet ecb
                      cc-mode auto-complete-clang
-                     elpy
-                     slime
                      color-theme
+                     cmake-ide rtags
 ))
 
 ;; fetch package list and install the missing ones
@@ -63,13 +61,15 @@
 ;; Theme
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-robin-hood)
+(load-theme 'wombat)
 
 
-;; flmake
+;; flymake
 (flymake-mode t)
+(flycheck-mode t)
 
 ;; ido-mode
+(require 'ido)
 (ido-mode t)
 
 ;; parens
@@ -103,34 +103,19 @@
 
 ;; CMake
 (require 'cmake-mode)
-(require 'cmake-project)
+(require 'rtags) ;; optional, must have rtags installed
+(cmake-ide-setup)
 
 ;;; Languages
 
-;; Python
-;; https://github.com/jorgenschaefer/elpy/wiki/Keybindings
-;; https://github.com/jorgenschaefer/elpy/wiki/Usage
-(when (require 'elpy nil t)
-  (elpy-enable))
-;  (elpy-clean-modeline))
-;(define-key ac-completing-map (kbd "<up>") nil)
-;(define-key ac-completing-map (kbd "<down>") nil)
-;(define-key ac-completing-map (kbd "RET") nil)
-;(define-key ac-completing-map (kbd "<return>") nil)
-(setq elpy-rpc-backend "jedi")
-;(setq elpy-rpc-backend "rope")
-
 ;; c-programming
 (require 'cc-mode)
-;(setq c-default-style "k&r")
-;(setq c-default-style "stroustrup")
+;(Setq c-default-style "k&r")
 (setq c-default-style "linux")
+(setq c++-default-style "stroustrup")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 (require 'auto-complete-clang) ;; auto-complete-clang-async for C/C++
-
-;; Lisp
-(setq inferior-lisp-program "/usr/local/bin/sbcl")
-(setq slime-contribs '(slime-fancy))
+(define-key c++-mode-map (kbd "C-S-<return>") 'ac-complete-clang)
 
 ;;; Keyboard
 ;; Move between buffers: C-x <right> y C-x <left>
@@ -157,3 +142,6 @@
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
+
+;;
+(desktop-save-mode 1) ; save/restore opened files
