@@ -6,7 +6,8 @@ PATH=~/Bin:$PATH
 export PATH
 
 export BASH_IT=$HOME/.bash_it
-export BASH_IT_THEME='powerline-plain'
+#export BASH_IT_THEME='powerline-plain'
+export BASH_IT_THEME='sexy'
 
 alias vi=vim
 export EDITOR=vim

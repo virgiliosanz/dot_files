@@ -1,0 +1,38 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/Users/vsanz/Dropbox/Dev/movistar_tv/" . "misc/")
+ ("/Users/vsanz/Dropbox/Dev/" . "movistar_tv/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/Users/vsanz/Dropbox/Dev.learn/tests.boost/"
+ "/Users/vsanz/Dropbox/Dev/movistar_tv/misc/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "multicast_receiver.cpp"
+ "multicast.cpp"
+ "xmltv.dtd"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/Users/vsanz/Dropbox/Dev.learn/tests.boost/" (22174 23617 0 0) "write_xml_with_property_tree.cpp" "testXml.xml" "string.algorithm.cpp" "multicast_sender.cpp" "multicast_receiver.cpp" "multicast.cpp" "Makefile" "logging.cpp" "debug_settings_out.xml" "debug_settings.xml" "debug_settings.cpp" "../" "./")
+
+ ("/Users/vsanz/Dropbox/Dev/movistar_tv/misc/" (22148 16327 0 0) "xmltv.dtd" "data/" "cmake/" ".DS_Store" "../" "./")
+
+ ("/Users/vsanz/Dropbox/Dev/" (22146 19490 0 0) "movistar_tv/" "movistar_epg/" "cmake_cpp_template_prj/" "chtpl/" ".DS_Store" "../" "./")
+
+ ("/Users/vsanz/Dropbox/Dev/movistar_tv/" (22173 27359 0 0) "src/" "README" "misc/" "Makefile" "LICENSE" "INSTALL" "doc/" "configure" "CMakeLists.txt" "build/" "bin/" ".ycm_extra_conf.pyc" ".ycm_extra_conf.py" ".gitignore" ".git/" ".DS_Store" "../" "./")
+
+ ("/Users/vsanz/Dropbox/Dev/movistar_tv/src/" (21782 49948 0 0) "tests/" "lib/" "include/" "CMakeLists.txt" "bin/" ".DS_Store" "../" "./")
+
+ ("/Users/vsanz/Dropbox/Dev/movistar_tv/src/tests/" (22174 2040 0 0) "xmltv.dtd" "test_yajl.c" "test_url.c" "test_string.c" "test_sbuf.c" "test_parse_file_type_6.c" "test_parse_file_type_5.c" "test_parse_file_type_241.c" "test_parse_file_type_2.c" "test_parse_file_type_1.c" "test_mcast.c" "test_list.c" "test_http_client.c" "test_files.c" "test_epg.c" "test_conf.c" "config.h" "CMakeLists.txt" ".#test_epg.c" "#test_mcast.c#" "#test_list.c#" "#test_files.c#" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
