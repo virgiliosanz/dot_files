@@ -58,7 +58,6 @@ noremap <F3> :Autoformat<CR><CR>
 
 Plugin 'othree/html5.vim'
 Plugin 'vim-scripts/indentpython.vim'
-
 call vundle#end()
 
 filetype plugin indent on
