@@ -43,8 +43,10 @@
                      auto-complete
                      auto-complete-clang-async
                      auto-complete-c-headers
+                     rtags
+                     cmake-ide
                      magit
-                     git-timemachine
+                     elpy
                      evil))
 
 ;; fetch package list and install the missing ones
@@ -104,13 +106,17 @@
 (require 'cc-mode)
 (defun my/c-mode ()
   "Default style for C."
-  (c-set-style 'linux))
+  (c-set-style 'stroustrup))
+;  (c-set-style 'linux))
 (add-hook 'c-mode-hook 'my/c-mode)
 
 (defun my/c++-mode ()
   "Default style for C++."
   (c-set-style 'stroustrup))
 (add-hook 'c++-mode-hook 'my/c++-mode)
+
+;; python
+(elpy-enable)
 
 ;; vim keys
 (require 'evil)

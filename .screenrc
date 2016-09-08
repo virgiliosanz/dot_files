@@ -6,11 +6,20 @@ hardcopy_append on
 defutf8 on
 vbell on
 
-term screen-256color
-termcapinfo xterm*|Eterm|mlterm|rxvt 'hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007'
+
+# terminfo and termcap for nice 256 color terminal
+# # allow bold colors - necessary for some reason
+attrcolor b ".I"
+# # tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+# ]]'# erase background with current bg color
+defbce "on"
+# # set TERM
+term screen-256color-bce
+#
 
 # Default shell
-shell "/bin/bash"
+shell "/bin/zsh"
 
 #####Â Keys
 # Ctr+z sustituye a ctrl+a
@@ -56,10 +65,8 @@ hardstatus on
 hardstatus alwayslastline "%{= kb}[ %=%{w}%?%-Lw%?%{b}(%{W}%n*%f %t%?(%u)%?%{b})%{w}%?%+Lw%?%?%= %{b} ][%{B} %H %{W}%l %{b}][%{B} %d-%m-%Y %{W}%0c %{b}]"
 
 # Screens by default
-screen -t 'tail'   1   sudo tail -f /var/log/messages /var/log/syslog /var/log/auth.log /var/log/kern.log /var/log/daemon.log /var/log/nginx/*.log
-screen -t 'htop'   2   htop
-screen -t '1'   3   bash -l
-screen -t '2'   4   bash -l
-screen -t '3'   5   bash -l
-screen -t '4'   6   bash -l
-screen -t '5'   7   bash -l
+screen -t '1'  1    zsh -l
+screen -t '2'  2    zsh -l
+screen -t '3'  3    zsh -l
+screen -t '4'  4    zsh -l
+screen -t '5'  5    zsh -l

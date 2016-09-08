@@ -5,6 +5,5 @@
 .oh-my-zsh/
 .ssh/
 .urlview
-.vim/bundle
-.vim/view/
+.vim/
 *.pyc

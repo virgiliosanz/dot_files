@@ -11,7 +11,6 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq auto-save-default nil)
 (setq make-backup-files nil)
-;;(cua-mode t)
 (auto-insert-mode t)
 (transient-mark-mode t)
 (delete-selection-mode t)
@@ -28,6 +27,7 @@
 (visual-line-mode -1)
 (setq-default show-trailing-whitespace t)
 (setq next-line-add-newlines t)
+;;(winner-mode t)
 
 ;;; packages
 (require 'package)
@@ -45,9 +45,11 @@
                      auto-complete
                      magit
                      cc-mode auto-complete-clang
+                     elpy
                      color-theme
                      cmake-ide rtags
-))
+                     evil
+                     ))
 
 ;; fetch package list and install the missing ones
 (unless package-archive-contents
@@ -63,7 +65,6 @@
 (color-theme-initialize)
 (load-theme 'wombat)
 
-
 ;; flymake
 (flymake-mode t)
 (flycheck-mode t)
@@ -71,6 +72,9 @@
 ;; ido-mode
 (require 'ido)
 (ido-mode t)
+
+;; smex
+(global-set-key (kbd "M-x") 'smex)
 
 ;; parens
 (require 'autopair)
@@ -81,18 +85,6 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 (ac-config-default)
-
-;; ecb
-;(require 'ecb)
-;(ecb-activate)
-;(require 'ecb-autoloads)
-;(setq ecb-layout-name 'left8)
-;                                        ;
-;[C-c . g h] : Go to history
-;[C-c . g m] : Go to methods
-;[C-c . g s] : Go to sources:
-;[C-c . g d] : Go to directories
-;[C-c . g 1] : Main buffer
 
 ;; yasnippet
 (require 'yasnippet)
@@ -106,16 +98,22 @@
 (require 'rtags) ;; optional, must have rtags installed
 (cmake-ide-setup)
 
+;; evil mode
+(require 'evil)
+(evil-mode t)
+
 ;;; Languages
 
 ;; c-programming
 (require 'cc-mode)
-;(Setq c-default-style "k&r")
-(setq c-default-style "linux")
+(setq c-default-style "k&r")
 (setq c++-default-style "stroustrup")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 (require 'auto-complete-clang) ;; auto-complete-clang-async for C/C++
 (define-key c++-mode-map (kbd "C-S-<return>") 'ac-complete-clang)
+
+;; python
+(elpy-enable)
 
 ;;; Keyboard
 ;; Move between buffers: C-x <right> y C-x <left>
@@ -143,7 +141,7 @@
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
 
-(desktop-save-mode 1) ; save/restore opened files
+;;(desktop-save-mode 1) ; save/restore opened files
 
 (provide 'init)
 ;;; init.el ends here
