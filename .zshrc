@@ -44,7 +44,7 @@ plugins=(git git-flow osx vagrant macports python ssh-agent virtualenv)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/Users/vsanz/Bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/System/Library/Frameworks/JavaVM.framework/Home//bin:/Users/vsanz/Library/Haskell/bin:/bin:/sbin:/usr/bin:/usr/sbin
+export PATH=$HOME/ node_modules/.bin/:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin
 alias lsg="ssh -2 -i ~/.ssh/deployed/2014-01-08 vsanz@lsg-west.akamai.com"
 alias myvm="ssh -2 -i ~/.ssh/internal/2013-09-09  vsanz@mad-lvovi.munich.corp.akamai.com"
 

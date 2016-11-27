@@ -34,6 +34,9 @@ bindkey ^[[1;3C next
 bindkey "^[[1;9C" next
 bindkey "^[[1;9D" prev
 
+# Vagrant (ubuntu)
+bindkey "^[f" next
+bindkey "^[b" prev
 
 ## do not trash BackSpace, usually DEL
 bindkey -k kb

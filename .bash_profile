@@ -2,16 +2,21 @@
 
 PATH=/usr/local/sbin:$PATH
 PATH=/usr/local/bin:$PATH
+PATH=/opt/local/sbin:$PATH
+PATH=/opt/local/bin:$PATH
+#PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/:$PATH
+PATH=/Users/vsanz/node_modules/.bin:$PATH
 PATH=~/Bin:$PATH
 export PATH
 
 export BASH_IT=$HOME/.bash_it
-#export BASH_IT_THEME='powerline-plain'
-export BASH_IT_THEME='sexy'
-
+export BASH_IT_THEME='powerline-plain'
+#export BASH_IT_THEME='sexy'
+alias vim='mvim -v '
 alias vi=vim
-export EDITOR=vim
-export GIT_EDITOR=vim
+export EDITOR=vi
+export EDITOR=vi
+export GIT_EDITOR=$EDITOR
 export GIT_HOSTING='git@gihub.com'
 export SCM_CHECK=true
 

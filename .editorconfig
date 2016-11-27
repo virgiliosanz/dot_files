@@ -31,10 +31,10 @@ indent_size = 2
 indent_style = space
 indent_size = 4
 
-[*.{cpp,cc,hh}]
-indent_size = 2
+#[*.{cpp,cc,hh}]
+#indent_size = 2
 
-[*.{c,h}]
+[*.{c,h,cpp,cc,hh}]
 indent_style=tab
 
 [*.yml]

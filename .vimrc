@@ -11,7 +11,6 @@ Plugin 'bling/vim-airline'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-scripts/Smart-Tabs'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'terryma/vim-multiple-cursors'
 
 Plugin 'scrooloose/nerdtree'
 nmap <F7> :NERDTreeToggle<CR>
@@ -22,37 +21,31 @@ nmap <F8> :TagbarToggle<CR>
 Plugin 'vim-scripts/TaskList.vim'
 nmap <F9> :TaskList<CR>
 
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'davidhalter/jedi-vim'
-let g:jedi#use_splits_not_buffers = "right"
-let g:jedi#goto_command = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
-
-Plugin 'Rip-Rip/clang_complete'
-
 Plugin 'chiel92/vim-autoformat'
 nmap <F3> :Autoformat<CR>
 
+"Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'nvie/vim-flake8'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
 
-Plugin 'gabrielelana/vim-markdown'
-
-Plugin 'editorconfig/editorconfig-vim'
+Plugin 'vim-scripts/Arduino-syntax-file'
+Plugin 'slashmili/alchemist.vim'
 
 call vundle#end()
 
 filetype plugin indent on
 
 " ------------ global -------------------------------------------
+set guifont=Monaco:h12
 set t_Co=256
+"colorscheme ir_black
+"colorscheme Molokai
 "colorscheme wombat256
-colorscheme zenburn
+"colorscheme zenburn
+colorscheme Jellybeans
 syntax enable
 
 set laststatus=2
@@ -90,11 +83,13 @@ set wrap
 set textwidth=80
 set colorcolumn=80
 set autowriteall
+set showbreak=↪
 
 " For spell
 "setlocal spell spelllang=en
-set spelllang=en
-set spell
+"set spelllang=en
+"set spell
+set nospell
 
 " Make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
@@ -117,9 +112,6 @@ endif
 
 
 "" Redefine ficheros por extensión
-au BufNewFile,BufReadPost *.md set filetype=markdown
-au BufNewFile,BufReadPost *.txt set filetype=markdown
-au BufNewFile,BufReadPost README* set filetype=markdown
 au BufNewFile,BufReadPost *.json set filetype=javascript
 
 " virtualenv support
