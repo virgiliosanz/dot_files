@@ -21,18 +21,27 @@ nmap <F8> :TagbarToggle<CR>
 Plugin 'vim-scripts/TaskList.vim'
 nmap <F9> :TaskList<CR>
 
+"Plugin 'scrooloose/syntastic'
+Plugin 'sheerun/vim-polyglot'
+
+Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
 Plugin 'chiel92/vim-autoformat'
 nmap <F3> :Autoformat<CR>
 
-"Plugin 'editorconfig/editorconfig-vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
-
+" Arduino
 Plugin 'vim-scripts/Arduino-syntax-file'
+
+" Elixir
 Plugin 'slashmili/alchemist.vim'
+
+" Python
+Plugin 'davidhalter/jedi-vim'
+
+" elm
+Plugin 'lambdatoast/elm.vim'
 
 call vundle#end()
 
@@ -54,8 +63,8 @@ set smartindent
 set copyindent
 set preserveindent
 set softtabstop=0
-set shiftwidth=8
-set tabstop=8
+set shiftwidth=4
+set tabstop=4
 set cindent
 set autoread
 set nobackup
@@ -101,6 +110,16 @@ au BufWritePre * :%s/\s\+$//e
 
 "" Keys
 let mapleader = ","
+
+"" YouCompleteMe & UltSnippets
+let g:ycm_confirm_extra_conf = 0
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+nnoremap <leader>jt :YcmCompleter GetType<CR>
+nnoremap <leader>ji :YcmCompleter GetDoc<CR>
+nnoremap <leader>jf :YcmCompleter FixIt<CR>
+
+let g:UltiSnipsExpandTrigger = "<c-j>"
+
 " Move between buffers
 nmap <S-left> :bprev<CR>
 nmap <S-right> :bnext<CR>
@@ -111,8 +130,13 @@ if bufwinnr(1)
 endif
 
 
+" You'll be able to move selected block up/down in Visual block mode.
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 "" Redefine ficheros por extensión
 au BufNewFile,BufReadPost *.json set filetype=javascript
+au BufNewFile,BufReadPost *.h set filetype=cpp
 
 " virtualenv support
 py << EOF

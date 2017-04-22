@@ -19,7 +19,7 @@ term screen-256color-bce
 #
 
 # Default shell
-shell "/bin/zsh"
+shell "/bin/bash"
 
 #####Â Keys
 # Ctr+z sustituye a ctrl+a
@@ -68,8 +68,8 @@ hardstatus on
 hardstatus alwayslastline "%{= kb}[ %=%{w}%?%-Lw%?%{b}(%{W}%n*%f %t%?(%u)%?%{b})%{w}%?%+Lw%?%?%= %{b} ][%{B} %H %{W}%l %{b}][%{B} %d-%m-%Y %{W}%0c %{b}]"
 
 # Screens by default
-screen -t '1'  1    zsh -l
-screen -t '2'  2    zsh -l
-screen -t '3'  3    zsh -l
-screen -t '4'  4    zsh -l
-screen -t '5'  5    zsh -l
+screen -t '1'  1    bash -l
+screen -t '2'  2    bash -l
+screen -t '3'  3    bash -l
+screen -t '4'  4    bash -l
+screen -t '5'  5    bash -l

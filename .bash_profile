@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-
+#set -v
 PATH=/usr/local/sbin:$PATH
 PATH=/usr/local/bin:$PATH
 PATH=/opt/local/sbin:$PATH
 PATH=/opt/local/bin:$PATH
-#PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/:$PATH
+PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/:$PATH
+PATH=/opt/local/Library/Frameworks/Python.framework/Versions/3.6/bin:$PATH
 PATH=/Users/vsanz/node_modules/.bin:$PATH
 PATH=~/Bin:$PATH
 export PATH
@@ -23,6 +24,10 @@ export SCM_CHECK=true
 # Set vcprompt executable path for scm advance info in prompt (demula theme)
 # https://github.com/xvzf/vcprompt
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
+
+export ANDROID_HOME=~/Library/Android/sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 
 export GOPATH=$HOME/go
 PATH=$GOPATH/bin:$PATH
