@@ -1,0 +1,7 @@
+[user]
+	email = virgilio.sanz@gmail.com
+	name = Virgilio Sanz
+[push]
+	default = simple
+[core]
+	autocrlf = input

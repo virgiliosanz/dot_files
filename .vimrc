@@ -1,49 +1,75 @@
 set nocompatible
-filetype off
 
 " ------------ plugins -------------------------------------------
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+" Load vim-plug
+if empty(glob("~/.vim/autoload/plug.vim"))
+    execute 'mkdir -p ~/.vim/plugged'
+    execute 'mkdir -p ~/.vim/autoload'
+    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
 
-Plugin 'flazz/vim-colorschemes'
-Plugin 'bling/vim-airline'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-scripts/Smart-Tabs'
-Plugin 'jiangmiao/auto-pairs'
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-plug'
 
-Plugin 'scrooloose/nerdtree'
-nmap <F7> :NERDTreeToggle<CR>
+" Decorations
+Plug 'flazz/vim-colorschemes'
+Plug 'bling/vim-airline'
 
-Plugin 'majutsushi/tagbar'
+" Ctrl+p Open search for files
+Plug 'ctrlpvim/ctrlp.vim'
+
+Plug 'vim-scripts/Smart-Tabs'
+Plug 'jiangmiao/auto-pairs'
+
+Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
-Plugin 'vim-scripts/TaskList.vim'
+Plug 'vim-scripts/TaskList.vim'
 nmap <F9> :TaskList<CR>
 
-"Plugin 'scrooloose/syntastic'
-Plugin 'sheerun/vim-polyglot'
+"Plug 'scrooloose/syntastic'
+Plug 'sheerun/vim-polyglot'
 
-Plugin 'Valloric/YouCompleteMe'
+" compile with (see what version of python is vim compiled with)
+" python3 install.py --clang-completer --gocode-completer --racer-completer --tern-completer
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --gocode-completer --racer-completer --tern-completer' }
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
-Plugin 'chiel92/vim-autoformat'
+" Snippets
+"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+Plug 'chiel92/vim-autoformat'
 nmap <F3> :Autoformat<CR>
 
-" Arduino
-Plugin 'vim-scripts/Arduino-syntax-file'
+" Python
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 " Elixir
-Plugin 'slashmili/alchemist.vim'
+"Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
-" Python
-Plugin 'davidhalter/jedi-vim'
+" Rust
+"Plug 'rust-lang/rust.vim', {'for': 'rust' }
+"let g:ycm_rust_src_path = '/opt/local/share/rust/src/'
+"let g:rustfmt_autosave = 1
+"let g:rust_recommended_style = 1
 
-" elm
-Plugin 'lambdatoast/elm.vim'
+" golang
+"Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
-call vundle#end()
+" editorconfig.org
+Plug 'editorconfig/editorconfig-vim'
+
+" Syntax checking
+Plug 'vim-syntastic/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+call plug#end()
 
 filetype plugin indent on
 
@@ -64,41 +90,44 @@ set copyindent
 set preserveindent
 set softtabstop=0
 set shiftwidth=4
-set tabstop=4
+set tabstop=8
 set cindent
 set autoread
 set nobackup
 set noswapfile
 set cursorline
 set cursorcolumn
-set number
+set rnu
+set nu
 set encoding=utf8
 set ffs=unix,mac,dos
 set incsearch
 set nohlsearch
+set ignorecase
 set smartcase
 set lazyredraw
 set linebreak
 set showcmd
 "set noshowmatch
-set showmode
+set noshowmode
 set smarttab
 set noswapfile
 set viminfo='100,f1
 set visualbell
 set wildmenu
+set wildmode=list:longest
 set wildignore=*.o,*~,*.pyc,*.bak,*.swp
 set wrap
 set textwidth=80
 set colorcolumn=80
 set autowriteall
 set showbreak=↪
-
 " For spell
 "setlocal spell spelllang=en
 "set spelllang=en
 "set spell
 set nospell
+set hidden
 
 " Make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
@@ -109,14 +138,15 @@ au BufWinEnter * silent loadview
 au BufWritePre * :%s/\s\+$//e
 
 "" Keys
-let mapleader = ","
+"let mapleader = ","
+let mapleader = " "
 
 "" YouCompleteMe & UltSnippets
 let g:ycm_confirm_extra_conf = 0
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
-nnoremap <leader>jt :YcmCompleter GetType<CR>
-nnoremap <leader>ji :YcmCompleter GetDoc<CR>
+nnoremap <leader>jg :YcmCompleter GoTo<CR>
 nnoremap <leader>jf :YcmCompleter FixIt<CR>
+nnoremap <leader>jt :YcmCompleter GetType<CR>
+nnoremap <leader>jd :YcmCompleter GetDoc<CR>
 
 let g:UltiSnipsExpandTrigger = "<c-j>"
 

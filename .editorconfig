@@ -1,42 +1,35 @@
 # EditorConfig is awesome: http://EditorConfig.org
 
+# top-most EditorConfig file
 root = true
 
 [*]
-charset = utf-8
 end_of_line = lf
-insert_final_newline = true
 trim_trailing_whitespace = true
-
-[*.py]
+charset = utf-8
 indent_style = space
 indent_size = 4
-max_line_length = 119
+
+[*{.conf,.pl,.pm,.py}]
+indent_size = 4
+
+[*{.glsl,.go,.sh,.sql,.c}]
+indent_style = tab
 
 [Makefile]
 indent_style = tab
 
 [*.js]
 indent_style = space
-indent_size = 2
+indent_size = 4
 
-[{package.json,.travis.yml}]
-indent_style = space
-indent_size = 2
-
-[*.html]
-indent_size = 2
-
-[*.java]
+[*.css]
 indent_style = space
 indent_size = 4
 
-#[*.{cpp,cc,hh}]
-#indent_size = 2
-
-[*.{c,h,cpp,cc,hh}]
-indent_style=tab
-
-[*.yml]
+[*.html]
 indent_style = space
+indent_size = 4
 
+[*.md]
+trim_trailing_whitespace = false

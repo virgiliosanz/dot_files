@@ -8,16 +8,16 @@ rm ~/.git
 
 VIM
 ====
-vim +BundleInstall +qall
+run the following:
 
-# Antes de compilar asegurate de compilar con la misma versión de python que
-# esté compilado el vim
-cd ~/.vim/bundle/YouCompleteMe
-./install.sh --clang-completer --system-libclang
+$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Prueba a instalar https://github.com/aitjcize/cppman  si vas a programar en
 # C/C++ en VIM. Tendrás ayuda haciendo Shift-K en cualquier keyword de tu código
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+EMACS
+=====
+My Configuration for spacemacs (I might move from 15+ years of vim usage)
 
 BASH
 =====

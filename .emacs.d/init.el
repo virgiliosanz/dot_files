@@ -37,18 +37,28 @@
                          ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 (setq package-list '(better-defaults
+                     color-theme
+
                      flycheck
                      ido smex
                      autopair
-                     yasnippet
-                     cmake-mode
-                     auto-complete
+
                      magit
-                     cc-mode auto-complete-clang
+
+                     yasnippet
+
                      elpy
-                     color-theme
-                     cmake-ide rtags
+
+		     flymake
+		     ycmd
+		     company company-ycmd
+		     flycheck flycheck-ycmd
+		     eldoc
+		     clang-format
+
                      evil
+
+		     org
                      ))
 
 ;; fetch package list and install the missing ones
@@ -81,11 +91,6 @@
 (autopair-global-mode)
 (setq autopair-autowrap t)
 
-;; auto-complete.org
-(require 'auto-complete)
-(require 'auto-complete-config)
-(ac-config-default)
-
 ;; yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
@@ -93,27 +98,52 @@
 ;; magit
 (require 'magit)
 
-;; CMake
-(require 'cmake-mode)
-(require 'rtags) ;; optional, must have rtags installed
-(cmake-ide-setup)
 
 ;; evil mode
 (require 'evil)
 (evil-mode t)
+(windmove-default-keybindings)
+
 
 ;;; Languages
 
 ;; c-programming
 (require 'cc-mode)
-(setq c-default-style "k&r")
-(setq c++-default-style "stroustrup")
+;(setq c-default-style "k&r")
+;(setq c++-default-style "stroustrup")
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
-(require 'auto-complete-clang) ;; auto-complete-clang-async for C/C++
-(define-key c++-mode-map (kbd "C-S-<return>") 'ac-complete-clang)
+(require 'clang-format)
+
+(global-set-key (kbd "C-c i") 'clang-format-region)
+(global-set-key (kbd "C-c u") 'clang-format-buffer)
+; on-save: clang-format
+(add-hook 'c++-mode-hook
+    (lambda()
+        (add-hook 'before-save-hook 'clang-format-buffer)))
 
 ;; python
 (elpy-enable)
+
+;; YouCompleteMe: ycmd
+(setq ycmd-server-command
+      (list "python2" "/Users/vsanz/.vim/bundle/YouCompleteMe/third_party/ycmd/ycmd"))
+
+(add-hook 'ycmd-mode-hook 'company-ycmd-setup)
+(add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup)
+
+(company-ycmd-setup)
+(flycheck-ycmd-setup)
+(when (not (display-graphic-p))
+  (setq flycheck-indication-mode nil))
+(require 'ycmd-next-error)
+(require 'ycmd-eldoc)
+(add-hook 'ycmd-mode-hook 'ycmd-eldoc-setup)
+
+(global-company-mode)
+(global-ycmd-mode)
+
+;; org-mode
+
 
 ;;; Keyboard
 ;; Move between buffers: C-x <right> y C-x <left>

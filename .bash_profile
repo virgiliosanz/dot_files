@@ -13,10 +13,11 @@ export PATH
 export BASH_IT=$HOME/.bash_it
 export BASH_IT_THEME='powerline-plain'
 #export BASH_IT_THEME='sexy'
-alias vim='mvim -v '
+export EDITOR='mvim -v '
+alias vim=$EDITOR
 alias vi=vim
-export EDITOR=vi
-export EDITOR=vi
+alias emacs="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin/emacsclient -nw -c "
+#alias vim="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin/emacsclient -nw -t "
 export GIT_EDITOR=$EDITOR
 export GIT_HOSTING='git@gihub.com'
 export SCM_CHECK=true
@@ -32,6 +33,10 @@ export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 export GOPATH=$HOME/go
 PATH=$GOPATH/bin:$PATH
 
+# iTerm2 shell integration
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
 export PATH
 # Load Bash It
 source $BASH_IT/bash_it.sh
+
