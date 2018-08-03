@@ -8,16 +8,16 @@ rm ~/.git
 
 VIM
 ====
-run the following:
+run for the first time and them PlugUpdate inside
 
-$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Prueba a instalar https://github.com/aitjcize/cppman  si vas a programar en
 # C/C++ en VIM. Tendrás ayuda haciendo Shift-K en cualquier keyword de tu código
 
+
 EMACS
 =====
-My Configuration for spacemacs (I might move from 15+ years of vim usage)
+My Configuration for spacemacs (I might move from 20+ years of vi/vim usage)
 
 BASH
 =====
