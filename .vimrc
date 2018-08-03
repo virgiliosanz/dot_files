@@ -9,40 +9,49 @@ if empty(glob("~/.vim/autoload/plug.vim"))
 endif
 
 call plug#begin('~/.vim/plugged')
+
 Plug 'junegunn/vim-plug'
 
-" Decorations
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
+let g:airline#extensions#tabline#enabled = 1
 
-" Ctrl+p Open search for files
+Plug 'brooth/far.vim'
+
+
 Plug 'ctrlpvim/ctrlp.vim'
-
 Plug 'vim-scripts/Smart-Tabs'
 Plug 'jiangmiao/auto-pairs'
+Plug 'scrooloose/nerdtree'
 
-Plug 'majutsushi/tagbar'
-nmap <F8> :TagbarToggle<CR>
-
-Plug 'vim-scripts/TaskList.vim'
-nmap <F9> :TaskList<CR>
-
-"Plug 'scrooloose/syntastic'
-Plug 'sheerun/vim-polyglot'
-
-" compile with (see what version of python is vim compiled with)
-" python3 install.py --clang-completer --gocode-completer --racer-completer --tern-completer
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --gocode-completer --racer-completer --tern-completer' }
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-
-" Snippets
-"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
+"Plug 'editorconfig/editorconfig-vim'
 Plug 'chiel92/vim-autoformat'
-nmap <F3> :Autoformat<CR>
+Plug 'majutsushi/tagbar'
+Plug 'sheerun/vim-polyglot'
+Plug 'mileszs/ack.vim'
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
-" Python
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"let g:UltiSnipsExpandTrigger = "<c-j>"
+
+Plug 'w0rp/ale'
+let g:airline#extensions#ale#enabled = 1
+
+"" You Complete Me
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+"Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer' }
+"let g:ycm_complete_in_comments=1
+"let g:ycm_confirm_extra_conf=0
+"let g:ycm_collect_identifiers_from_tags_files=1
+"set completeopt=longest,menuone
+"let g:ycm_min_num_of_chars_for_completion=2
+"let g:ycm_cache_omnifunc=0
+"let g:ycm_seed_identifiers_with_syntax=1
+"let g:ycm_auto_trigger=1
+""let g:ycm_server_use_vim_stdout = 0
+""let g:ycm_server_keep_logfiles = 1
 
 " Elixir
 "Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
@@ -56,18 +65,17 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 " golang
 "Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
-" editorconfig.org
-Plug 'editorconfig/editorconfig-vim'
-
-" Syntax checking
-Plug 'vim-syntastic/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" Python
+" Active for python if Ycm is not being used
+ Plug 'davidhalter/jedi-vim'
+ let g:jedi#popup_select_first = 0
+ let g:jedi#goto_command = "<leader>d"
+ let g:jedi#goto_assignments_command = "<leader>g"
+ let g:jedi#goto_definitions_command = ""
+ let g:jedi#documentation_command = "K"
+ let g:jedi#usages_command = "<leader>n"
+ let g:jedi#completions_command = "<C-Space>"
+ let g:jedi#rename_command = "<leader>r"
 
 call plug#end()
 
@@ -80,7 +88,10 @@ set t_Co=256
 "colorscheme Molokai
 "colorscheme wombat256
 "colorscheme zenburn
-colorscheme Jellybeans
+"colorscheme Jellybeans
+"colorscheme colorsbox-material
+colorscheme badwolf
+
 syntax enable
 
 set laststatus=2
@@ -116,7 +127,12 @@ set viminfo='100,f1
 set visualbell
 set wildmenu
 set wildmode=list:longest
+
 set wildignore=*.o,*~,*.pyc,*.bak,*.swp
+set wildignore+=**/node_modules/**
+set wildignore+=**/.git/**
+set wildignore+=**/.*/**
+
 set wrap
 set textwidth=80
 set colorcolumn=80
@@ -128,27 +144,33 @@ set showbreak=↪
 "set spell
 set nospell
 set hidden
+set history=1000
+
+" Folding
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+"set foldmethod=indent
+set foldmethod=syntax
+
 
 " Make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
-"" Automatically remove all trailing spaces
+" Automatically remove all trailing spaces
 au BufWritePre * :%s/\s\+$//e
 
-"" Keys
-"let mapleader = ","
-let mapleader = " "
+" Extend % to match not only braces
+runtime macros/matchit.vim
 
-"" YouCompleteMe & UltSnippets
-let g:ycm_confirm_extra_conf = 0
-nnoremap <leader>jg :YcmCompleter GoTo<CR>
-nnoremap <leader>jf :YcmCompleter FixIt<CR>
-nnoremap <leader>jt :YcmCompleter GetType<CR>
-nnoremap <leader>jd :YcmCompleter GetDoc<CR>
+" longer that 120 chars is an error
+match ErrorMsg '\%>120v.\+'
+match ErrorMsg '\s\+$'
 
-let g:UltiSnipsExpandTrigger = "<c-j>"
+" KEYS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = "\<SPACE>"
 
 " Move between buffers
 nmap <S-left> :bprev<CR>
@@ -159,17 +181,24 @@ if bufwinnr(1)
     map - <C-W>-
 endif
 
-
 " You'll be able to move selected block up/down in Visual block mode.
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-"" Redefine ficheros por extensión
-au BufNewFile,BufReadPost *.json set filetype=javascript
-au BufNewFile,BufReadPost *.h set filetype=cpp
+nmap <F3> :Autoformat<CR>
+nmap <F4> :YcmCompleter GoTo<CR>
+nmap <F5> :YcmCompleter FixIt<CR>
+nmap <F6> :YcmCompleter GetType<CR>
+nmap <F7> :NERDTreeToggle<CR>
+nmap <F8> :TagbarToggle<CR>
+nmap <F9> :Ack <cword> .<CR>
+nmap <F10> :Ack "FIXME\|TODO" .<CR>
 
-" virtualenv support
-py << EOF
+" space open/closes folds
+nnoremap <space> za
+
+" ---------- Python
+py3 << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
@@ -177,9 +206,24 @@ if 'VIRTUAL_ENV' in os.environ:
   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
   execfile(activate_this, dict(__file__=activate_this))
 EOF
-let python_highlight_all=1
 
-" ------------ Make -----------------------------------------
+let python_highlight_all=1
+" PEP8 Code Style
+au BufRead,BufNewFile *.py set textwidth=79 shiftwidth=4 tabstop=4 expandtab softtabstop=4 shiftround autoindent
+
+" ---------- HTML
+au BufRead,BufNewFile *.html set textwidth=120 tabstop=2
+
+" ---------- Javascript
+au BufNewFile,BufReadPost *.json set filetype=javascript
+
+" ---------- C++
+au BufNewFile,BufReadPost *.h set filetype=cpp
+
+" ---------- lisp
+au BufNewFile,BufReadPost .spacemacs set filetype=lisp
+
+" ---------- Make
 """ http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.

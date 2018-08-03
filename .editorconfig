@@ -8,7 +8,7 @@ end_of_line = lf
 trim_trailing_whitespace = true
 charset = utf-8
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 [*{.conf,.pl,.pm,.py}]
 indent_size = 4
@@ -33,3 +33,8 @@ indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false
+
+; Python: PEP8 defines 4 spaces for indentation
+[*.py]
+indent_style = space
+indent_size = 4
