@@ -1,30 +1,22 @@
 set nocompatible
 
-" ------------ plugins -------------------------------------------
 " Load vim-plug
 if empty(glob("~/.vim/autoload/plug.vim"))
     execute '!mkdir -p ~/.vim/plugged'
     execute '!mkdir -p ~/.vim/autoload'
     execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
-
 call plug#begin('~/.vim/plugged')
-
 Plug 'junegunn/vim-plug'
 
 Plug 'flazz/vim-colorschemes'
-Plug 'bling/vim-airline'
-let g:airline#extensions#tabline#enabled = 1
-
-Plug 'brooth/far.vim'
-
+Plug 'itchyny/lightline.vim'
 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/Smart-Tabs'
 Plug 'jiangmiao/auto-pairs'
-Plug 'scrooloose/nerdtree'
 
-"Plug 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'chiel92/vim-autoformat'
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
@@ -33,49 +25,18 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-"let g:UltiSnipsExpandTrigger = "<c-j>"
+" Asynchronous Lint Engine
+"Plug 'w0rp/ale'
 
-Plug 'w0rp/ale'
-let g:airline#extensions#ale#enabled = 1
+" YouCompleteMe: https://wiki.archlinux.org/index.php/Vim/YouCompleteMe
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer' }
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_min_num_of_chars_for_completion = 0
+let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_max_num_candidates = 20
+let g:ycm_auto_trigger = 1
+let g:ycm_confirm_extra_conf = 0
 
-"" You Complete Me
-"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-"Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer' }
-"let g:ycm_complete_in_comments=1
-"let g:ycm_confirm_extra_conf=0
-"let g:ycm_collect_identifiers_from_tags_files=1
-"set completeopt=longest,menuone
-"let g:ycm_min_num_of_chars_for_completion=2
-"let g:ycm_cache_omnifunc=0
-"let g:ycm_seed_identifiers_with_syntax=1
-"let g:ycm_auto_trigger=1
-""let g:ycm_server_use_vim_stdout = 0
-""let g:ycm_server_keep_logfiles = 1
-
-" Elixir
-"Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-
-" Rust
-"Plug 'rust-lang/rust.vim', {'for': 'rust' }
-"let g:ycm_rust_src_path = '/opt/local/share/rust/src/'
-"let g:rustfmt_autosave = 1
-"let g:rust_recommended_style = 1
-
-" golang
-"Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-
-" Python
-" Active for python if Ycm is not being used
- Plug 'davidhalter/jedi-vim'
- let g:jedi#popup_select_first = 0
- let g:jedi#goto_command = "<leader>d"
- let g:jedi#goto_assignments_command = "<leader>g"
- let g:jedi#goto_definitions_command = ""
- let g:jedi#documentation_command = "K"
- let g:jedi#usages_command = "<leader>n"
- let g:jedi#completions_command = "<C-Space>"
- let g:jedi#rename_command = "<leader>r"
 
 call plug#end()
 
@@ -89,8 +50,8 @@ set t_Co=256
 "colorscheme wombat256
 "colorscheme zenburn
 "colorscheme Jellybeans
-"colorscheme colorsbox-material
-colorscheme badwolf
+colorscheme colorsbox-material
+"colorscheme badwolf
 
 syntax enable
 
@@ -99,9 +60,6 @@ set autoindent
 set smartindent
 set copyindent
 set preserveindent
-set softtabstop=0
-set shiftwidth=4
-set tabstop=8
 set cindent
 set autoread
 set nobackup
@@ -122,16 +80,20 @@ set showcmd
 "set noshowmatch
 set noshowmode
 set smarttab
-set noswapfile
 set viminfo='100,f1
 set visualbell
 set wildmenu
 set wildmode=list:longest
 
-set wildignore=*.o,*~,*.pyc,*.bak,*.swp
-set wildignore+=**/node_modules/**
-set wildignore+=**/.git/**
-set wildignore+=**/.*/**
+"set wildignore=*.o,*~,*.pyc,*.bak,*.swp
+"set wildignore+=**/node_modules/**
+"set wildignore+=**/.git/**
+"set wildignore+=**/.*/**
+"
+set wildignore=*.o,*~,*.pyc,**/.git/**
+set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*
+set wildignore+=*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls
+set wildignore+=*/.fdb*/,*/.toc,*/.out,*/.glo,*/.log,*/.ist,*/.fdb_latexmk,*~
 
 set wrap
 set textwidth=80
@@ -185,11 +147,19 @@ endif
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
+" Usar netrw en lugar de NERDTree
+"let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+"let g:netrw_browse_split = 4
+let g:netrw_browse_split = 0
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
 nmap <F3> :Autoformat<CR>
 nmap <F4> :YcmCompleter GoTo<CR>
 nmap <F5> :YcmCompleter FixIt<CR>
 nmap <F6> :YcmCompleter GetType<CR>
-nmap <F7> :NERDTreeToggle<CR>
+nmap <F7> :Vexplore<CR>
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Ack <cword> .<CR>
 nmap <F10> :Ack "FIXME\|TODO" .<CR>
@@ -219,6 +189,8 @@ au BufNewFile,BufReadPost *.json set filetype=javascript
 
 " ---------- C++
 au BufNewFile,BufReadPost *.h set filetype=cpp
+au BufNewFile,BufReadPost *.ino set filetype=cpp
+au BufNewFile,BufReadPost *.pde set filetype=cpp
 
 " ---------- lisp
 au BufNewFile,BufReadPost .spacemacs set filetype=lisp

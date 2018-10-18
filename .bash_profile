@@ -9,7 +9,8 @@ PATH=~/Bin:$PATH
 PATH=~/.local/bin:$PATH
 
 export BASH_IT=$HOME/.bash_it
-export BASH_IT_THEME='powerline-plain'
+export BASH_IT_THEME='powerline-multiline'
+#export BASH_IT_THEME='powerline-plain'
 #export BASH_IT_THEME='sexy'
 alias emacs="emacsclient -c -n "
 #alias vim="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin/emacsclient -nw -t "
@@ -36,9 +37,9 @@ PATH=$GOPATH/bin:$PATH
 
 # VirtualEnv
 export WORKON_HOME=~/.envs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+#export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+#export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+#export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 source /usr/local/bin/virtualenvwrapper.sh
 
 # iTerm2 shell integration

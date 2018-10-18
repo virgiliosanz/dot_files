@@ -18,6 +18,7 @@ run for the first time and them PlugUpdate inside
 EMACS
 =====
 My Configuration for spacemacs (I might move from 20+ years of vi/vim usage)
+install it: git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d then run emacs
 
 BASH
 =====
