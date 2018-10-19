@@ -2,9 +2,9 @@ set nocompatible
 
 " Load vim-plug
 if empty(glob("~/.vim/autoload/plug.vim"))
-    execute '!mkdir -p ~/.vim/plugged'
-    execute '!mkdir -p ~/.vim/autoload'
-    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+	execute '!mkdir -p ~/.vim/plugged'
+	execute '!mkdir -p ~/.vim/autoload'
+	execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
@@ -170,15 +170,6 @@ nmap <F10> :Ack "FIXME\|TODO" .<CR>
 nnoremap <space> za
 
 " ---------- Python
-py3 << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
-
 let python_highlight_all=1
 " PEP8 Code Style
 au BufRead,BufNewFile *.py set textwidth=79 shiftwidth=4 tabstop=4 expandtab softtabstop=4 shiftround autoindent
@@ -193,6 +184,8 @@ au BufNewFile,BufReadPost *.json set filetype=javascript
 au BufNewFile,BufReadPost *.h set filetype=cpp
 au BufNewFile,BufReadPost *.ino set filetype=cpp
 au BufNewFile,BufReadPost *.pde set filetype=cpp
+au FileType cpp set keywordprg=cppman
+
 
 " ---------- lisp
 au BufNewFile,BufReadPost .spacemacs set filetype=lisp
