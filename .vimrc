@@ -12,18 +12,25 @@ Plug 'junegunn/vim-plug'
 Plug 'flazz/vim-colorschemes'
 Plug 'itchyny/lightline.vim'
 
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/Smart-Tabs'
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'editorconfig/editorconfig-vim'
+"Plug 'editorconfig/editorconfig-vim'
 Plug 'chiel92/vim-autoformat'
+" Autoformat on save
+au BufWrite * :Autoformat
+" Automatically remove all trailing spaces
+au BufWritePre * :%s/\s\+$//e
+
+
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
-Plug 'mileszs/ack.vim'
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
+
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'mileszs/ack.vim'
+"if executable('ag')
+"  let g:ackprg = 'ag --vimgrep'
+"endif
 
 " Asynchronous Lint Engine
 "Plug 'w0rp/ale'
@@ -78,18 +85,13 @@ set lazyredraw
 set linebreak
 set showcmd
 "set noshowmatch
-set noshowmode
+"set noshowmode
 set smarttab
 set viminfo='100,f1
 set visualbell
+
 set wildmenu
 set wildmode=list:longest
-
-"set wildignore=*.o,*~,*.pyc,*.bak,*.swp
-"set wildignore+=**/node_modules/**
-"set wildignore+=**/.git/**
-"set wildignore+=**/.*/**
-"
 set wildignore=*.o,*~,*.pyc,**/.git/**
 set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*
 set wildignore+=*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls
@@ -121,9 +123,6 @@ set foldmethod=syntax
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
-" Automatically remove all trailing spaces
-au BufWritePre * :%s/\s\+$//e
-
 " Extend % to match not only braces
 runtime macros/matchit.vim
 
@@ -138,14 +137,17 @@ let mapleader = "\<SPACE>"
 nmap <S-left> :bprev<CR>
 nmap <S-right> :bnext<CR>
 " window resizing with plus/minus keys
-if bufwinnr(1)
-    map + <C-W>+
-    map - <C-W>-
-endif
+map + <C-W>+
+map - <C-W>-
 
 " You'll be able to move selected block up/down in Visual block mode.
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+" 'gf' opens file under cursor in a new vertical split
+nnoremap gf :vertical wincmd f<CR>
+" 'fw' find word under cursor
+nnoremap fw :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 
 " Usar netrw en lugar de NERDTree
 "let g:netrw_banner = 0
