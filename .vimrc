@@ -18,6 +18,7 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'chiel92/vim-autoformat'
+au BufWrite * :Autoformat
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
 Plug 'mileszs/ack.vim'
@@ -50,8 +51,8 @@ set t_Co=256
 "colorscheme wombat256
 "colorscheme zenburn
 "colorscheme Jellybeans
-colorscheme colorsbox-material
-"colorscheme badwolf
+"colorscheme colorsbox-material
+colorscheme badwolf
 
 syntax enable
 
