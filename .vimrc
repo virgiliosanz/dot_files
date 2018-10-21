@@ -2,9 +2,9 @@ set nocompatible
 
 " Load vim-plug
 if empty(glob("~/.vim/autoload/plug.vim"))
-    execute '!mkdir -p ~/.vim/plugged'
-    execute '!mkdir -p ~/.vim/autoload'
-    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+  execute '!mkdir -p ~/.vim/plugged'
+  execute '!mkdir -p ~/.vim/autoload'
+  execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
@@ -12,19 +12,25 @@ Plug 'junegunn/vim-plug'
 Plug 'flazz/vim-colorschemes'
 Plug 'itchyny/lightline.vim'
 
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/Smart-Tabs'
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'editorconfig/editorconfig-vim'
+"Plug 'editorconfig/editorconfig-vim'
 Plug 'chiel92/vim-autoformat'
+
+" Autoformat on save
 au BufWrite * :Autoformat
+" Automatically remove all trailing spaces
+au BufWritePre * :%s/\s\+$//e
+
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
-Plug 'mileszs/ack.vim'
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
+
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'mileszs/ack.vim'
+"if executable('ag')
+"  let g:ackprg = 'ag --vimgrep'
+"endif
 
 " Asynchronous Lint Engine
 "Plug 'w0rp/ale'
@@ -79,18 +85,14 @@ set lazyredraw
 set linebreak
 set showcmd
 "set noshowmatch
-set noshowmode
+"set noshowmode
 set smarttab
 set viminfo='100,f1
 set visualbell
+
+set path+=**
 set wildmenu
 set wildmode=list:longest
-
-"set wildignore=*.o,*~,*.pyc,*.bak,*.swp
-"set wildignore+=**/node_modules/**
-"set wildignore+=**/.git/**
-"set wildignore+=**/.*/**
-"
 set wildignore=*.o,*~,*.pyc,**/.git/**
 set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*
 set wildignore+=*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls
@@ -111,19 +113,15 @@ set history=1000
 
 " Folding
 set foldenable
-set foldlevelstart=10
-set foldnestmax=10
-"set foldmethod=indent
+"set foldlevel=1
+"set foldlevelstart=1
+"set foldnestmax=1
 set foldmethod=syntax
-
 
 " Make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
-
-" Automatically remove all trailing spaces
-au BufWritePre * :%s/\s\+$//e
 
 " Extend % to match not only braces
 runtime macros/matchit.vim
@@ -133,20 +131,39 @@ match ErrorMsg '\%>120v.\+'
 match ErrorMsg '\s\+$'
 
 " KEYS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = "\<SPACE>"
+let mapleader=','
 
 " Move between buffers
 nmap <S-left> :bprev<CR>
 nmap <S-right> :bnext<CR>
+
 " window resizing with plus/minus keys
-if bufwinnr(1)
-    map + <C-W>+
-    map - <C-W>-
-endif
+map + <C-W>+
+map - <C-W>-
+
+" Change indent continuously
+vmap < <gv
+vmap > >gv
 
 " You'll be able to move selected block up/down in Visual block mode.
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+"""""" space vim. ;-)
+" ',gf' opens file under cursor in a new vertical split
+nnoremap <leader>gf :vertical wincmd f<CR>
+" ',fw' find word under cursor
+nnoremap <leader>fw :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+nnoremap <leader>ff :find
+
+"" Create the `tags` file (may need to install ctags first)
+"" - Use ^] to jump to tag under cursor
+"" - Use g^] for ambiguous tags
+"" - Use ^t to jump back up the tag stack
+"command! MakeTags !ctags -R .
+"" Remap tags, not easy in a spanish keyboard
+"nnoremap <leader>t <C-]>
+"nnoremap <leader>b <C-T>
 
 " Usar netrw en lugar de NERDTree
 "let g:netrw_banner = 0
@@ -162,22 +179,12 @@ nmap <F5> :YcmCompleter FixIt<CR>
 nmap <F6> :YcmCompleter GetType<CR>
 nmap <F7> :Vexplore<CR>
 nmap <F8> :TagbarToggle<CR>
-nmap <F9> :Ack <cword> .<CR>
-nmap <F10> :Ack "FIXME\|TODO" .<CR>
+nmap <F10> :execute "noautocmd vimgrep /TODO/j **" <Bar> cw<CR>
 
 " space open/closes folds
 nnoremap <space> za
 
 " ---------- Python
-py3 << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
-
 let python_highlight_all=1
 " PEP8 Code Style
 au BufRead,BufNewFile *.py set textwidth=79 shiftwidth=4 tabstop=4 expandtab softtabstop=4 shiftround autoindent
@@ -192,6 +199,8 @@ au BufNewFile,BufReadPost *.json set filetype=javascript
 au BufNewFile,BufReadPost *.h set filetype=cpp
 au BufNewFile,BufReadPost *.ino set filetype=cpp
 au BufNewFile,BufReadPost *.pde set filetype=cpp
+au FileType cpp set keywordprg=cppman
+
 
 " ---------- lisp
 au BufNewFile,BufReadPost .spacemacs set filetype=lisp
