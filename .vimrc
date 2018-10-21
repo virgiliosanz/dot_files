@@ -90,6 +90,7 @@ set smarttab
 set viminfo='100,f1
 set visualbell
 
+set path+=**
 set wildmenu
 set wildmode=list:longest
 set wildignore=*.o,*~,*.pyc,**/.git/**
@@ -112,11 +113,10 @@ set history=1000
 
 " Folding
 set foldenable
-set foldlevelstart=10
-set foldnestmax=10
-"set foldmethod=indent
+"set foldlevel=1
+"set foldlevelstart=1
+"set foldnestmax=1
 set foldmethod=syntax
-
 
 " Make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
@@ -131,23 +131,39 @@ match ErrorMsg '\%>120v.\+'
 match ErrorMsg '\s\+$'
 
 " KEYS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = "\<SPACE>"
+let mapleader=','
 
 " Move between buffers
 nmap <S-left> :bprev<CR>
 nmap <S-right> :bnext<CR>
+
 " window resizing with plus/minus keys
 map + <C-W>+
 map - <C-W>-
+
+" Change indent continuously
+vmap < <gv
+vmap > >gv
 
 " You'll be able to move selected block up/down in Visual block mode.
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" 'gf' opens file under cursor in a new vertical split
-nnoremap gf :vertical wincmd f<CR>
-" 'fw' find word under cursor
-nnoremap fw :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+"""""" space vim. ;-)
+" ',gf' opens file under cursor in a new vertical split
+nnoremap <leader>gf :vertical wincmd f<CR>
+" ',fw' find word under cursor
+nnoremap <leader>fw :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+nnoremap <leader>ff :find
+
+"" Create the `tags` file (may need to install ctags first)
+"" - Use ^] to jump to tag under cursor
+"" - Use g^] for ambiguous tags
+"" - Use ^t to jump back up the tag stack
+"command! MakeTags !ctags -R .
+"" Remap tags, not easy in a spanish keyboard
+"nnoremap <leader>t <C-]>
+"nnoremap <leader>b <C-T>
 
 " Usar netrw en lugar de NERDTree
 "let g:netrw_banner = 0
@@ -163,8 +179,7 @@ nmap <F5> :YcmCompleter FixIt<CR>
 nmap <F6> :YcmCompleter GetType<CR>
 nmap <F7> :Vexplore<CR>
 nmap <F8> :TagbarToggle<CR>
-nmap <F9> :Ack <cword> .<CR>
-nmap <F10> :Ack "FIXME\|TODO" .<CR>
+nmap <F10> :execute "noautocmd vimgrep /TODO/j **" <Bar> cw<CR>
 
 " space open/closes folds
 nnoremap <space> za
