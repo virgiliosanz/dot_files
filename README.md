@@ -30,6 +30,12 @@ bash-it enable plugin ssh python osx less-pretty-cat git base alias-completion
 bash-it enable completion defaults git pip ssh system vagrant
 bash-it enable alias general osx
 
+FISH
+=====
+If you want to use fish instead... do:
+
+cp config.fish ~/.config/fish/config.fish
+
 
 Otros
 ======
