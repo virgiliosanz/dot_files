@@ -2,9 +2,9 @@ set nocompatible
 
 " Load vim-plug
 if empty(glob("~/.vim/autoload/plug.vim"))
-	execute '!mkdir -p ~/.vim/plugged'
-	execute '!mkdir -p ~/.vim/autoload'
-	execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+    execute '!mkdir -p ~/.vim/plugged'
+    execute '!mkdir -p ~/.vim/autoload'
+    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
@@ -17,8 +17,9 @@ Plug 'jiangmiao/auto-pairs'
 
 "Plug 'editorconfig/editorconfig-vim'
 Plug 'chiel92/vim-autoformat'
+
 " Autoformat on save
-au BufWrite * :Autoformat
+"au BufWrite * :Autoformat
 " Automatically remove all trailing spaces
 au BufWritePre * :%s/\s\+$//e
 
@@ -28,8 +29,8 @@ Plug 'sheerun/vim-polyglot'
 " YouCompleteMe: https://wiki.archlinux.org/index.php/Vim/YouCompleteMe
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer' }
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_min_num_of_chars_for_completion = 0
-let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_min_num_identifier_candidate_chars = 1
 let g:ycm_max_num_candidates = 20
 let g:ycm_auto_trigger = 1
 let g:ycm_confirm_extra_conf = 0
@@ -47,8 +48,8 @@ set t_Co=256
 "colorscheme Molokai
 "colorscheme wombat256
 "colorscheme zenburn
-"colorscheme Jellybeans
-colorscheme colorsbox-material
+colorscheme jellybeans
+"colorscheme colorsbox-material
 "colorscheme badwolf
 
 syntax enable
