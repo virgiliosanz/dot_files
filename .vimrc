@@ -166,6 +166,8 @@ nnoremap <leader>td :execute "noautocmd vimgrep /TODO/j **" <Bar> cw<CR>
 nnoremap <leader>ff :find
 " Open netrw = File Explore
 nnoremap <leader>fe :vexplore<CR>
+" move to buffer
+nnoremap <leader>bb :buffer
 
 "" Create the `tags` file (may need to install ctags first)
 "" Remap tags, not easy in a spanish keyboard
@@ -177,7 +179,6 @@ nnoremap <leader>tb <C-T>
 " Tag Selection: Jump to Definition
 "nnoremap <leader>ts :tselect<CR>
 nnoremap <leader>ts :ltag <c-r>=expand("<cword>")<cr><bar>lwindow<CR>
-
 " Open symbol Explorer
 nnoremap <leader>tt :TagbarToggle<CR>
 
@@ -187,7 +188,7 @@ nnoremap <leader>yf :YcmCompleter FixIt<CR>
 nnoremap <leader>yt :YcmCompleter GetType<CR>
 
 " WhichKey
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <leader><leader> :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
 set notimeout
 " By default timeoutlen is 1000 ms
