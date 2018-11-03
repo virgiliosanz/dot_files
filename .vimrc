@@ -19,7 +19,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'chiel92/vim-autoformat'
 
 " Autoformat on save
-au BufWrite * :Autoformat
+"au BufWrite * :Autoformat
 " Automatically remove all trailing spaces
 au BufWritePre * :%s/\s\+$//e
 
