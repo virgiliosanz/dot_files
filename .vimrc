@@ -34,6 +34,8 @@ let g:ycm_max_num_candidates = 20
 let g:ycm_auto_trigger = 1
 let g:ycm_confirm_extra_conf = 0
 
+Plug 'liuchengxu/vim-which-key'
+
 call plug#end()
 
 filetype plugin indent on
@@ -65,6 +67,7 @@ set cursorcolumn
 set rnu
 set nu
 set encoding=utf8
+set fileencoding=utf-8
 set ffs=unix,mac,dos
 set incsearch
 set nohlsearch
@@ -130,7 +133,8 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 
 " KEYS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader=' '
+let g:mapleader=' '
+let g:maplocalleader=','
 
 " Move between buffers
 nmap <S-left> :bprev<CR>
@@ -139,12 +143,9 @@ nmap <S-right> :bnext<CR>
 " window resizing with plus/minus keys
 map + <C-W>+
 map - <C-W>-
-
-" Change indent continuously
-vmap < <gv
-vmap > >gv
-
-" Autoformat
+" Split window horizontal & vertical
+map _ <C-W>s
+map \| <C-W>v
 
 " You'll be able to move selected block up/down in Visual block mode.
 vnoremap J :m '>+1<CR>gv=gv
@@ -180,10 +181,21 @@ nnoremap <leader>ts :ltag <c-r>=expand("<cword>")<cr><bar>lwindow<CR>
 nnoremap <leader>tt :TagbarToggle<CR>
 
 " YouCompleteMe
-noremap <leader>yg :YcmCompleter GoTo<CR>
-noremap <leader>yf :YcmCompleter FixIt<CR>
-noremap <leader>yt :YcmCompleter GetType<CR>
+nnoremap <leader>yg :YcmCompleter GoTo<CR>
+nnoremap <leader>yf :YcmCompleter FixIt<CR>
+nnoremap <leader>yt :YcmCompleter GetType<CR>
 
+" WhichKey
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
+set notimeout
+" By default timeoutlen is 1000 ms
+set timeoutlen=500
+
+" Spell
+nnoremap <leader>se :setlocal spell!  spelllang=en_uk<CR>
+nnoremap <leader>ss :setlocal spell!  spelllang=es_es<CR>
+nnoremap <leader>sn :setlocal nospell!<CR>
 
 " ---------- Python
 let python_highlight_all=1
@@ -192,6 +204,7 @@ au BufRead,BufNewFile *.py set textwidth=79 shiftwidth=4 tabstop=4 expandtab sof
 
 " ---------- HTML
 au BufRead,BufNewFile *.html set textwidth=120 tabstop=2
+autocmd FileType inoremap <leader>i <em></em><Space><++><Esc>Fet>i
 
 " ---------- Javascript
 au BufNewFile,BufReadPost *.json set filetype=javascript
