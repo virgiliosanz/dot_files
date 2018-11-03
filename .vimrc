@@ -26,15 +26,6 @@ au BufWritePre * :%s/\s\+$//e
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
 
-"Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'mileszs/ack.vim'
-"if executable('ag')
-"  let g:ackprg = 'ag --vimgrep'
-"endif
-
-" Asynchronous Lint Engine
-"Plug 'w0rp/ale'
-
 " YouCompleteMe: https://wiki.archlinux.org/index.php/Vim/YouCompleteMe
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer' }
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
@@ -43,7 +34,6 @@ let g:ycm_min_num_identifier_candidate_chars = 1
 let g:ycm_max_num_candidates = 20
 let g:ycm_auto_trigger = 1
 let g:ycm_confirm_extra_conf = 0
-
 
 call plug#end()
 
@@ -112,11 +102,13 @@ set hidden
 set history=1000
 
 " Folding
-set foldenable
-"set foldlevel=1
-"set foldlevelstart=1
-"set foldnestmax=1
-set foldmethod=syntax
+"set foldenable
+""set foldlevel=1
+""set foldlevelstart=1
+""set foldnestmax=1
+"set foldmethod=syntax
+"" space open/closes folds
+"nnoremap <space> za
 
 " Make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
@@ -130,8 +122,16 @@ runtime macros/matchit.vim
 match ErrorMsg '\%>120v.\+'
 match ErrorMsg '\s\+$'
 
+" Usar netrw en lugar de NERDTree
+"let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+"let g:netrw_browse_split = 4
+let g:netrw_browse_split = 0
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
 " KEYS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader=','
+let mapleader=' '
 
 " Move between buffers
 nmap <S-left> :bprev<CR>
@@ -145,44 +145,46 @@ map - <C-W>-
 vmap < <gv
 vmap > >gv
 
+" Autoformat
+
 " You'll be able to move selected block up/down in Visual block mode.
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-"""""" space vim. ;-)
-" ',gf' opens file under cursor in a new vertical split
+"""""""""""""""""""""""""" space vim. ;-)
+" Autoformat
+nnoremap <leader>af :Autoformat<CR>
+
+" Opens file under cursor in a new vertical split
 nnoremap <leader>gf :vertical wincmd f<CR>
-" ',fw' find word under cursor
+" Find word under cursor
 nnoremap <leader>fw :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+" find TODO in project
+nnoremap <leader>td :execute "noautocmd vimgrep /TODO/j **" <Bar> cw<CR>
+" Find File in project
 nnoremap <leader>ff :find
+" Open netrw = File Explore
+nnoremap <leader>fe :vexplore<CR>
 
 "" Create the `tags` file (may need to install ctags first)
-"" - Use ^] to jump to tag under cursor
-"" - Use g^] for ambiguous tags
-"" - Use ^t to jump back up the tag stack
-"command! MakeTags !ctags -R .
 "" Remap tags, not easy in a spanish keyboard
-"nnoremap <leader>t <C-]>
-"nnoremap <leader>b <C-T>
+command! MakeTags !ctags -R .
+"" - Use ^] to jump to tag under cursor
+nnoremap <leader>tj <C-]>
+"" - Use ^t to jump back up the tag stack
+nnoremap <leader>tb <C-T>
+" Tag Selection: Jump to Definition
+"nnoremap <leader>ts :tselect<CR>
+nnoremap <leader>ts :ltag <c-r>=expand("<cword>")<cr><bar>lwindow<CR>
 
-" Usar netrw en lugar de NERDTree
-"let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-"let g:netrw_browse_split = 4
-let g:netrw_browse_split = 0
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
+" Open symbol Explorer
+nnoremap <leader>tt :TagbarToggle<CR>
 
-nmap <F3> :Autoformat<CR>
-nmap <F4> :YcmCompleter GoTo<CR>
-nmap <F5> :YcmCompleter FixIt<CR>
-nmap <F6> :YcmCompleter GetType<CR>
-nmap <F7> :Vexplore<CR>
-nmap <F8> :TagbarToggle<CR>
-nmap <F10> :execute "noautocmd vimgrep /TODO/j **" <Bar> cw<CR>
+" YouCompleteMe
+noremap <leader>yg :YcmCompleter GoTo<CR>
+noremap <leader>yf :YcmCompleter FixIt<CR>
+noremap <leader>yt :YcmCompleter GetType<CR>
 
-" space open/closes folds
-nnoremap <space> za
 
 " ---------- Python
 let python_highlight_all=1
@@ -200,7 +202,6 @@ au BufNewFile,BufReadPost *.h set filetype=cpp
 au BufNewFile,BufReadPost *.ino set filetype=cpp
 au BufNewFile,BufReadPost *.pde set filetype=cpp
 au FileType cpp set keywordprg=cppman
-
 
 " ---------- lisp
 au BufNewFile,BufReadPost .spacemacs set filetype=lisp
