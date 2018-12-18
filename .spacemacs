@@ -31,12 +31,12 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     yaml
-     python
-     javascript
+     ;; yaml
+     ;; python
+     ;; javascript
      ;; markdown
      ;; yaml
-     html
+     ;; html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -52,7 +52,7 @@ values."
      ;;rust
 
      ;;ivy
-     helm
+     ;; helm
 
      (auto-completion :variables
                       auto-completion-enable-help-tooltip t)
@@ -83,14 +83,14 @@ values."
 
      ;; emacs-lisp
      (c-c++ :variables
-             c-c++-default-mode-for-headers 'c++-mode
-             c-c++-enable-clang-format-on-save t
-             c-c++-default-mode-for-headers 'c++-mode
-             c-c++-clang-enable-support t)
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-enable-clang-format-on-save t
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-clang-enable-support t)
      ycmd
 
-     syntax-checking
-     semantic
+     ;;syntax-checking
+     ;;semantic
 
      (osx :variables osx-use-option-as-meta nil)
      )
@@ -369,7 +369,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
 ;; formatted-copy on OSX!
 ;; TODO: Generalize for unix & windows
-(defun org/formatted-copy ()
+(defun osx/formatted-copy ()
   "Export region to HTML, and copy it to the clipboard."
   (interactive)
   (save-window-excursion
@@ -381,6 +381,32 @@ before packages are loaded. If you are unsure, you should try in setting them in
          (point-max)
          "textutil -stdin -format html -convert rtf -stdout |pbcopy"))
       (kill-buffer buf))))
+
+;; adapted from [[https://vmtyler.com/applescript-markdown-ready-screenshots/][AppleScript Markdown-Ready Screenshots | VMTyler.com]]
+(defun osx/screenshot (&optional arg)
+  "Take a screenshot and insert org link.
+with prefix arg, minimize emacs first.
+Only works on Mac OSX."
+  (interactive "P")
+  (when arg
+    (suspend-frame))
+
+  (unless (f-directory? "screenshots")
+    (make-directory "screenshots"))
+  (sit-for 0.2)
+
+  (let ((fname (concat (format-time-string "date-%d-%m-%Y-time-%H-%M-%S" (current-time)) ".png")))
+    (do-applescript
+     (mapconcat
+      'identity
+      (list (format "set screenshotFilePath to \"%s\"" (expand-file-name fname "screenshots"))
+        "do shell script \"screencapture \" & \"-s\" & \" \" & quoted form of screenshotFilePath"
+        (concat "set result to \"[[./" fname "]]\"")
+        "set the clipboard to result")
+      "\n"))
+    (insert (format "\n\n#+attr_org: :width 300\n[[./%s]]\n\n" (concat "screenshots/" fname)))
+    (org-redisplay-inline-images)
+    (raise-frame)))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -414,12 +440,12 @@ you should place your code here."
   ;;(editorconfig-mode 1)
 
   ;; IDO
-  (setq ido-everywhere t)
-  (setq ido-max-directory-size 100000)
-  (ido-mode (quote both))
-  ;; Use the current window when visiting files and buffers with ido
-  (setq ido-default-file-method 'selected-window)
-  (setq ido-default-buffer-method 'selected-window)
+  ;; (setq ido-everywhere t)
+  ;; (setq ido-max-directory-size 100000)
+  ;; (ido-mode (quote both))
+  ;; ;; Use the current window when visiting files and buffers with ido
+  ;; (setq ido-default-file-method 'selected-window)
+  ;; (setq ido-default-buffer-method 'selected-window)
 
   ;;;;;;;;; C++ & ycmd
   (add-hook 'c-mode-hook 'ycmd-mode)
@@ -432,7 +458,6 @@ you should place your code here."
   (add-hook 'c++-mode-hook 'clang-format-bindings)
   (defun clang-format-bindings ()
     (define-key c++-mode-map [tab] 'clang-format-buffer))
-
   (add-to-list 'auto-mode-alist '("\\.ino\\'" . c++-mode))
 
 
@@ -440,11 +465,12 @@ you should place your code here."
   (spacemacs/declare-prefix "o" "Org Mode")
   (spacemacs/set-leader-keys "oa" 'org-agenda)
   (spacemacs/set-leader-keys "ot" 'org-todo-list)
-  (spacemacs/set-leader-keys "ol" 'org-store-link)
+  ;;(spacemacs/set-leader-keys "ol" 'org-store-link)
   (spacemacs/set-leader-keys "oc" 'org-capture)
   (spacemacs/set-leader-keys "os" 'org-search-view)
   (spacemacs/set-leader-keys "om" 'org-mac-grab-link)
-  (spacemacs/set-leader-keys "ok" 'org/formatted-copy)
+  (spacemacs/set-leader-keys "ok" 'osx/formatted-copy)
+  (spacemacs/set-leader-keys "og" 'osx/screshoot)
 
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-capture)
@@ -458,6 +484,7 @@ you should place your code here."
     (add-to-list 'org-modules 'org-journal)
     (add-to-list 'org-modules 'org-agenda)
     (add-to-list 'org-modules 'org-pdfview)
+    (add-to-list 'org-modules 'org-download)
 
     (defadvice org-capture
         (after make-full-window-frame activate)
@@ -566,10 +593,10 @@ you should place your code here."
     ;; Use the current window for indirect buffer display
     (setq org-indirect-buffer-display 'current-window)
 
-  ;;; org-mac integration
+    ;; org-mac integration
     (setq org-agenda-include-diary t)
 
-  ;; Org-agenda custom commands
+    ;; Org-agenda custom commands
     (setq org-agenda-custom-commands '(("o" "At the Office" tags-todo "@office")
                                       ("c" "At Computer" tags-todo "@computer")
                                       ("h" "At Home" tags-todo "@home")
@@ -633,23 +660,17 @@ you should place your code here."
   (x-focus-frame nil)
   ;; https://medium.com/@bobbypriambodo/blazingly-fast-spacemacs-with-persistent-server-92260f2118b7
   (evil-leader/set-key "q q" 'spacemacs/frame-killer))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
- '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (parent-mode flx treepy graphql anzu diminish pkg-info request pos-tip bind-map auto-complete popup go-guru go-eldoc company-go go-mode pythonic transpose-frame rainbow-mode helm-org-rifle eval-in-repl paredit log4e gntp mmm-mode markdown-toc markdown-mode gh-md helm-themes flyspell-correct-ivy counsel swiper ivy flyspell-popup flyspell-correct-helm flyspell-correct auto-dictionary yaml-mode highlight epl web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data org-mime smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup ghub auctex-latexmk stickyfunc-enhance srefactor git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl request-deferred deferred auctex bind-key powerline org-category-capture alert projectile packed avy anaconda-mode dash-functional iedit smartparens evil goto-chg ycmd flycheck yasnippet company helm helm-core async org-plus-contrib hydra f dash s web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern coffee-mode helm-thttps://skebanga\.github\.io/rtags-with-cmake-in-spacemacs/hemes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag ace-jump-helm-line zonokai-theme zenburn-theme zen-and-art-theme yapfify xterm-color ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex shell-pop seti-theme reverse-theme reveal-in-osx-finder restart-emacs rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy pastels-on-dark-theme paradox ox-gfm osx-trash osx-dictionary organic-green-theme org-projectile org-present org-pomodoro org-pdfview org-mac-iCal org-journal org-download org-dotemacs org-dashboard org-cliplink org-caldav org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme macrostep lush-theme lorem-ipsum live-py-mode linum-relative link-hint light-soap-theme launchctl jbeans-theme jazz-theme ivy-hydra ir-black-theme inkpot-theme info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-make hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gandalf-theme fuzzy flycheck-ycmd flycheck-pos-tip flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump dracula-theme django-theme disaster darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile company-ycmd company-statistics company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized cmake-mode clues-theme clean-aindent-mode clang-format cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ac-ispell)))
- '(paradox-github-token t))
+    (disaster company-ycmd ycmd request-deferred deferred company-c-headers cmake-mode clang-format ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters popwin persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit org-present org-pomodoro org-mime org-download org-cliplink org-bullets open-junk-file neotree mwim move-text magit-gitflow lorem-ipsum linum-relative link-hint launchctl indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy flyspell-popup flyspell-correct-helm flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump diminish diff-hl company-statistics company-quickhelp company-auctex column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:foreground "#DCDCCC" :background "#313131")))))
+ )

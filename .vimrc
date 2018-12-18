@@ -16,8 +16,8 @@ Plug 'vim-scripts/Smart-Tabs'
 Plug 'jiangmiao/auto-pairs'
 
 "Plug 'editorconfig/editorconfig-vim'
-Plug 'chiel92/vim-autoformat'
 
+Plug 'chiel92/vim-autoformat'
 " Autoformat on save
 "au BufWrite * :Autoformat
 " Automatically remove all trailing spaces
@@ -36,6 +36,9 @@ let g:ycm_auto_trigger = 1
 let g:ycm_confirm_extra_conf = 0
 
 Plug 'liuchengxu/vim-which-key'
+Plug 'kien/ctrlp.vim'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
 
 call plug#end()
 
@@ -155,6 +158,11 @@ vnoremap K :m '<-2<CR>gv=gv
 """""""""""""""""""""""""" space vim. ;-)
 " Autoformat
 nnoremap <leader>af :Autoformat<CR>
+au BufWritePre *.cpp :Autoformat<CR>
+au BufWritePre *.c :Autoformat<CR>
+au BufWritePre *.h :Autoformat<CR>
+au BufWritePre *.py :Autoformat<CR>
+
 
 " Opens file under cursor in a new vertical split
 nnoremap <leader>gf :vertical wincmd f<CR>
@@ -215,7 +223,10 @@ au BufNewFile,BufReadPost *.json set filetype=javascript
 au BufNewFile,BufReadPost *.h set filetype=cpp
 au BufNewFile,BufReadPost *.ino set filetype=cpp
 au BufNewFile,BufReadPost *.pde set filetype=cpp
-au FileType cpp set keywordprg=cppman
+au FileType cpp set keywordprg=cppman ts=4
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
 
 " ---------- lisp
 au BufNewFile,BufReadPost .spacemacs set filetype=lisp
