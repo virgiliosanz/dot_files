@@ -19,7 +19,7 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'chiel92/vim-autoformat'
 " Autoformat on save
-"au BufWrite * :Autoformat
+au BufWrite * :Autoformat
 " Automatically remove all trailing spaces
 au BufWritePre * :%s/\s\+$//e
 
@@ -34,10 +34,13 @@ let g:ycm_min_num_identifier_candidate_chars = 1
 let g:ycm_max_num_candidates = 20
 let g:ycm_auto_trigger = 1
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_server_log_level = 'debug'
 
 Plug 'liuchengxu/vim-which-key'
 Plug 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_working_path_mode = 'ra'
+
 
 
 call plug#end()
@@ -93,6 +96,8 @@ set wildignore=*.o,*~,*.pyc,**/.git/**
 set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*
 set wildignore+=*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls
 set wildignore+=*/.fdb*/,*/.toc,*/.out,*/.glo,*/.log,*/.ist,*/.fdb_latexmk,*~
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 set wrap
 set textwidth=80
@@ -129,12 +134,23 @@ match ErrorMsg '\%>120v.\+'
 match ErrorMsg '\s\+$'
 
 " Usar netrw en lugar de NERDTree
-"let g:netrw_banner = 0
+" https://shapeshed.com/vim-netrw/
+let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-"let g:netrw_browse_split = 4
+"  *g:netrw_browse_split*    when browsing, <cr> will open the file by:
+"                =0: re-using the same window  (default)
+"                =1: horizontally splitting the window first
+"                =2: vertically   splitting the window first
+"                =3: open file in new tab
+"                =4: act like "P" (ie. open previous window)
 let g:netrw_browse_split = 0
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
+
 
 " KEYS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:mapleader=' '
@@ -163,7 +179,6 @@ au BufWritePre *.c :Autoformat<CR>
 au BufWritePre *.h :Autoformat<CR>
 au BufWritePre *.py :Autoformat<CR>
 
-
 " Opens file under cursor in a new vertical split
 nnoremap <leader>gf :vertical wincmd f<CR>
 " Find word under cursor
@@ -173,7 +188,8 @@ nnoremap <leader>td :execute "noautocmd vimgrep /TODO/j **" <Bar> cw<CR>
 " Find File in project
 nnoremap <leader>ff :find
 " Open netrw = File Explore
-nnoremap <leader>fe :vexplore<CR>
+"nnoremap <leader>fe :Vexplore<CR>
+nnoremap <leader>fe :Lexplore<CR>
 " move to buffer
 nnoremap <leader>bb :buffer
 
@@ -189,6 +205,8 @@ nnoremap <leader>tb <C-T>
 nnoremap <leader>ts :ltag <c-r>=expand("<cword>")<cr><bar>lwindow<CR>
 " Open symbol Explorer
 nnoremap <leader>tt :TagbarToggle<CR>
+let g:tagbar_foldlevel = 2
+
 
 " YouCompleteMe
 nnoremap <leader>yg :YcmCompleter GoTo<CR>
@@ -223,7 +241,7 @@ au BufNewFile,BufReadPost *.json set filetype=javascript
 au BufNewFile,BufReadPost *.h set filetype=cpp
 au BufNewFile,BufReadPost *.ino set filetype=cpp
 au BufNewFile,BufReadPost *.pde set filetype=cpp
-au FileType cpp set keywordprg=cppman ts=4
+au FileType cpp set keywordprg=cppman ts=8
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0

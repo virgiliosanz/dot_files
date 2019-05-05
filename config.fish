@@ -8,9 +8,6 @@ set gray (set_color -o black)
 
 # Environment
 env TERM=screen command
-set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
-# set -g fish_user_paths "/Applications/Julia-1.0.app/Contents/Resources/julia/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
 
 # Some hard brain commands
 #abbr -a -- - 'cd -'
@@ -44,3 +41,15 @@ function fish_prompt
 
         set_color normal
 end
+
+set -g fish_user_paths "/usr/local/opt/sqlite/bin" $fish_user_paths
+set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
+set -g fish_user_paths "/opt/local/bin" $fish_user_paths
+set -g fish_user_paths "~/Library/Python/2.7/bin" $fish_user_paths
+set -g fish_user_paths "~/Bin" $fish_user_paths
+
+# Algunas variables
+set -gx EDITOR vim
+set -gx WORKON_HOME "~/virtualenvs"
+set -gx VIRTUALENVWRAPPER_HOOK_DIR $WORKON_HOME/hooks
+
