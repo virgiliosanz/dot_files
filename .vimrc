@@ -25,15 +25,17 @@ au BufWritePre * :%s/\s\+$//e
 
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
+let g:csv_no_conceal = 1
+
 
 " YouCompleteMe: https://wiki.archlinux.org/index.php/Vim/YouCompleteMe
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python ./install.py --clang-completer --rust-completer' }
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_min_num_identifier_candidate_chars = 1
 let g:ycm_max_num_candidates = 20
 let g:ycm_auto_trigger = 1
-let g:ycm_confirm_extra_conf = 0
+let g:ycm_confirm_extra_conf = 1
 let g:ycm_server_log_level = 'debug'
 
 Plug 'liuchengxu/vim-which-key'
@@ -42,6 +44,10 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_working_path_mode = 'ra'
 
 
+Plug 'rust-lang/rust.vim'
+let g:rustfmt_autosave = 1
+
+" https://github.com/alok/notational-fzf-vim
 
 call plug#end()
 
@@ -123,8 +129,8 @@ set history=1000
 
 " Make vim save and load the folding of the document each time it loads
 " also places the cursor in the last place that it was left.
-au BufWinLeave * mkview
-au BufWinEnter * silent loadview
+au BufWinLeave ?* mkview
+au BufWinEnter ?* silent loadview
 
 " Extend % to match not only braces
 runtime macros/matchit.vim

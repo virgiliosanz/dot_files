@@ -31,59 +31,61 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     csv
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;;
-     ;; python
+     ;;(spell-checking :variables
+     ;;               spell-checking-enable-auto-dictionary t
+     ;;               enable-flyspell-auto-completion t)
+
+     org
+     ;;(mu4e :variables mu4e-installation-path " /usr/local/share/emacs/site-lisp/")
+     ;;finance
+
+     ;;(shell :variables
+     ;;       shell-default-height 30
+     ;;       shell-default-position 'bottom)
+     ;;shell-scripts-packages
+
+     syntax-checking
+     semantic
+
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t)
+     smex
+
+     git
+     (version-control :variables
+                      version-control-diff-tool 'diff-hl
+                      version-control-global-margin t)
+
      ;; yaml
      ;; javascript
      ;; markdown
-     ;; yaml
      ;; html
-     ;; javascript
-     ;; html
+     better-defaults
      ;; (python :variables
-     ;;         python-sort-imports-on-save t
-     ;;         python-enable-yapf-format-on-save t
-     ;;         python-fill-column 99)
+     ;;        python-sort-imports-on-save t
+     ;;        python-enable-yapf-format-on-save t
+     ;;        python-fill-column 99)
      ;; go
      ;; rust
-     ;; latex
-     ;;(c-c++ :variables
+     ;;latex
+     ;; (c-c++ :variables
      ;;       c-c++-default-mode-for-headers 'c++-mode
      ;;       c-c++-enable-clang-format-on-save t
      ;;       c-c++-default-mode-for-headers 'c++-mode
      ;;       c-c++-clang-enable-support t)
-     ;;ycmd
+     ;; ycmd
+     ;;
+     ;; vimscript
 
      emacs-lisp
-
-     (auto-completion :variables
-                      auto-completion-enable-help-tooltip t)
-     better-defaults
-
-     ;;git
-     ;;(version-control :variables
-     ;;                 version-control-diff-tool 'diff-hl
-     ;;                 version-control-global-margin t)
-
-     ;;(spell-checking :variables
-     ;;                spell-checking-enable-auto-dictionary t
-     ;;                enable-flyspell-auto-completion t)
-
-     org
-     (mu4e :variables mu4e-installation-path " /usr/local/share/emacs/site-lisp/")
-
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     ;;shell-scripts
-
-     ;;syntax-checking
-     ;;semantic
+     ;;restclient
 
      (osx :variables osx-use-option-as-meta nil)
      )
@@ -92,7 +94,10 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    ;;dotspacemacs-additional-packages '()
-   dotspacemacs-additional-packages '(org-cliplink guess-language)
+   dotspacemacs-additional-packages '(
+                                      org-cliplink
+                                      guess-language
+                                      excorporate)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -124,7 +129,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https nil
+   dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -151,7 +156,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner nil
+   dotspacemacs-startup-banner 'official
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -190,7 +195,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Monaco"
-                               :size 13
+                               :size 11
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -327,7 +332,7 @@ values."
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis t
+   dotspacemacs-smart-closing-parenthesis nil
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -406,20 +411,13 @@ you should place your code here."
   ;; Editor Config
   ;;(editorconfig-mode 1)
 
-  ;; IDO
-  ;; (setq ido-everywhere t)
-  ;; (setq ido-max-directory-size 100000)
-  ;; (ido-mode (quote both))
-  ;; ;; Use the current window when visiting files and buffers with ido
-  ;; (setq ido-default-file-method 'selected-window)
-  ;; (setq ido-default-buffer-method 'selected-window)
-
   ;;;;;;;;; C++ & ycmd
-  ;; (add-hook 'c-mode-hook 'ycmd-mode)
-  ;; (add-hook 'c++-mode-hook 'ycmd-mode)
-  ;; (setq ycmd-server-command (list "python3" (file-truename "~/.emacs.d/ycmd/ycmd/")))
-  ;; (setq ycmd-force-semantic-completion t)
-  ;; (setq ycmd-startup-timeout 15)
+  ;;(add-hook 'c-mode-hook 'ycmd-mode)
+  ;;(add-hook 'c++-mode-hook 'ycmd-mode)
+;;  (setq ycmd-server-command (list "python3" (file-truename "~/.emacs.d/ycmd/ycmd/")))
+  ;;(setq ycmd-server-command (list "python" (file-truename "~/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/")))
+  ;;(setq ycmd-force-semantic-completion t)
+  ;;(setq ycmd-startup-timeout 15)
 
   ;;(global-set-key [C-tab] 'clang-format-region)
   ;; (add-hook 'c++-mode-hook 'clang-format-bindings)
@@ -432,28 +430,34 @@ you should place your code here."
   (spacemacs/declare-prefix "o" "Org Mode")
   (spacemacs/set-leader-keys "oa" 'org-agenda)
   (spacemacs/set-leader-keys "ot" 'org-todo-list)
-  ;;(spacemacs/set-leader-keys "ol" 'org-store-link)
   (spacemacs/set-leader-keys "oc" 'org-capture)
   (spacemacs/set-leader-keys "os" 'org-search-view)
   (spacemacs/set-leader-keys "om" 'org-mac-grab-link)
   (spacemacs/set-leader-keys "ok" 'osx/formatted-copy)
   (spacemacs/set-leader-keys "og" 'org-download-screenshot)
   (spacemacs/set-leader-keys "oi" 'org-mac-iCal)
+  (spacemacs/set-leader-keys "ol" 'org-toggle-link-display)
 
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-capture)
     (add-to-list 'org-modules 'org-habit)
-    (add-to-list 'org-modules 'org-caldav)
+    ;;  (add-to-list 'org-modules 'org-caldav)
     (add-to-list 'org-modules 'org-mac-iCal)
     (add-to-list 'org-modules 'org-protocol)
     (add-to-list 'org-modules 'org-cliplink)
     (add-to-list 'org-modules 'org-dashboard)
-    (add-to-list 'org-modules 'org-mac-link)
     (add-to-list 'org-modules 'org-journal)
     (add-to-list 'org-modules 'org-agenda)
-    (add-to-list 'org-modules 'org-pdfview)
+    ;; (add-to-list 'org-modules 'org-pdfview)
     (add-to-list 'org-modules 'org-download)
 
+    ;; Mac
+    (if (equal system-type 'darwin)
+        (setq org-download-screenshot-method "/usr/sbin/screencapture -i %s")
+      (add-to-list 'org-modules 'org-mac-link))
+
+
+    (add-to-list 'org-file-apps '("\\.xls\\'" . default))
 
     (defadvice org-capture
         (after make-full-window-frame activate)
@@ -468,37 +472,29 @@ you should place your code here."
           (delete-frame)))
 
     (setq org-agenda-files '("~/CloudStation/Org"))
-;;    (setq org-agenda-text-search-extra-files '(agenda-archives
-;;                                               "~/CloudStation/Org/inbox.org"))
+    ;;    (setq org-agenda-text-search-extra-files '(agenda-archives
+    ;;                                               "~/CloudStation/Org/inbox.org"))
     (setq org-directory "~/CloudStation/Org")
     (setq org-default-notes-file "~/CloudStation/Org/inbox.org")
     ;; (setq org-archive-location (concat "archive/archive-"
     ;;                                    (format-time-string "%Y" (current-time))
     ;;                                    ".org_archive::"))
+    (setq org-archive-location "%s_archive::")
 
 
     (setq org-highest-priority ?A)
     (setq org-lowest-priority ?C)
     (setq org-default-priority ?B)
 
-    (setq org-todo-keywords '((sequence "TODO(t!)" "NEXT(n!)" "|" "DONE(d!)")
-                              (sequence "WAITING(w!)" "|" "DONE(d!)")
-                              (sequence "HOLD(h!)" "|" "DONE(d!)")
-                              (sequence "|" "CANCELLED(c!)")
-                              (sequence "|" "MEETING(m!)")
-                              (sequence "PROJECT(p!)" "|" "DONE(d!)")
-                              (sequence "OPPORTUNITY(o!)" "|" "DONE(d!)")))
+    (setq org-todo-keywords '((sequence "TODO(t!)" "NEXT(n!)" "|" "DONE(d!)" "CANCELLED(c!)")
+                              (sequence "WAITING(w!)" "|" "DONE(d!)" "CANCELLED(c!)")))
 
     (setq org-todo-keyword-faces
           '(("TODO" . org-todo)
             ("NEXT" . org-todo)
             ("WAITING" . org-scheduled)
-            ("MEETING" . org-scheduled-previously)
             ("DONE" . org-agenda-done)
-            ("HOLD" . org-scheduled)
-            ("CANCELLED" .  org-archived)
-            ("PROJECT" .  org-target)
-            ("OPPORTUNITY" .  org-target)))
+            ("CANCELLED" .  org-archived)))
 
     ;; Tags with fast selection keys
     (setq org-tag-alist (quote ((:startgroup)
@@ -508,10 +504,18 @@ you should place your code here."
                                 ("@phone" . ?f)
                                 ("@errand" . ?e)
                                 (:endgroup)
-                                ("PERSONAL" . ?p)
-                                ("WORK" . ?w))))
+                                (:startgroup)
+                                ("Maybe" . ?y)
+                                (:endgroup)
+                                ("PROJECT" . ?j)
+                                ("POC" . ?p)
+                                ("OPPORTUNITY" . ?r)
+                                ("MEETING" . ?m))))
 
-    ;;(org-agenda-check-type t 'agenda)
+    (setq org-use-tag-inheritance nil)
+
+    ;; Replace org-set-tags with org-set-tags-command in keybinding
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode ":" 'org-set-tags-command)
 
     ;; Capture from browser
     ;; javascript:(function () {window.location.href='org-protocol://capture://l/'+encodeURIComponent(window.location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection());})();
@@ -530,7 +534,11 @@ you should place your code here."
 
     (setq org-refile-targets '((org-agenda-files :maxlevel . 5)))
 
-    (setq org-log-done t)
+    (setq org-log-into-drawer t)
+    (setq org-log-reschedule 'note)
+    (setq org-log-redeadline t)
+    (setq org-log-done 'time)
+
     (setq org-enforce-todo-dependencies t)
     (setq org-agenda-dim-blocked-tasks t)
     ;;open agenda in current window
@@ -543,12 +551,16 @@ you should place your code here."
 
     ;;don't show tasks as scheduled if they are already shown as a deadline
     (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
+
     ;;don't give awarning colour to tasks with impending deadlines
     ;;if they are scheduled to be done
     (setq org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled))
+    ;;(setq org-agenda-skip-scheduled-if-done t)
+    ;;(setq org-agenda-skip-deadline-if-done t)
+
     ;;don't show tasks that are scheduled or have deadlines in the
     ;;normal todo list
-    ;(setq org-agenda-todo-ignore-scheduled (quote all))
+    (setq org-agenda-todo-ignore-scheduled (quote all))
     ;;sort tasks in order of when they are due and then by priority
     (setq org-agenda-sorting-strategy
           (quote
@@ -573,59 +585,72 @@ you should place your code here."
 
     ;; Org-agenda custom commands
     (setq org-agenda-custom-commands '(("o" "At the Office" tags-todo "@office")
-                                      ("c" "At Computer" tags-todo "@computer")
-                                      ("h" "At Home" tags-todo "@home")
-                                      ("e" "Errands" tags-todo "@errand")
-                                      ("p" "Phone Calls" tags-todo "@phone")
-                                      ("w" "Work Related" tags-todo "WORK")
-                                      ("r" "Personal Related" tags-todo "PERSONAL")
-                                      ("d" "Agenda + to do"
-                                       ((agenda) (todo "NEXT") (todo "WAITING") (todo "DONE")))))
+                                       ("c" "At Computer" tags-todo "@computer")
+                                       ("h" "At Home" tags-todo "@home")
+                                       ("e" "Errands" tags-todo "@errand")
+                                       ("p" "Phone Calls" tags-todo "@phone")
+                                       ("w" "Weekly Review"
+                                        ((tags-todo "PROJECT")
+                                        (tags-todo "POC")
+                                        (tags-todo "OPPORTUNITY")
+                                        (tags-todo "Maybe")
+                                        (todo "TODO")
+                                        (todo "DONE")
+                                        (todo "CANCELLED")
+                                        ))
+                                       ("d" "Agenda + to do"
+                                        ((agenda)
+                                         (todo "NEXT")
+                                         (tags-todo "MEETING")
+                                         (todo "WAITING")
+                                         (tags-todo "POC")
+                                         (tags-todo "OPPORTUNITY")
+                                         (tags-todo "PROJECT")
+                                         ))))
 
-    ;; Screenshots
-    (if (equal system-type 'darwin)
-        (setq org-download-screenshot-method "/usr/sbin/screencapture -i %s"))
+    ;; Calendar: Week starts on Monday
+    (setq calendar-week-start-day 1)
+    (setq org-agenda-start-on-weekday 1)
+
     (setq-default org-download-image-dir "~/CloudStation/Org/ScreenShots")
+    (setq org-startup-with-inline-images nil)
 
-    ;;
-    ;; https://emacs.stackexchange.com/questions/14724/emacs-org-mode-how-to-make-agenda-views-of-blocked-parent-tasks
-    ;;
-    ;; (defun org-agenda-skip-if-not-blocked ()
-    ;;   (let ((next-headline (save-excursion
-    ;;                          (or (outline-next-heading) (point-max)))))
-    ;;     (if (not (org-entry-blocked-p)) next-headline)))
-
-    ;; (add-to-list 'org-agenda-custom-commands
-    ;;              '("B" "Blocked entries" alltodo ""
-    ;;                ((org-agenda-skip-function '(org-agenda-skip-if-not-blocked))
-    ;;                 (org-enforce-todo-checkbox-dependencies nil))
-    ;;                ))
-
-
-    ;; (setq org-agenda-custom-commands
-    ;;       '(("g" . "GTD contexts")
-    ;;         ("go" "Office" tags-todo "@office")
-    ;;         ("gc" "Computer" tags-todo "@computer")
-    ;;         ("gh" "Home" tags-todo "@home")
-    ;;         ("gp" "Phone" tags-todo "@phone")
-    ;;         ("G" "GTD Block Agenda"
-    ;;          ((todo "NEXT")
-    ;;           (tags-todo "@office")
-    ;;           (todo "TODO"))
-    ;;          ((org-agenda-prefix-format "[ ] %T: ")
-    ;;           (org-agenda-compact-blocks t)
-    ;;           (ps-number-of-columns 2)
-    ;;           (ps-landscape-mode t)))))
+    ;; Open images outside of emacs
+    (add-hook 'org-mode-hook
+              '(lambda ()
+                 (setq org-file-apps (append '(("\\.png\\'" . default)) org-file-apps ))))
 
     ;;(org-reload)
 
     )
 
+  ;;;;;;;;; Import Outlook Calendar to Org
+  ;; configure excorporate
+   ;; allow opening the exchange calendar with 'e' from calendar
+  ;;(evil-define-key 'motion calendar-mode-map "e" #'exco-calendar-show-day)
+
+  ;;(setq-default
+  ;; ;; configure email address and office 365 exchange server adddress for exchange web services
+  ;; excorporate-configuration (quote("vsanz@proofpoint.com" . "https://outlook.office365.com/EWS/Exchange.asmx"))
+  ;; ;; integrate emacs diary entries into org agenda
+  ;;  org-agenda-include-diary t)
+
+  ;; ;; activate excorporate and request user/password to start connection
+  ;; (excorporate)
+  ;; ;; enable the diary integration (i.e. write exchange calendar to emacs diary file -> ~/.emacs.d/diary must exist)
+  ;; (excorporate-diary-enable)
+  ;; (defun ab/agenda-update-diary ()
+  ;;  "call excorporate to update the diary for today"
+  ;;  (exco-diary-diary-advice (calendar-current-date) (calendar-current-date) #'message "diary updated"))
+
+  ;; ;; update the diary every time the org agenda is refreshed
+  ;; (add-hook 'org-agenda-cleanup-fancy-diary-hook 'ab/agenda-update-diary )
+
   ;;;;;;;;; Spell checking
+  (setq ispell-program-name "aspell")
   (setq spell-checking-enable-by-default t)
   (setq spell-checking-enable-auto-dictionary t)
   (setq enable-flyspell-auto-completion t)
-
   (setq guess-language-languages '(en es))
   (setq guess-language-min-paragraph-length 35)
 
@@ -637,7 +662,7 @@ you should place your code here."
         mu4e-refile-folder "/Archive"
         mu4e-sent-folder "/Sent Items"
         mu4e-drafts-folder "/Drafts"
-        user-mail-address "vsanz@akamai.com"
+        user-mail-address "vsanz@proofpoint.com"
         user-full-name "Virgilio Sanz"
         mu4e-get-mail-command "mbsync -a"
         mu4e-sent-messages-behavior 'delete
@@ -651,10 +676,10 @@ you should place your code here."
         mu4e-view-show-addresses t)
 
   (setq mu4e-headers-fields
-  '((:date          .  25)    ;; alternatively, use :human-date
-    (:flags         .   6)
-    (:from          .  22)
-    (:subject       .  nil))) ;; alternatively, use :thread-subject
+        '((:date          .  25)    ;; alternatively, use :human-date
+          (:flags         .   6)
+          (:from          .  22)
+          (:subject       .  nil))) ;; alternatively, use :thread-subject
 
 
   (setq smtpmail-default-smtp-server "email.msg.corp.akamai.com"
@@ -681,12 +706,13 @@ you should place your code here."
            "All inboxes" ?i)))
   (setq mu4e-enable-mode-line t)
 
+  ;;;;;;;;; Finance
+  (setq ledger-post-amount-alignment-column 68)
 
   ;;;;;;;;; System dependand
   ;;;;; OSX
   (when (eq system-type 'darwin)
-    (setq mac-right-option-modifier 'none)
-    (setq org-download-screenshot-method "/usr/sbin/screencapture -i %s"))
+    (setq mac-right-option-modifier 'none))
 
   ;;;;;;;;; Misc
   ;;(setq powerline-default-separator 'bar)
@@ -699,7 +725,9 @@ you should place your code here."
   ;; http://stackoverflow.com/questions/10171280/how-to-launch-gui-emacs-from-command-line-in-osx
   (x-focus-frame nil)
   ;; https://medium.com/@bobbypriambodo/blazingly-fast-spacemacs-with-persistent-server-92260f2118b7
-  (evil-leader/set-key "q q" 'spacemacs/frame-killer))
+  (evil-leader/set-key "q q" 'spacemacs/frame-killer)
+  )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -707,10 +735,10 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (packed yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic guess-language mu4e-maildirs-extension mu4e-alert ht unfill reveal-in-osx-finder pbcopy osx-trash osx-dictionary org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink mwim launchctl htmlize helm-company helm-c-yasnippet gnuplot fuzzy flyspell-popup flyspell-correct-helm flyspell-correct company-statistics company-quickhelp pos-tip company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (csv-mode toml-mode racer flycheck-rust cargo markdown-mode rust-mode smeargle orgit magit-gitflow magit-popup helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter evil-magit magit transient git-commit with-editor diff-hl excorporate nadvice url-http-ntlm soap-client fsm smex restclient-helm ob-restclient ob-http flycheck-ycmd disaster company-ycmd ycmd request-deferred deferred company-restclient restclient know-your-http-well company-c-headers cmake-mode clang-format flycheck-pos-tip flycheck-ledger xterm-color stickyfunc-enhance srefactor shell-pop multi-term ledger-mode insert-shebang flycheck fish-mode eshell-z eshell-prompt-extras esh-help company-shell vimrc-mode dactyl-mode powerline spinner hydra lv parent-mode projectile pkg-info epl flx highlight smartparens iedit anzu evil goto-chg undo-tree f dash s bind-map bind-key helm avy helm-core async popup packed yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic guess-language mu4e-maildirs-extension mu4e-alert ht unfill reveal-in-osx-finder pbcopy osx-trash osx-dictionary org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink mwim launchctl htmlize helm-company helm-c-yasnippet gnuplot fuzzy flyspell-popup flyspell-correct-helm flyspell-correct company-statistics company-quickhelp pos-tip company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(send-mail-function (quote smtpmail-send-it))
- '(smtpmail-smtp-server "email.msg.corp.akamai.com")
- '(smtpmail-smtp-service 25))
+ '(smtpmail-smtp-server "email.msg.corp.akamai.com" t)
+ '(smtpmail-smtp-service 25 t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
