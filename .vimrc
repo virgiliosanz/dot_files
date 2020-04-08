@@ -25,17 +25,17 @@ au BufWritePre * :%s/\s\+$//e
 
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
+
 let g:csv_no_conceal = 1
 
-
 " YouCompleteMe: https://wiki.archlinux.org/index.php/Vim/YouCompleteMe
-Plug 'Valloric/YouCompleteMe', { 'do': 'python ./install.py --clang-completer --rust-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer --racer-completer' }
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_min_num_identifier_candidate_chars = 1
 let g:ycm_max_num_candidates = 20
 let g:ycm_auto_trigger = 1
-let g:ycm_confirm_extra_conf = 1
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_server_log_level = 'debug'
 
 Plug 'liuchengxu/vim-which-key'
@@ -44,10 +44,9 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_working_path_mode = 'ra'
 
 
+" TODO: Instalar Racer
 Plug 'rust-lang/rust.vim'
 let g:rustfmt_autosave = 1
-
-" https://github.com/alok/notational-fzf-vim
 
 call plug#end()
 
@@ -77,7 +76,7 @@ set nobackup
 set noswapfile
 set cursorline
 set cursorcolumn
-set rnu
+"set rnu
 set nu
 set encoding=utf8
 set fileencoding=utf-8
@@ -98,12 +97,7 @@ set visualbell
 set path+=**
 set wildmenu
 set wildmode=list:longest
-set wildignore=*.o,*~,*.pyc,**/.git/**
-set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*
-set wildignore+=*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls
-set wildignore+=*/.fdb*/,*/.toc,*/.out,*/.glo,*/.log,*/.ist,*/.fdb_latexmk,*~
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+set wildignore=*.o,*.a,*.so,*.pyc,*.swp,.git/,*.class,*/target/*,*/build/*
 
 set wrap
 set textwidth=80
@@ -135,8 +129,8 @@ au BufWinEnter ?* silent loadview
 " Extend % to match not only braces
 runtime macros/matchit.vim
 
-" longer that 120 chars is an error
-match ErrorMsg '\%>120v.\+'
+" longer that 100 chars is an error
+match ErrorMsg '\%>100v.\+'
 match ErrorMsg '\s\+$'
 
 " Usar netrw en lugar de NERDTree
@@ -184,6 +178,10 @@ au BufWritePre *.cpp :Autoformat<CR>
 au BufWritePre *.c :Autoformat<CR>
 au BufWritePre *.h :Autoformat<CR>
 au BufWritePre *.py :Autoformat<CR>
+au BufWritePre *.rs :Autoformat<CR>
+au BufWritePre *.js :Autoformat<CR>
+au BufWritePre *.go :Autoformat<CR>
+au BufWritePre *.sh :Autoformat<CR>
 
 " Opens file under cursor in a new vertical split
 nnoremap <leader>gf :vertical wincmd f<CR>
@@ -212,7 +210,6 @@ nnoremap <leader>ts :ltag <c-r>=expand("<cword>")<cr><bar>lwindow<CR>
 " Open symbol Explorer
 nnoremap <leader>tt :TagbarToggle<CR>
 let g:tagbar_foldlevel = 2
-
 
 " YouCompleteMe
 nnoremap <leader>yg :YcmCompleter GoTo<CR>

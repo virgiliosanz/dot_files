@@ -16,12 +16,14 @@ PATH=~/Bin:$PATH
 . $HOME/.aliases
 
 # Golang
-export GOPATH=$HOME/go
-PATH=$GOPATH/bin:$PATH
-export PATH
+#export GOPATH=$HOME/go
+#PATH=$GOPATH/bin:$PATH
+#export PATH
+
+# Rust
+PATH="$HOME/.cargo/bin:$PATH"
 
 # Editors
-alias emacs="emacsclient -c -n "
 export EDITOR=vim
 alias vi=$EDITOR
 
@@ -45,6 +47,9 @@ export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 #export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 . /usr/local/bin/virtualenvwrapper.sh
 
+
+export PATH
+
 # Bash-It
 export BASH_IT=$HOME/.bash_it
 #export BASH_IT_THEME='powerline-multiline'
@@ -52,3 +57,4 @@ export BASH_IT=$HOME/.bash_it
 export BASH_IT_THEME='powerline-plain'
 
 source $BASH_IT/bash_it.sh
+

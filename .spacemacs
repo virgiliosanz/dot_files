@@ -20,7 +20,7 @@ values."
    ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
-   dotspacemacs-enable-lazy-installation 'unused
+   dotspacemacs-enable-lazy-installation 'all
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
    dotspacemacs-ask-for-lazy-installation t
@@ -31,7 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     csv
+     ;;csv
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -42,7 +42,10 @@ values."
      ;;               spell-checking-enable-auto-dictionary t
      ;;               enable-flyspell-auto-completion t)
 
-     org
+     (org :variables
+          org-enable-reveal-js t
+          org-want-todo-bindings t)
+
      ;;(mu4e :variables mu4e-installation-path " /usr/local/share/emacs/site-lisp/")
      ;;finance
 
@@ -58,10 +61,10 @@ values."
                       auto-completion-enable-help-tooltip t)
      smex
 
-     git
-     (version-control :variables
-                      version-control-diff-tool 'diff-hl
-                      version-control-global-margin t)
+     ;;git
+     ;;(version-control :variables
+     ;;                 version-control-diff-tool 'diff-hl
+     ;;                 version-control-global-margin t)
 
      ;; yaml
      ;; javascript
@@ -96,14 +99,17 @@ values."
    ;;dotspacemacs-additional-packages '()
    dotspacemacs-additional-packages '(
                                       org-cliplink
-                                      guess-language
-                                      excorporate)
+                                      ;; guess-language
+                                      ;; excorporate
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
    ;;dotspacemacs-excluded-packages '()
-   dotspacemacs-excluded-packages '(org-projectile)
+   dotspacemacs-excluded-packages '(
+       ;; org-projectile
+       )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -178,24 +184,34 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes
    '(
-     spacemacs-dark
-     wombat
-     jbeans
-     hc-zenburn
-     spacemacs-light
-     ir-black
-     Leuven
-     material
-     odersky
-     twilight
-     zenburn
-     )
+      solarized-dark
+      spacemacs-dark
+     ;;wombat
+     ;;jbeans
+     ;;hc-zenburn
+     ;;spacemacs-light
+     ;;ir-black
+     ;;material
+     ;;odersky
+     ;;twilight
+     ;;zenburn
+   )
+
+   ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
+   ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
+   ;; first three are spaceline themes. `doom' is the doom-emacs mode-line.
+   ;; `vanilla' is default Emacs mode-line. `custom' is a user defined themes,
+   ;; refer to the DOCUMENTATION.org for more info on how to create your own
+   ;; spaceline theme. Value can be a symbol or list with additional properties.
+   ;; (default '(spacemacs :separator wave :separator-scale 1.5))
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Monaco"
-                               :size 11
+                               :size 12
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -409,12 +425,12 @@ you should place your code here."
   (setq projectile-indexing-method 'native)
 
   ;; Editor Config
-  ;;(editorconfig-mode 1)
+  (editorconfig-mode 1)
 
   ;;;;;;;;; C++ & ycmd
   ;;(add-hook 'c-mode-hook 'ycmd-mode)
   ;;(add-hook 'c++-mode-hook 'ycmd-mode)
-;;  (setq ycmd-server-command (list "python3" (file-truename "~/.emacs.d/ycmd/ycmd/")))
+  ;;;;(setq ycmd-server-command (list "python3" (file-truename "~/.emacs.d/ycmd/ycmd/")))
   ;;(setq ycmd-server-command (list "python" (file-truename "~/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/")))
   ;;(setq ycmd-force-semantic-completion t)
   ;;(setq ycmd-startup-timeout 15)
@@ -424,7 +440,6 @@ you should place your code here."
   ;; (defun clang-format-bindings ()
   ;;   (define-key c++-mode-map [tab] 'clang-format-buffer))
   ;; (add-to-list 'auto-mode-alist '("\\.ino\\'" . c++-mode))
-
 
   ;;;;;;;;; Org Mode - GTD
   (spacemacs/declare-prefix "o" "Org Mode")
@@ -472,21 +487,19 @@ you should place your code here."
           (delete-frame)))
 
     (setq org-agenda-files '("~/CloudStation/Org"))
-    ;;    (setq org-agenda-text-search-extra-files '(agenda-archives
-    ;;                                               "~/CloudStation/Org/inbox.org"))
     (setq org-directory "~/CloudStation/Org")
     (setq org-default-notes-file "~/CloudStation/Org/inbox.org")
-    ;; (setq org-archive-location (concat "archive/archive-"
-    ;;                                    (format-time-string "%Y" (current-time))
-    ;;                                    ".org_archive::"))
-    (setq org-archive-location "%s_archive::")
-
+    ;;(setq org-archive-location "%s_archive::")
+    ;;(setq org-archive-location "%s_archive::datetree/* Archived Tasks").
+    (setq org-archive-location (concat "archive/"
+                                       (format-time-string "%Y_" (current-time))
+                                       "%s_archive::datetree/* Archived Tasks"))
 
     (setq org-highest-priority ?A)
     (setq org-lowest-priority ?C)
     (setq org-default-priority ?B)
 
-    (setq org-todo-keywords '((sequence "TODO(t!)" "NEXT(n!)" "|" "DONE(d!)" "CANCELLED(c!)")
+    (setq org-todo-keywords '((sequence "TODO(t!)" "NEXT(n!)" "|" "DONE(d!)" "HOLD(h!)" "CANCELLED(c!)")
                               (sequence "WAITING(w!)" "|" "DONE(d!)" "CANCELLED(c!)")))
 
     (setq org-todo-keyword-faces
@@ -494,7 +507,8 @@ you should place your code here."
             ("NEXT" . org-todo)
             ("WAITING" . org-scheduled)
             ("DONE" . org-agenda-done)
-            ("CANCELLED" .  org-archived)))
+            ("CANCELLED" .  org-archived)
+            ("HOLD" . org-archived)))
 
     ;; Tags with fast selection keys
     (setq org-tag-alist (quote ((:startgroup)
@@ -595,6 +609,7 @@ you should place your code here."
                                         (tags-todo "OPPORTUNITY")
                                         (tags-todo "Maybe")
                                         (todo "TODO")
+                                        (todo "HOLD")
                                         (todo "DONE")
                                         (todo "CANCELLED")
                                         ))
@@ -646,69 +661,69 @@ you should place your code here."
   ;; ;; update the diary every time the org agenda is refreshed
   ;; (add-hook 'org-agenda-cleanup-fancy-diary-hook 'ab/agenda-update-diary )
 
-  ;;;;;;;;; Spell checking
-  (setq ispell-program-name "aspell")
-  (setq spell-checking-enable-by-default t)
-  (setq spell-checking-enable-auto-dictionary t)
-  (setq enable-flyspell-auto-completion t)
-  (setq guess-language-languages '(en es))
-  (setq guess-language-min-paragraph-length 35)
-
-  ;;;;;;;;; email - mu4e
-  (setq mu4e-mu-binary "/usr/local/bin/mu")
-  ;;; Set up some common mu4e variables
-  (setq mu4e-maildir "~/Mail/work"
-        mu4e-trash-folder "/Deleted Items"
-        mu4e-refile-folder "/Archive"
-        mu4e-sent-folder "/Sent Items"
-        mu4e-drafts-folder "/Drafts"
-        user-mail-address "vsanz@proofpoint.com"
-        user-full-name "Virgilio Sanz"
-        mu4e-get-mail-command "mbsync -a"
-        mu4e-sent-messages-behavior 'delete
-        mu4e-update-interval nil
-        mu4e-compose-signature-auto-include nil
-        mu4e-view-show-images t
-        mu4e-show-images t
-        mu4e-view-image-max-width 800
-        ;;NEEDED FOR MBSYNC
-        mu4e-change-filenames-when-moving t
-        mu4e-view-show-addresses t)
-
-  (setq mu4e-headers-fields
-        '((:date          .  25)    ;; alternatively, use :human-date
-          (:flags         .   6)
-          (:from          .  22)
-          (:subject       .  nil))) ;; alternatively, use :thread-subject
-
-
-  (setq smtpmail-default-smtp-server "email.msg.corp.akamai.com"
-        smtpmail-smtp-server "email.msg.corp.akamai.com"
-        smtpmail-smtp-service 587)
-
-  ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t)
-
-   ;;; Mail directory shortcuts
-  (setq mu4e-maildir-shortcuts '(("/inbox" . ?g)))
-
-  ;;; Bookmarks
-  (setq mu4e-bookmarks
-        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
-          ("date:today..now" "Today's messages" ?t)
-          ("date:7d..now" "Last 7 days" ?w)
-          ("mime:image/*" "Messages with images" ?p)
-          (,(mapconcat 'identity
-                       (mapcar
-                        (lambda (maildir)
-                          (concat "maildir:" (car maildir)))
-                        mu4e-maildir-shortcuts) " OR ")
-           "All inboxes" ?i)))
-  (setq mu4e-enable-mode-line t)
-
-  ;;;;;;;;; Finance
-  (setq ledger-post-amount-alignment-column 68)
-
+;;  ;;;;;;;;; Spell checking
+;;  (setq ispell-program-name "aspell")
+;;  (setq spell-checking-enable-by-default t)
+;;  (setq spell-checking-enable-auto-dictionary t)
+;;  (setq enable-flyspell-auto-completion t)
+;;  (setq guess-language-languages '(en es))
+;;  (setq guess-language-min-paragraph-length 35)
+;;
+;;  ;;;;;;;;; email - mu4e
+;;  (setq mu4e-mu-binary "/usr/local/bin/mu")
+;;  ;;; Set up some common mu4e variables
+;;  (setq mu4e-maildir "~/Mail/work"
+;;        mu4e-trash-folder "/Deleted Items"
+;;        mu4e-refile-folder "/Archive"
+;;        mu4e-sent-folder "/Sent Items"
+;;        mu4e-drafts-folder "/Drafts"
+;;        user-mail-address "vsanz@proofpoint.com"
+;;        user-full-name "Virgilio Sanz"
+;;        mu4e-get-mail-command "mbsync -a"
+;;        mu4e-sent-messages-behavior 'delete
+;;        mu4e-update-interval nil
+;;        mu4e-compose-signature-auto-include nil
+;;        mu4e-view-show-images t
+;;        mu4e-show-images t
+;;        mu4e-view-image-max-width 800
+;;        ;;NEEDED FOR MBSYNC
+;;        mu4e-change-filenames-when-moving t
+;;        mu4e-view-show-addresses t)
+;;
+;;  (setq mu4e-headers-fields
+;;        '((:date          .  25)    ;; alternatively, use :human-date
+;;          (:flags         .   6)
+;;          (:from          .  22)
+;;          (:subject       .  nil))) ;; alternatively, use :thread-subject
+;;
+;;
+;;  (setq smtpmail-default-smtp-server "email.msg.corp.akamai.com"
+;;        smtpmail-smtp-server "email.msg.corp.akamai.com"
+;;        smtpmail-smtp-service 587)
+;;
+;;  ;; don't keep message buffers around
+;;  (setq message-kill-buffer-on-exit t)
+;;
+;;   ;;; Mail directory shortcuts
+;;  (setq mu4e-maildir-shortcuts '(("/inbox" . ?g)))
+;;
+;;  ;;; Bookmarks
+;;  (setq mu4e-bookmarks
+;;        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+;;          ("date:today..now" "Today's messages" ?t)
+;;          ("date:7d..now" "Last 7 days" ?w)
+;;          ("mime:image/*" "Messages with images" ?p)
+;;          (,(mapconcat 'identity
+;;                       (mapcar
+;;                        (lambda (maildir)
+;;                          (concat "maildir:" (car maildir)))
+;;                        mu4e-maildir-shortcuts) " OR ")
+;;           "All inboxes" ?i)))
+;;  (setq mu4e-enable-mode-line t)
+;;
+;;  ;;;;;;;;; Finance
+;;  (setq ledger-post-amount-alignment-column 68)
+;;
   ;;;;;;;;; System dependand
   ;;;;; OSX
   (when (eq system-type 'darwin)
@@ -724,24 +739,7 @@ you should place your code here."
 
   ;; http://stackoverflow.com/questions/10171280/how-to-launch-gui-emacs-from-command-line-in-osx
   (x-focus-frame nil)
+
   ;; https://medium.com/@bobbypriambodo/blazingly-fast-spacemacs-with-persistent-server-92260f2118b7
   (evil-leader/set-key "q q" 'spacemacs/frame-killer)
-  )
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (csv-mode toml-mode racer flycheck-rust cargo markdown-mode rust-mode smeargle orgit magit-gitflow magit-popup helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter evil-magit magit transient git-commit with-editor diff-hl excorporate nadvice url-http-ntlm soap-client fsm smex restclient-helm ob-restclient ob-http flycheck-ycmd disaster company-ycmd ycmd request-deferred deferred company-restclient restclient know-your-http-well company-c-headers cmake-mode clang-format flycheck-pos-tip flycheck-ledger xterm-color stickyfunc-enhance srefactor shell-pop multi-term ledger-mode insert-shebang flycheck fish-mode eshell-z eshell-prompt-extras esh-help company-shell vimrc-mode dactyl-mode powerline spinner hydra lv parent-mode projectile pkg-info epl flx highlight smartparens iedit anzu evil goto-chg undo-tree f dash s bind-map bind-key helm avy helm-core async popup packed yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic guess-language mu4e-maildirs-extension mu4e-alert ht unfill reveal-in-osx-finder pbcopy osx-trash osx-dictionary org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink mwim launchctl htmlize helm-company helm-c-yasnippet gnuplot fuzzy flyspell-popup flyspell-correct-helm flyspell-correct company-statistics company-quickhelp pos-tip company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
- '(send-mail-function (quote smtpmail-send-it))
- '(smtpmail-smtp-server "email.msg.corp.akamai.com" t)
- '(smtpmail-smtp-service 25 t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+)
