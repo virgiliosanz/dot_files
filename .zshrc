@@ -16,7 +16,7 @@ ZSH_THEME="steeef"
 #ZSH_THEME='vsanz'
 
 # Example aliases
-source $HOME/.bash_aliases
+source $HOME/.aliases
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
