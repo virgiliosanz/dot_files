@@ -5,17 +5,13 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
+#ZSH_THEME="steeef"
+#ZSH_THEME="trapd00r"
 #ZSH_THEME="xiong-chiamiov-plus"
-ZSH_THEME="steeef"
-#ZSH_THEME='ys'
-#ZSH_THEME='juanghurtado'
-#ZSH_THEME='af-magic'
-#ZSH_THEME='agnoster'
-#ZSH_THEME='dstufft'
-#ZSH_THEME='fino-time' # Modificar este y convertirlo en el nuev vsanz
-#ZSH_THEME='vsanz'
+#ZSH_THEME="ys"
+#ZSH_THEME="bira"
+ZSH_THEME="fino-time"
 
-# Example aliases
 source $HOME/.aliases
 
 # Set to this to use case-sensitive completion
@@ -42,19 +38,46 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(git git-flow osx vagrant macports python ssh-agent virtualenv)
 
 source $ZSH/oh-my-zsh.sh
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa vsanz_proofpoint
 
 # Customize to your needs...
-export PATH=$HOME/ node_modules/.bin/:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin
-alias lsg="ssh -2 -i ~/.ssh/deployed/2014-01-08 vsanz@lsg-west.akamai.com"
-alias myvm="ssh -2 -i ~/.ssh/internal/2013-09-09  vsanz@mad-lvovi.munich.corp.akamai.com"
-
-# Go Lang
-export GOPATH=~/Code/gopath
-export GOROOT=/opt/local/go/
-PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+PATH=/sbin:$PATH
+PATH=/usr/sbin:$PATH
+PATH=/bin:$PATH
+PATH=/usr/bin:$PATH
+PATH=/opt/local/sbin:$PATH
+PATH=/opt/local/bin:$PATH
+PATH=/usr/local/sbin:$PATH
+PATH=/usr/local/bin:$PATH
+PATH=$HOME/Bin:$PATH
+PATH=$HOME/node_modules/.bin/:$PATH
+PATH=$HOME/.cargo/bin:$PATH
+export PATH
 
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+export LANG=en_US.UTF-8
 
-# Configuración de algunos plugins de oh-my-zsh
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa deployed/2014-01-08 internal/2014-01-08 internal/2013-09-09
+# Editors
+export EDITOR=vim
+alias vi=$EDITOR
+
+# Languages
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# GIT
+export GIT_EDITOR=$EDITOR
+export GIT_HOSTING='git@github.com'
+export SCM_CHECK=true
+
+# VirtualEnv
+export WORKON_HOME=~/.envs
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_RESPECT_VIRTUALENV=true
+export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+#export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+. /usr/local/bin/virtualenvwrapper.sh

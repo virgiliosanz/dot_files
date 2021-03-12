@@ -1,6 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash -x
 
 #set -v
+#set -x
 PATH=/usr/local/sbin:$PATH
 PATH=/usr/local/bin:$PATH
 PATH=~/Bin:$PATH
@@ -47,14 +48,22 @@ export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 #export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 . /usr/local/bin/virtualenvwrapper.sh
 
-
-export PATH
-
 # Bash-It
 export BASH_IT=$HOME/.bash_it
+#export BASH_IT_THEME='powerline'
+#export BASH_IT_THEME='powerline-naked'
+#export BASH_IT_THEME='powerline-plain'
 #export BASH_IT_THEME='powerline-multiline'
-#export BASH_IT_THEME='sexy'
-export BASH_IT_THEME='powerline-plain'
-
+export SEXY_THEME_SHOW_PYTHON=true
+export BASH_IT_THEME='sexy'
+#export BASH_IT_THEME='Iterate'
 source $BASH_IT/bash_it.sh
 
+# SSH
+ssh-add -K ~/.ssh/id_rsa
+ssh-add -K ~/.ssh/vsanz_proofpoint
+#ssh-add -l
+
+
+# Export Modified PATH
+export PATH

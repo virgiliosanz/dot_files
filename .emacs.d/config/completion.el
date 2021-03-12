@@ -88,7 +88,7 @@
 (use-package company-quickhelp
   :ensure t
   :config
-  (company-quickhelp-mode))
+  (company-quickhelp-mode 1))
 
 ;; ---------------------
 ;; Evil Keys for company
@@ -145,29 +145,3 @@
 
 (define-key evil-motion-state-map ";" 'smex)
 (define-key evil-motion-state-map ":" 'evil-ex)
-
-
-;; -----------------------
-;; LSP
-;; =======================
-(use-package lsp-mode
-  :commands lsp
-  :config (require 'lsp-clients))
-
-(use-package lsp-ui)
-
-;; -----------------------
-;; Yasnipper
-;; =======================
-;; (use-package yasnippet                  ; Snippets
-;;   :ensure t
-;;   :config
-;;   (setq yas-snippet-dirs '(yasnippet-snippets-dir))
-;;   (setq yas-verbosity 1)                      ; No need to be so verbose
-;;   (setq yas-wrap-around-region t))
-;;
-;; (use-package yasnippet-snippets         ; Collection of snippets
-;;   :ensure t)
-;;
-;; (yas-global-mode)
-;; (yas-reload-all)

@@ -1,6 +1,5 @@
 # Turn off the annoying startup message
 startup_message off
-
 defscrollback 5000
 hardcopy_append on
 defutf8 on
@@ -14,7 +13,7 @@ termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 # erase background with current bg color
 defbce "on"
 # set TERM
-term screen-256color-bce
+term screen-256color
 
 # Default shell
 shell "/bin/bash"
@@ -29,14 +28,16 @@ bindkey ^[[1;3D prev
 bindkey ^[[1;3C next
 
 # OSX
-bindkey "^[[1;9C" next
-bindkey "^[[1;9D" prev
+bindkey "0x7b" prev
+bindkey "0x7c" next
 
 # Vagrant (ubuntu)
 bindkey "^[f" next
 bindkey "^[b" prev
 
-
+# Bind F11 and F12 (NOT F1 and F2) to previous and next screen window
+bindkey -k F1 prev
+bindkey -k F2 next
 
 ## do not trash BackSpace, usually DEL
 bindkey -k kb
@@ -66,11 +67,12 @@ termcap  xterm AB=\E[48;5;%dm
 terminfo xterm AB=\E[48;5;%p1%dm
 
 hardstatus on
+# https://www.gilesorr.com/blog/screen-backtick.html
+backtick 101 300 0 dig @resolver1.opendns.com ANY myip.opendns.com +short
+
 #hardstatus alwayslastline "%{yk}[%{Y}%H%{y}]%=  %{wk}%?%-Lw%?%{R}[%{W}%n*%f %t%?[%u]%?%{R}]%{w}%?%+Lw%?%?%= %{yk}[%{Y}%D, %d-%m-%Y %C%{y}]" #[%{Y}load: %l%{y}]"
-hardstatus alwayslastline "%{b kw}%H %{r}%1` %{w}| %{g}%c %{w}| %{y}%d.%m.%Y %{w}| %{g}%l %{w}| %{-b kw}%u %-Lw%{= rW}%50> %n%f %t %{-}%+Lw%<"
-
-
-
+#hardstatus alwayslastline "%{b kw}%H %{r}%1` %{w}| %{g}%c %{w}| %{y}%d.%m.%Y %{w}| %{g}%l %{w}| %{-b kw}%u %-Lw%{= rW}%50> %n%f %t %{-}%+Lw%<"
+hardstatus alwayslastline "%{b kw}%H %{r}%1` %{w}| %{y}%d %M - %c %{w}| %{g}%101` %{w}| %{-b kw}%u %-Lw%{= rW}%50> %n%f %t %{-}%+Lw%<"
 
 # Screens by default
 screen -t 'shell'  1    bash -l

@@ -5,11 +5,29 @@
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib)
 
-;;(use-package org-bullets
-;;    :hook (org-mode . org-bullets-mode))
+(use-package org-download
+  :ensure t
+  :config
+  ;; add support to dired
+  (add-hook 'dired-mode-hook 'org-download-enable))
+
+;(use-package org-bullets
+;    :hook (org-mode . org-bullets-mode))
+
+(custom-set-faces
+  '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+  '(org-level-6 ((t (:inherit outline-6 :height 1.0))))
+  '(org-level-7 ((t (:inherit outline-7 :height 1.0))))
+  '(org-level-8 ((t (:inherit outline-8 :height 1.0))))
+  '(org-level-9 ((t (:inherit outline-9 :height 1.0))))
+)
 
 ;; formatted-copy on OSX!
-;; TODO: Generalize for unix & windows
+;; TODO: test org-xclip and delete this
 (defun osx/formatted-copy ()
   "Export region to HTML, and copy it to the clipboard."
   (interactive)
@@ -23,29 +41,12 @@
          "textutil -stdin -format html -convert rtf -stdout |pbcopy"))
       (kill-buffer buf))))
 
-;;;;;;;;; Org Mode - GTD
-(which-key-declare-prefixes "o" "Org Mode")
-(evil-leader/set-key "oa" 'org-agenda)
-(evil-leader/set-key "ot" 'org-todo-list)
-(evil-leader/set-key "om" 'org-mac-grab-link)
-                                        ;(evil-leader/set-key "oc" 'org-capture)
-(evil-leader/set-key "os" 'org-search-view)
-(evil-leader/set-key "ok" 'osx/formatted-copy)
-(evil-leader/set-key "og" 'org-download-screenshot)
-(evil-leader/set-key "oi" 'org-mac-iCal)
-(evil-leader/set-key "ol" 'org-toggle-link-display)
-
-;; Global keys for capturing
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c a") 'org-agenda)
-
 (with-eval-after-load 'org
-  ;; (add-to-list 'org-modules 'org-capture)
+  (add-to-list 'org-modules 'org-capture)
   ;; (add-to-list 'org-modules 'org-habit)
   ;; (add-to-list 'org-modules 'org-caldav)
   ;; (add-to-list 'org-modules 'org-mac-iCal)
-  ;; (add-to-list 'org-modules 'org-mac-link)
+  (add-to-list 'org-modules 'org-mac-link)
   ;; (add-to-list 'org-modules 'org-protocol)
   ;; (add-to-list 'org-modules 'org-cliplink)
   ;; (add-to-list 'org-modules 'org-pdfview)
@@ -54,9 +55,18 @@
   (add-to-list 'org-modules 'org-agenda)
   (add-to-list 'org-modules 'org-download)
 
-  ;; Mac
+  ;; Capture Images
   (if (equal system-type 'darwin)
       (setq org-download-screenshot-method "/usr/sbin/screencapture -i %s"))
+
+  (setq-default org-download-image-dir "~/CloudStation/Org/ScreenShots")
+  (setq org-startup-with-inline-images nil)
+  (setq org-download-display-inline-images nil)
+
+  ;; Open images outside of emacs
+  (add-hook 'org-mode-hook
+            '(lambda ()
+               (setq org-file-apps (append '(("\\.png\\'" . default)) org-file-apps ))))
 
   (add-to-list 'org-file-apps '("\\.xls\\'" . default))
 
@@ -110,6 +120,7 @@
                               (:endgroup)
                               ("PROJECT" . ?j)
                               ("POC" . ?p)
+                              ("CBR" . ?b)
                               ("OPPORTUNITY" . ?r)
                               ("MEETING" . ?m))))
 
@@ -151,7 +162,10 @@
   (setq org-deadline-warning-days 6)
   ;;show me tasks scheduled or due in next fortnight
   ;;(setq org-agenda-span (quote fortnight))
-  (setq org-agenda-span 5)
+  ;;(setq org-agenda-span 5)
+  (setq org-agenda-span 10
+      org-agenda-start-on-weekday nil
+      org-agenda-start-day "-1d")
 
   ;;don't show tasks as scheduled if they are already shown as a deadline
   (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
@@ -201,6 +215,7 @@
                                        (tags-todo "OPPORTUNITY")
                                        (tags-todo "Maybe")
                                        (todo "TODO")
+                                       (todo "WAITING")
                                        (todo "HOLD")
                                        (todo "DONE")
                                        (todo "CANCELLED")
@@ -208,27 +223,65 @@
                                      ("d" "Agenda + to do"
                                       ((agenda)
                                        (todo "NEXT")
-                                       (tags-todo "MEETING")
                                        (todo "WAITING")
                                        (tags-todo "POC")
+                                       (tags-todo "CBR")
                                        (tags-todo "OPPORTUNITY")
                                        (tags-todo "PROJECT")
                                        ))))
 
   ;; Calendar: Week starts on Monday
   (setq calendar-week-start-day 1)
-  (setq org-agenda-start-on-weekday 1)
 
-  (setq-default org-download-image-dir "~/CloudStation/Org/ScreenShots")
-  (setq org-startup-with-inline-images nil)
+  ;; New line at 80th mode
+  (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
+  (add-hook 'org-mode-hook 'auto-fill-mode)
 
-  ;; Open images outside of emacs
-  (add-hook 'org-mode-hook
-            '(lambda ()
-               (setq org-file-apps (append '(("\\.png\\'" . default)) org-file-apps ))))
 
   ;;(org-reload)
   )
+
+;; evil-org
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
+;; Configure leader key
+(evil-leader/set-key-for-mode 'org-mode
+  "t" 'org-todo
+  "T" 'org-show-todo-tree
+  "v" 'org-mark-element
+  "a" 'org-agenda
+  "c" 'org-archive-subtree
+  "l" 'evil-org-open-links
+  "C" 'org-resolve-clocks)
+
+;; Org Mode - evil
+(which-key-declare-prefixes "o" "Org Mode")
+(evil-leader/set-key "oa" 'org-agenda)
+(evil-leader/set-key "ot" 'org-todo-list)
+(evil-leader/set-key "om" 'org-mac-grab-link)
+;;(evil-leader/set-key "oc" 'org-capture)
+(evil-leader/set-key "os" 'org-search-view)
+(evil-leader/set-key "ok" 'osx/formatted-copy)
+(evil-leader/set-key "og" 'org-download-screenshot)
+;(evil-leader/set-key "oi" 'org-download-clipboard)
+(evil-leader/set-key "of" 'org-fill-paragraph)
+(evil-leader/set-key "ol" 'org-insert-link)
+(evil-leader/set-key "od" 'org-toggle-link-display)
+
+;; Global keys for capturing
+;;(global-set-key (kbd "C-c l") 'org-store-link)
+;;(global-set-key (kbd "C-c c") 'org-capture)
+;;(global-set-key (kbd "C-c a") 'org-agenda)
+
 
 ;;;;;;;;; Import Outlook Calendar to Org
 ;; configure excorporate

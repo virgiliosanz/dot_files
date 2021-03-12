@@ -101,7 +101,7 @@
 (setq jit-lock-defer-time 0)
 
 
-                                        ; -----------------
+;; -----------------
 ;; Clipboard Support
 ;; =================
 
@@ -233,3 +233,10 @@
   (progn
     (global-set-key (kbd "M-o") 'ace-window)
     (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))))
+
+;; dash - A modern list api for Emacs. No 'cl required.
+(use-package dash
+  :ensure t)
+
+(use-package monitor
+  :ensure t)

@@ -19,7 +19,7 @@
   :ensure t
   :init
   (setq projectile-completion-system 'ivy)
-  (setq projectile-project-search-path '("~/CloudStation/Dev/" "~/.CloudStation/Tests/"))
+  (setq projectile-project-search-path '("~/CloudStation/Dev/" "~/CloudStation/Tests/" "~/Documents/Code/"))
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (projectile-mode +1))
@@ -29,6 +29,7 @@
   :ensure t
   :init
   (smartparens-global-mode))
+
 ;; Indent after parents - http://xenodium.com/emacs-smartparens-auto-indent/index.html
 (defun indent-between-pair (&rest _ignored)
   (newline)
@@ -39,7 +40,6 @@
 (sp-local-pair 'prog-mode "{" nil :post-handlers '((indent-between-pair "RET")))
 (sp-local-pair 'prog-mode "[" nil :post-handlers '((indent-between-pair "RET")))
 (sp-local-pair 'prog-mode "(" nil :post-handlers '((indent-between-pair "RET")))
-
 
 ;; highlight FIXME, TODO and the like
 (use-package fic-mode
@@ -58,7 +58,6 @@
 ;; -----
 ;; Shell
 ;; -----
-
 (add-hook 'sh-mode-hook
           (lambda ()
             (setq-local fill-column 120)
@@ -66,3 +65,31 @@
             (setq-local evil-shift-width 4)
             (setq-local indent-tabs-mode nil)
             (setq-local ffip-patterns '("*.sh"))))
+
+;; -----------------------
+;; Yasnippet
+;; =======================
+(use-package yasnippet                  ; Snippets
+  :ensure t
+  :config
+  (setq yas-snippet-dirs '(yasnippet-snippets-dir))
+  (setq yas-verbosity 1)                      ; No need to be so verbose
+  (setq yas-wrap-around-region t))
+;;
+(use-package yasnippet-snippets         ; Collection of snippets
+  :ensure t)
+;;
+(yas-global-mode)
+(yas-reload-all)
+
+;; iedit
+(use-package iedit
+ :ensure t)
+(evil-leader/set-key "ie" 'iedit-mode)
+
+
+;; magit
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)
+         ("C-x C-g" . magit-status)))

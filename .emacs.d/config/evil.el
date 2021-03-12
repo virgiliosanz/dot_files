@@ -89,3 +89,10 @@
     (when (overlay-start mouse-secondary-overlay)
       (mouse-yank-secondary click)
       (delete-overlay mouse-secondary-overlay))))
+
+
+(use-package undo-tree
+  :init
+  (global-undo-tree-mode))
+(evil-set-undo-system 'undo-tree)
+

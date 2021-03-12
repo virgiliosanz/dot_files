@@ -6,7 +6,7 @@
 
 ;; Disable startup message. Why?
 ;; .. less noise is better.
-(defun display-startup-echo-area-message () (message ""))
+;;(defun display-startup-echo-area-message () (message ""))
 
 ;; Visual bell. Why?
 ;; .. audible beeps are annoying.
@@ -14,12 +14,12 @@
 
 ;; Nice theme from Vim. Why?
 ;; .. personal preference.
-;;(use-package inkpot-theme
-;;  :demand t
-;;  :config (load-theme 'inkpot t))
+;; (use-package inkpot-theme
+;;   :demand t
+;;   :config (load-theme 'inkpot t))
 (use-package solarized-theme
-  :demand t
-  :config (load-theme 'solarized-wombat-dark t))
+ :demand t
+ :config (load-theme 'solarized-wombat-dark t))
 
 ;; Show empty lines. Why?
 ;; .. without this you can't tell if there are blank lines at the end of the file.
@@ -55,6 +55,7 @@
 ;; Include the buffer name & modified status. Why?
 ;; .. the buffer name helps to differentiate windows when selecting from a task list.
 (setq-default frame-title-format "%b %& emacs")
+
 ;; Use diff-hl. Why?
 ;; .. shows lines you have modified from the last commit.
 (use-package diff-hl
@@ -79,7 +80,7 @@
 
 ;; Show line numbers. Why?
 ;; Helpful to give context when reading errors & the current line is made more prominent.
-                                        ;(global-display-line-numbers-mode 1)
+;;(global-display-line-numbers-mode 1)
 
 ;; Show the column as well as the line. Why?
 ;; .. some compiler errors show the column which is useful to compare.
@@ -88,6 +89,7 @@
 ;; Show matching parentheses. Why?
 ;; .. handy for developers to match nested brackets.
 (show-paren-mode 1)
+
 ;; Don't blink, it's too distracting.
 (setq blink-matching-paren nil)
 (setq show-paren-delay 0.2)
@@ -100,4 +102,3 @@
 
 ;; Start maximized
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
