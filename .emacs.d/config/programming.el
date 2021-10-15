@@ -48,6 +48,12 @@
   :commands turn-on-fic-mode
   :config (add-hook 'prog-mode-hook 'turn-on-fic-mode))
 
+;; Rainbow Mode
+(use-package rainbow-mode
+  :defer 2
+  :delight
+  :hook (prog-mode))
+
 ;; Highlight matching delimiters
 (use-package rainbow-delimiters
   :commands rainbow-delimiters-mode

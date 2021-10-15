@@ -51,7 +51,7 @@
 ;; Store registers on exit. Why?
 ;; .. nice to keep macros available on restart.
 (savehist-mode 1)
-(setq savehist-additional-variables '(register-alist))
+;(setq savehist-additional-variables '(register-alist))
 (save-place-mode 1)
 
 ;; Don't use file backups. Why?
@@ -120,8 +120,6 @@
 ;; ----------------------------------------------------------------------------
 ;; Editing Options
 ;; ###############
-
-
 ;; Remove trailing whitespace before saving a file
 (add-hook 'before-save-hook 'whitespace-cleanup)
 (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
@@ -215,7 +213,7 @@
 (global-set-key (kbd "<C-mouse-5>") 'default-text-scale-decrease)
 
 ;; Move between windows (Shift+arrow)
-(windmove-default-keybindings)
+;; (windmove-default-keybindings) ; conflicts with shift-up in org-mode
 
 ;; Start the server
 (server-start)
@@ -240,3 +238,6 @@
 
 (use-package monitor
   :ensure t)
+
+;; https://www.reddit.com/r/emacs/comments/ofhket/further_boost_start_up_time_with_a_simple_tweak/
+(setq gc-cons-threshold 12000000) ;; ~12MB

@@ -8,7 +8,7 @@ alias ...="cd ../.."
 alias ls="ls -GF"
 alias ll="ls -l"
 
-alias emacs='emacsclient -c'
-alias e='emacsclient -c'
-alias vim='/Applications/MacVim.app/Contents/bin/vim'
+alias emacs='emacsclient -nw'
+alias e='emacsclient -nw'
+#alias vim='/Applications/MacVim.app/Contents/bin/vim'
 alias vi=vim

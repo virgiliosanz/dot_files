@@ -19,7 +19,7 @@
 ;;   :config (load-theme 'inkpot t))
 (use-package solarized-theme
  :demand t
- :config (load-theme 'solarized-wombat-dark t))
+ :config (load-theme 'solarized-dark t))
 
 ;; Show empty lines. Why?
 ;; .. without this you can't tell if there are blank lines at the end of the file.

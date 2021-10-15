@@ -68,12 +68,12 @@
   (evil-leader/set-key "s" 'swiper))
 
 
-(which-key-declare-prefixes "f" "Files")
+;;(which-key-declare-prefixes "f" "Files")
 (evil-leader/set-key "ff" 'find-file)
 (evil-leader/set-key "fi" 'ido-find-file)
 (evil-leader/set-key "fg" 'find-grep)
 
-(which-key-declare-prefixes "b" "Buffer")
+;(which-key-declare-prefixes "b" "Buffer")
 (evil-leader/set-key "bf" 'my-indent-whole-buffer)
 (evil-leader/set-key "bb" 'counsel-switch-buffer)
 

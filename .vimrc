@@ -31,18 +31,18 @@ Plug 'chiel92/vim-autoformat'
 au BufWrite * :Autoformat " Autoformat on save
 au BufWritePre * :%s/\s\+$//e " Automatically remove all trailing spaces
 
-Plug 'rust-lang/rust.vim'
-let g:rustfmt_autosave = 1
+"Plug 'rust-lang/rust.vim'
+"let g:rustfmt_autosave = 1
 
 " python3 install.py --clang-completer --rust-completer
-Plug 'ycm-core/YouCompleteMe'
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_min_num_identifier_candidate_chars = 1
-let g:ycm_max_num_candidates = 20
-let g:ycm_auto_trigger = 1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_server_log_level = 'debug'
-let g:ycm_key_detailed_diagnostics = '<leader>d'
+"Plug 'ycm-core/YouCompleteMe'
+"let g:ycm_min_num_of_chars_for_completion = 1
+"let g:ycm_min_num_identifier_candidate_chars = 1
+"let g:ycm_max_num_candidates = 20
+"let g:ycm_auto_trigger = 1
+"let g:ycm_confirm_extra_conf = 0
+"let g:ycm_server_log_level = 'debug'
+"let g:ycm_key_detailed_diagnostics = '<leader>d'
 
 call plug#end()
 
@@ -55,10 +55,11 @@ set t_Co=256
 "colorscheme Molokai
 "colorscheme wombat256
 "colorscheme zenburn
-colorscheme jellybeans
+"colorscheme jellybeans
 "colorscheme colorsbox-material
 "colorscheme badwolf
-let g:lightline = { 'colorscheme': 'jellybeans' }
+colorscheme solarized
+let g:lightline = { 'colorscheme': 'solarized' }
 
 syntax enable
 

@@ -53,6 +53,7 @@ PATH=/usr/local/bin:$PATH
 PATH=$HOME/Bin:$PATH
 PATH=$HOME/node_modules/.bin/:$PATH
 PATH=$HOME/.cargo/bin:$PATH
+PATH=/opt/metasploit-framework/bin:$PATH
 export PATH
 
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
@@ -73,11 +74,11 @@ export GIT_HOSTING='git@github.com'
 export SCM_CHECK=true
 
 # VirtualEnv
-export WORKON_HOME=~/.envs
-export PIP_VIRTUALENV_BASE=$WORKON_HOME
-export PIP_RESPECT_VIRTUALENV=true
-export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
+# Setting PATH for Python 3 installed by brew
+export PATH=/usr/local/share/python:$PATH
+
+# Configuration for virtualenv
+export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-#export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-. /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh
