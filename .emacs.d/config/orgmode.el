@@ -164,12 +164,12 @@
   (setq org-deadline-warning-days 7)
   ;;(setq org-agenda-span (quote fortnight))
   ;;(setq org-agenda-span 5)
-  ;;(setq org-agenda-span 7
-  ;;      org-agenda-start-on-weekday nil
-  ;;      org-agenda-start-day "-1d")
-  (setq org-agenda-span 7
+  (setq org-agenda-span 4
         org-agenda-start-on-weekday 1
-        )
+        org-agenda-start-day "-1d")
+  ;; (setq org-agenda-span 7
+  ;;      org-agenda-start-on-weekday 1
+  ;;      )
 
   ;;don't show tasks as scheduled if they are already shown as a deadline
   (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
@@ -233,10 +233,11 @@
                                        (tags-todo "OPPORTUNITY")
                                        (tags-todo "PROJECT")))
                                      ("w" "Working"
-                                      ((agenda)
+                                      ((tags-todo "@computer")
                                        (tags-todo "POC")
                                        (tags-todo "CBR")
-                                       (tags-todo "@computer")
+                                       (tags-todo "OPPORTUNITY")
+                                       (agenda)
                                        (tags-todo "@errand")
                                        (tags-todo "@phone")))))
 
@@ -297,4 +298,3 @@
 
 ;; Calendar from O365
 ;; npm i -g icsorg
-
