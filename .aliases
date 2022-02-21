@@ -1,6 +1,7 @@
 alias ssh_jumphost="ssh -i $HOME/.ssh/vsanz_proofpoint vsanz@support-jumphost.sc4.ppops.net"
 alias ssh_ncu="ssh root@5.56.58.227"
 alias ssh_disco="ssh -p 2222 vsanz@192.168.1.88"
+alias ssh_vsanz="ssh vsanz@217.76.158.25"
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -8,7 +9,7 @@ alias ...="cd ../.."
 alias ls="ls -GF"
 alias ll="ls -l"
 
-alias emacs='emacsclient -nw'
-alias e='emacsclient -nw'
+#alias emacs='emacsclient -nw'
+#alias e='emacsclient -nw'
 #alias vim='/Applications/MacVim.app/Contents/bin/vim'
 alias vi=vim

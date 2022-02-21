@@ -3,7 +3,7 @@
 ;; ==============================================================================
 (use-package org
   :mode (("\\.org$" . org-mode))
-  :ensure org-plus-contrib)
+  :ensure org-contrib)
 
 (use-package org-download
   :ensure t
@@ -11,55 +11,40 @@
   ;; add support to dired
   (add-hook 'dired-mode-hook 'org-download-enable))
 
-;;(use-package org-bullets
-;;    :hook (org-mode . org-bullets-mode))
+(use-package org-bullets
+    :hook (org-mode . org-bullets-mode))
 
-(custom-set-faces
- '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
- '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
- '(org-level-6 ((t (:inherit outline-6 :height 1.0))))
- '(org-level-7 ((t (:inherit outline-7 :height 1.0))))
- '(org-level-8 ((t (:inherit outline-8 :height 1.0))))
- '(org-level-9 ((t (:inherit outline-9 :height 1.0))))
- '(org-level-10 ((t (:inherit outline-10 :height 1.0))))
- '(org-level-11 ((t (:inherit outline-11 :height 1.0))))
- )
-
-;; formatted-copy on OSX!
-;; TODO: test org-xclip and delete this
-(defun osx/formatted-copy ()
-  "Export region to HTML, and copy it to the clipboard."
-  (interactive)
-  (save-window-excursion
-    (let* ((buf (org-export-to-buffer 'html "*Formatted Copy*" nil nil t t))
-           (html (with-current-buffer buf (buffer-string))))
-      (with-current-buffer buf
-        (shell-command-on-region
-         (point-min)
-         (point-max)
-         "textutil -stdin -format html -convert rtf -stdout |pbcopy"))
-      (kill-buffer buf))))
+;; (custom-set-faces
+;;  '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
+;;  '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+;;  '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+;;  '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+;;  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+;;  '(org-level-6 ((t (:inherit outline-6 :height 1.0))))
+;;  '(org-level-7 ((t (:inherit outline-7 :height 1.0))))
+;;  '(org-level-8 ((t (:inherit outline-8 :height 1.0))))
+;;  '(org-level-9 ((t (:inherit outline-9 :height 1.0))))
+;;  '(org-level-10 ((t (:inherit outline-10 :height 1.0))))
+;;  '(org-level-11 ((t (:inherit outline-11 :height 1.0))))
+;;  )
 
 (with-eval-after-load 'org
-  (add-to-list 'org-modules 'org-capture)
-  ;; (add-to-list 'org-modules 'org-habit)
-  ;; (add-to-list 'org-modules 'org-caldav)
-  ;; (add-to-list 'org-modules 'org-mac-iCal)
-  (add-to-list 'org-modules 'org-mac-link)
-  (add-to-list 'org-modules 'org-protocol)
-  (add-to-list 'org-modules 'org-cliplink)
-  ;; (add-to-list 'org-modules 'org-pdfview)
-  (add-to-list 'org-modules 'org-dashboard)
-  (add-to-list 'org-modules 'org-journal)
-  (add-to-list 'org-modules 'org-agenda)
-  (add-to-list 'org-modules 'org-download)
+  (add-to-list 'org-modules 'org-capture t)
+  ;;(add-to-list 'org-modules 'org-habit)
+  ;;(add-to-list 'org-modules 'org-caldav)
+  ;;(add-to-list 'org-modules 'org-mac-iCal)
+  (add-to-list 'org-modules 'org-mac-link t)
+  (add-to-list 'org-modules 'org-protocol t)
+  ;;(add-to-list 'org-modules 'org-cliplink t)
+  ;;(add-to-list 'org-modules 'org-pdfview)
+  ;;(add-to-list 'org-modules 'org-dashboard t)
+  ;;(add-to-list 'org-modules 'org-journal t)
+  ;;(add-to-list 'org-modules 'org-agenda t)
+  (add-to-list 'org-modules 'org-download t)
 
-  ;; Capture Images
-  (if (equal system-type 'darwin)
-      (setq org-download-screenshot-method "/usr/sbin/screencapture -i %s"))
+  ;;;;;---- Capture Images
+  ;; defined in os.el
+  (setq org-download-screenshot-method screenshot-cmd)
 
   (setq-default org-download-image-dir "~/CloudStation/Org/ScreenShots")
   (setq org-startup-with-inline-images nil)
@@ -165,8 +150,8 @@
   ;;(setq org-agenda-span (quote fortnight))
   ;;(setq org-agenda-span 5)
   (setq org-agenda-span 4
-        org-agenda-start-on-weekday 1
-        org-agenda-start-day "-1d")
+        org-agenda-start-on-weekday 1)
+;;        org-agenda-start-day "-1d")
   ;; (setq org-agenda-span 7
   ;;      org-agenda-start-on-weekday 1
   ;;      )
@@ -207,14 +192,9 @@
   (setq org-hide-leading-stars t)
 
   ;; Org-agenda custom commands
-  (setq org-agenda-custom-commands '(("o" "At the Office" tags-todo "@office")
-                                     ("c" "At Computer" tags-todo "@computer")
-                                     ("h" "At Home" tags-todo "@home")
-                                     ("e" "Errands" tags-todo "@errand")
-                                     ("p" "Phone Calls" tags-todo "@phone")
-                                     ("i" "Import diary from iCal" agenda ""
-                                      ((org-agenda-mode-hook
-                                        (lambda () (org-mac-iCal)))))
+  (setq org-agenda-custom-commands '(("p" "List of PoCs" tags "POC")
+                                     ("o" "List of Opportunities" tags "OPPORTUNITY")
+                                     ("c" "List of CBRs" tags "CBR")
                                      ("r" "Weekly Review"
                                        ((tags-todo "POC")
                                         (tags-todo "CBR")
@@ -247,9 +227,10 @@
 
   ;; Show overview when open
   (setq org-startup-folded t)
-
+  ;;(setq org-startup-indented t)
 
   ;;(org-reload)
+
   )
 
 ;; evil-org
@@ -278,10 +259,10 @@
 ;;(which-key-declare-prefixes "o" "Org Mode")
 (evil-leader/set-key "oa" 'org-agenda)
 (evil-leader/set-key "ot" 'org-todo-list)
-(evil-leader/set-key "om" 'org-mac-grab-link)
 ;;(evil-leader/set-key "oc" 'org-capture)
 (evil-leader/set-key "os" 'org-search-view)
-(evil-leader/set-key "ok" 'osx/formatted-copy)
+;; formatted-copy defined in os.el
+(evil-leader/set-key "ok" 'formated-copy)
 (evil-leader/set-key "og" 'org-download-screenshot)
 ;;(evil-leader/set-key "oi" 'org-download-clipboard)
 (evil-leader/set-key "of" 'org-fill-paragraph)
@@ -290,11 +271,12 @@
 
 (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
 
-
 ;; Global keys for capturing
 ;;(global-set-key (kbd "C-c l") 'org-store-link)
 ;;(global-set-key (kbd "C-c c") 'org-capture)
 ;;(global-set-key (kbd "C-c a") 'org-agenda)
 
-;; Calendar from O365
-;; npm i -g icsorg
+(when os-is-mac
+  (evil-leader/set-key "om" 'org-mac-grab-link)
+  (global-set-key (kbd "C-c g") 'org-mac-grab-link)
+)

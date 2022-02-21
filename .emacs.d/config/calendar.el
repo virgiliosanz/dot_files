@@ -1,4 +1,5 @@
-(setq calendar-holidays '((holiday-fixed 1 1 "Año Nuevo")
+(setq calendar-holidays '(
+        (holiday-fixed 1 1 "Año Nuevo")
 			  (holiday-fixed 1 6 "Reyes Magos")
 			  (holiday-fixed 4 18 "Jueves Santo")
 			  (holiday-fixed 4 19 "Viernes Santo")
@@ -16,4 +17,3 @@
 			  ))
 (setq calendar-week-start-day 1) ;; la semana empieza el lunes
 (setq european-calendar-style t) ;; estilo europeo
-

@@ -6,10 +6,10 @@
 (use-package python
   :ensure t)
 
-(setq python-shell-interpreter "python3.9"
+(setq python-shell-interpreter "python3"
       python-shell-interpreter-args "-i")
 
-(setq elpy-rpc-python-command "python3.9")
+(setq elpy-rpc-python-command "python3")
 
 (setq python-shell-interpreter "jupyter"
       python-shell-interpreter-args "console --simple-prompt"
@@ -46,9 +46,8 @@
 ;; Fixing a key binding bug in elpy
 (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
 ;; Fixing another key binding bug in iedit mode
-(dx[OOB]efine-key global-map (kbd "C-c o") 'iedit-mode)
+(define-key global-map (kbd "C-c o") 'iedit-mode)
 
-(EVILuuuuu-LEADER/set-key-for-mode 'python-mode
+(evil-leader/set-key-for-mode 'python-mode
  "bf" 'elpy-format-code
- A
  "gd" 'elpy-goto-definition-other-window)

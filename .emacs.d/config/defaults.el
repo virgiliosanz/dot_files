@@ -2,36 +2,13 @@
 (setq user-full-name "Virgilio Sanz")
 (setq user-mail-address "virgilio.sanz@gmail.com")
 
-;;----------------------------------------------------------------------------
-;; Package
-;; =======
-
-(with-eval-after-load 'package
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-
-(package-initialize)
-
-;; Auto-install use-package. Why:
-;; .. this is a defacto-standard package manager, useful to isolate each package's configuration.
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-;; This is only needed once, near the top of the file
-(eval-when-compile (require 'use-package))
-
-;; Download automatically. Why?
-;; .. convenience, so on first start all packages are installed.
-(setq use-package-always-ensure t)
-;; Defer loading packages by default. Why?
-;; .. faster startup for packages which are only activated on certain modes or key bindings.
-(setq use-package-always-defer t)
-
 ;; ----------------------------------------------------------------------------
 ;; Defaults
 ;; ========
+
+;; https://www.reddit.com/r/emacs/comments/ofhket/further_boost_start_up_time_with_a_simple_tweak/
+(setq gc-cons-threshold 12000000) ;; ~12MB
+
 ;; Use UTF-8 everywhere. Why?
 ;; .. this is the most common encoding, saves hassles guessing and getting it wrong.
 (prefer-coding-system 'utf-8)
@@ -216,11 +193,47 @@
 ;; (windmove-default-keybindings) ; conflicts with shift-up in org-mode
 
 ;; Start the server
-(server-start)
+;;(server-start)
 
 ;; custom.el
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
+
+;;----------------------------------------------------------------------------
+;; Package
+;; =======
+
+(with-eval-after-load 'package
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+  (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+(package-initialize)
+
+;; Auto-install use-package. Why:
+;; .. this is a defacto-standard package manager, useful to isolate each package's configuration.
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;; This is only needed once, near the top of the file
+(eval-when-compile (require 'use-package))
+
+;; Download automatically. Why?
+;; .. convenience, so on first start all packages are installed.
+(setq use-package-always-ensure t)
+;; Defer loading packages by default. Why?
+;; .. faster startup for packages which are only activated on certain modes or key bindings.
+(setq use-package-always-defer t)
+
+;; Make sure we are up to date, atleast once a week
+(use-package auto-package-update
+  :custom
+  (setq auto-package-update-interval 7
+        auto-package-update-prompt-before-update t
+        auto-package-update-hide-results nil))
+
+(use-package no-littering)	;; Clean up all those temporary files
 
 ;; ace-window
 ;;   more info at https://github.com/abo-abo/ace-window
@@ -238,6 +251,3 @@
 
 (use-package monitor
   :ensure t)
-
-;; https://www.reddit.com/r/emacs/comments/ofhket/further_boost_start_up_time_with_a_simple_tweak/
-(setq gc-cons-threshold 12000000) ;; ~12MB

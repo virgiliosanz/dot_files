@@ -15,6 +15,7 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'vim-scripts/Smart-Tabs'
 Plug 'jiangmiao/auto-pairs'
+Plug 'vim-scripts/AutoComplPop'
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -31,6 +32,14 @@ Plug 'chiel92/vim-autoformat'
 au BufWrite * :Autoformat " Autoformat on save
 au BufWritePre * :%s/\s\+$//e " Automatically remove all trailing spaces
 
+" A bunch of useful language related snippets (ultisnips is the engine).
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<tab>"
+
+Plug 'yggdroot/indentline'
 "Plug 'rust-lang/rust.vim'
 "let g:rustfmt_autosave = 1
 
@@ -44,7 +53,11 @@ au BufWritePre * :%s/\s\+$//e " Automatically remove all trailing spaces
 "let g:ycm_server_log_level = 'debug'
 "let g:ycm_key_detailed_diagnostics = '<leader>d'
 
+" HTML
+Plug 'alvan/vim-closetag'
+
 call plug#end()
+
 
 filetype plugin indent on
 
@@ -81,7 +94,9 @@ set encoding=utf8
 set fileencoding=utf-8
 set ffs=unix,mac,dos
 set incsearch
-set nohlsearch
+"set nohlsearch
+set complete+=.,t
+"set complete=t,.,i,w,b,u,k
 set ignorecase
 set smartcase
 set lazyredraw
@@ -140,8 +155,8 @@ au BufWinEnter * silent loadview
 " Extend % to match not only braces
 runtime macros/matchit.vim
 
-" longer that 120 chars is an error
-match ErrorMsg '\%>120v.\+'
+" longer that 80 chars is an error
+match ErrorMsg '\%>80v.\+'
 match ErrorMsg '\s\+$'
 
 " Usar netrw en lugar de NERDTree
@@ -169,7 +184,12 @@ let g:maplocalleader=','
 nnoremap <silent> <leader><leader> :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
 
-" Move between buffers
+" Right Arrow completes
+inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
+" Cancel the completion
+inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
+
+""" Move between buffers
 nmap <S-left> :bprev<CR>
 nmap <S-right> :bnext<CR>
 
@@ -212,6 +232,7 @@ nnoremap <leader>yt :YcmCompleter GetType<CR>
 " Tags
 " -----
 command! MakeTags !ctags -R .
+set tags=tags
 "" Remap tags, not easy in a spanish keyboard
 "" - Use ^] to jump to tag under cursor
 nnoremap <leader>tj <C-]>
