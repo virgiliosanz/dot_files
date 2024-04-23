@@ -1,17 +1,18 @@
----
 BasedOnStyle: LLVM
 ---
 Language: Cpp
 BreakBeforeBraces: Stroustrup
 DerivePointerAlignment: false
 PointerAlignment: Left
-IndentWidth: 4
+#IndentWidth: 4
+AllowShortIfStatementsOnASingleLine: WithoutElse
+
 # ---
-# Language: C
+# Language: Cpp
 # IndentWidth: 8
 # UseTab: Always
 # BreakBeforeBraces: Linux
-# AllowShortIfStatementsOnASingleLine: false
+# AllowShortIfStatementsOnASingleLine: WithoutElse
 # IndentCaseLabels: false
 ---
 Language: JavaScript

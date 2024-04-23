@@ -5,5 +5,7 @@
 .oh-my-zsh/
 .ssh/
 .urlview
-.vim/
 *.pyc
+.vim/pack
+.vim/view
+.emacs.d/elpa

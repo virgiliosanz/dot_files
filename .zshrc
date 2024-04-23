@@ -1,84 +1,179 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME="steeef"
-#ZSH_THEME="trapd00r"
-#ZSH_THEME="xiong-chiamiov-plus"
-#ZSH_THEME="ys"
-#ZSH_THEME="bira"
-ZSH_THEME="fino-time"
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
-source $HOME/.aliases
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="spaceship" # set by `omz`
+ZSH_THEME="robbyrussell"
+ZSH_THEME="dstufft"
+ZSH_THEME="steeef"
+ZSH_THEME="peepcode"
 
-# Set to this to use case-sensitive completion
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-# Uncomment to change how many often would you like to wait before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+zstyle ':omz:update' mode auto      # update automatically without asking
+#zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
-# Uncomment following line if you want to disable colors in ls
+# Uncomment the following line to change how often to auto-update (in days).
+zstyle ':omz:update' frequency 7
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
-# Uncomment following line if you want to disable autosetting terminal title.
+# Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow macos vagrant macports python ssh-agent virtualenv)
+# Add wisely, as too many plugins slow down shell startup.
+#plugins=(git virtualenv macos docker vagrant vscode gcloud aws brew colorize docker-compose)
 
+# Plugins & theme from: https://dev.to/danielbellmas/the-only-3-plugins-youll-ever-need-for-your-terminal-1bg4
+plugins=(
+  macos
+
+  common-aliases
+
+  colorize
+  colored-man-pages
+  #  zsh-autosuggestions
+  zsh-syntax-highlighting
+
+
+  fzf
+  z
+
+  ssh-agent
+
+  tmuxinator
+
+  aws
+  azure
+  gcloud
+
+  rust
+
+  autoenv
+
+  docker
+  docker-compose
+  kubectl
+  kubectx
+
+)
+zstyle :omz:plugins:ssh-agent identities id_rsa google_compute_engine
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+
+export AUTOENV_ENV_FILENAME=".autoenv"
 source $ZSH/oh-my-zsh.sh
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa vsanz_proofpoint
 
-# Customize to your needs...
-PATH=/sbin:$PATH
-PATH=/usr/sbin:$PATH
-PATH=/bin:$PATH
-PATH=/usr/bin:$PATH
-PATH=/opt/local/sbin:$PATH
-PATH=/opt/local/bin:$PATH
-PATH=/usr/local/sbin:$PATH
-PATH=/usr/local/bin:$PATH
-PATH=$HOME/Bin:$PATH
-PATH=$HOME/node_modules/.bin/:$PATH
-PATH=$HOME/.cargo/bin:$PATH
-PATH=/opt/metasploit-framework/bin:$PATH
+export MANPATH="/usr/local/man:$MANPATH"
+
+PATH="$HOME/bin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
+PATH="$(go env GOPATH)/bin:$PATH"
+PATH="$(brew --prefix)/bin:$PATH"
 export PATH
 
-export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+# You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# Editors
-export EDITOR=vim
-alias vi=$EDITOR
+#export EDITOR=vi
+export EDITOR=nvim
 
-# Languages
-export LANGUAGE=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+# virtualenvwrapper: https://virtualenvwrapper.readthedocs.io/en/latest/
+export WORKON_HOME=~/.pyenvs
 
-# GIT
-export GIT_EDITOR=$EDITOR
-export GIT_HOSTING='git@github.com'
-export SCM_CHECK=true
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-# VirtualEnv
-# Setting PATH for Python 3 installed by brew
-export PATH=/usr/local/share/python:$PATH
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+alias zshconfig="vim ~/.zshrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
 
-# Configuration for virtualenv
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-source /usr/local/bin/virtualenvwrapper.sh
+source ~/.aliases
+
+####### Brew zsh completions
+# Completions in: brew install zsh-completions
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
+# bug in google-cloud-sdk package
+export GOOGLE_APPLICATION_CREDENTIALS="/Users/vsanz/Mi unidad/central-beach-194106-ebb81fa49b44.json"
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+
+# Fuzzy finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

@@ -1,0 +1,227 @@
+" === VIM SETTINGS ====================================================================="
+
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
+syntax enable
+filetype plugin indent on
+set hlsearch incsearch ignorecase
+set number relativenumber
+set wrap linebreak
+set encoding=UTF-8
+
+" Make vim save and load the folding of the document each time it loads
+" also places the cursor in the last place that it was left.
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
+
+" Extend % to match not only braces
+runtime macros/matchit.vim
+
+" longer that 80 chars is an error
+match ErrorMsg '\%>80v.\+'
+match ErrorMsg '\s\+$'
+
+if $COLORTERM == 'truecolor'
+  set termguicolors
+endif
+
+let mapleader="\<space>"
+
+"=== PLUGINS =========================================================================="
+" first thing is install vim-packager:
+" git clone https://github.com/kristijanhusak/vim-packager ~/.vim/pack/packager/opt/vim-packager
+"
+" Second run PackagerInstall inside vim
+
+function! s:packager_init(packager) abort
+  call a:packager.add('kristijanhusak/vim-packager', {'type': 'opt'})
+  " Navigation and search
+  " call a:packager.add('junegunn/fzf', { 'do': './install --all && ln -s $(pwd) ~/.fzf'})
+  call a:packager.add('junegunn/fzf.vim')
+  " Language-aware actions, linting & fixing, autocompletion
+  call a:packager.add('yegappan/lsp')
+  call a:packager.add('dense-analysis/ale')
+  " QOL IDE-like features
+  call a:packager.add('907th/vim-auto-save')
+  call a:packager.add('jiangmiao/auto-pairs')
+"  call a:packager.add('bluz71/vim-mistfly-statusline', {'requires': 'airblade/vim-gitgutter'})
+  call a:packager.add('itchyny/lightline.vim')
+  call a:packager.add('lambdalisue/fern.vim', {'requires': [
+        \ 'lambdalisue/fern-git-status.vim',
+        \ 'lambdalisue/fern-renderer-devicons.vim',
+        \ 'lambdalisue/fern-hijack.vim']})
+  call a:packager.add('janko-m/vim-test', {'requires': 'tpope/vim-dispatch'})
+  " Icons, Colours and syntax highlighting
+  call a:packager.add('sheerun/vim-polyglot')
+  call a:packager.add('flazz/vim-colorschemes')
+
+  call a:packager.add('ryanoasis/vim-devicons')
+  " Misc helper plugins
+  call a:packager.add('liuchengxu/vim-which-key')
+
+  call a:packager.add('vim-autoformat/vim-autoformat')
+  call a:packager.add('tpope/vim-commentary')
+  call a:packager.add('christoomey/vim-tmux-navigator')
+endfunction
+
+packadd vim-packager
+call packager#setup(function('s:packager_init'))
+
+"--- WhichKey settings ----------------------------------------------------------------"
+let g:mapleader = "\<Space>"
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+set timeoutlen=200
+
+"--- LSP settings ---------------------------------------------------------------------"
+" Highlights: don't use loclist (used by ALE for diags)
+let lspOptions = #{
+      \ aleSupport: v:true,
+      \ autoComplete: v:true,
+      \ autoHighlight: v:true,
+      \ completionTextEdit: v:true,
+      \ echoSignature: v:false,
+      \ diagVirtualTextAlign: 'after',
+      \ highlightDiagInline: v:true,
+      \ noNewlineInCompletion: v:true,
+      \ outlineOnRight: v:true,
+      \ outlineWinSize: 70,
+      \ showDiagWithSign: v:false,
+      \ showDiagWithVirtualText: v:false,
+      \ useQuickfixForLocations: v:true,
+      \ showInlayHints: v:true,
+      \ }
+autocmd VimEnter * call LspOptionsSet(lspOptions)
+
+let lspServers = [
+      \ #{ name: 'gopls', filetype: ['go', 'gomod'],  path: 'gopls', args: ['serve'] },
+      \ #{ name: 'pylsp', filetype: ['py', 'python'], path: 'pylsp', args: [], syncInit: v:true },
+      \ #{ name: 'clangd', filetype: ['c', 'cpp'], path: 'clangd', args: ['--background-index', '--clang-tidy'] },
+      \ #{ name: 'rustlang', filetype: ['rust'], path: 'rust-analyzer', args: [], syncInit: v:true },
+      \ #{ name: 'htmlls', filetype: ['html'], path: 'html-languageserver', args: ['--stdio'], },
+      \ #{name: 'tsserver', filetype: ['javascript', 'typescript'], path: 'typescript-language-server', args: ['stdio'] },
+      \ ]
+autocmd VimEnter * call LspAddServer(lspServers)
+
+"Enable auto selection of the fist autocomplete item
+augroup LspSetup
+  au!
+  au User LspAttached set completeopt-=noselect
+augroup END
+"Disable newline on selecting completion option
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+"Use LSPHover as resolver for K command in normal mode
+set keywordprg=:LspHover
+
+"Mappings for most-used functions
+nnoremap <leader>i :LspHover<CR>
+nnoremap <leader>d :LspGotoDefinition<CR>
+nnoremap <leader>p :LspPeekDefinition<CR>
+nnoremap <leader>R :LspRename<CR>
+nnoremap <leader>r :LspPeekReferences<CR>
+nnoremap <leader>o :LspDocumentSymbol<CR>
+nnoremap <leader>O :LspOutline<CR>
+
+"--- ALE settings ---------------------------------------------------------------------"
+"Disable ALE's LSP in favour of standalone LSP plugin
+let g:ale_disable_lsp = 1
+
+"Show linting errors with highlights
+" * Can also be viewed in the loclist with :lope
+let g:ale_set_signs = 1
+let g:ale_set_highlights = 1
+let g:ale_virtualtext_cursor = 1
+
+"Define when to lint
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_text_change = 'never'
+
+"Set linters for individual filetypes
+let g:ale_linters = {
+      \ 'go': ['gofmt', 'gopls', 'govet', 'gobuild'],
+      \ 'python': ['ruff', 'mypy', 'pylsp'],
+      \ }
+"Specify fixers for individual filetypes
+let g:ale_fixers = {
+      \ '*': ['trim_whitespace'],
+      \ 'python': ['ruff'],
+      \ 'go': ['gopls', 'goimports', 'gofmt', 'gotype', 'govet'],
+      \ }
+"Don't warn about trailing whitespace, as it is auto-fixed by '*' above
+let g:ale_warn_about_trailing_whitespace = 0
+"Show info, warnings, and errors; Write which linter produced the message
+let g:ale_lsp_show_message_severity = 'information'
+let g:ale_echo_msg_format = '[%linter%] [%severity%:%code%] %s'
+"Specify Containerfiles as Dockerfiles
+let g:ale_linter_aliases = {"Containerfile": "dockerfile"}
+
+"Mapping to run fixers on file
+nnoremap <leader>L :ALEFix<CR>
+
+"--- Fuzzy Finder Settings ------------------------------------------------------------"
+"Mappings for searching within files and buffers
+nnoremap <leader>f :Lines<CR>
+nnoremap <leader>g :GFiles<CR>
+nnoremap <leader>F :Rg<CR>
+nnoremap <leader>b :Buffers<CR>
+
+"Map buffer quick switch keys
+nnoremap <leader><Tab> <C-^><CR>
+
+"Map Ctrl+P to fzf Files command
+nnoremap <silent> <C-p> :Files<CR>
+
+"--- Fern Filetree settings -----------------------------------------------------------"
+let g:fern#renderer = "devicons"
+let g:fern#default_hidden = 1
+let g:fern#default_exclude = '\%(\.DS_Store\|__pycache__\|.pytest_cache\|.ruff_cache\|.git\)'
+
+nnoremap <leader>a :Fern . -drawer -toggle<CR>
+
+"--- AutoSave settings ----------------------------------------------------------------"
+set noswapfile
+
+let g:auto_save = 1
+let g:auto_save_silent = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
+
+"--- Polyglot settings ----------------------------------------------------------------"
+let g:polyglot_disabled = ['sensible']
+
+"--- Mistfly statusline settings ------------------------------------------------------"
+"Don't show the mode as it is present in statusline; always show the statusline
+set noshowmode laststatus=2
+
+"--- Vim Test settings ----------------------------------------------------------------"
+nnoremap <leader>tn :TestNearest<CR>
+nnoremap <leader>tf :TestFile<CR>
+nnoremap <leader>ts :TestSuite<CR>
+nnoremap <leader>tl :TestLast<CR>
+
+let test#strategy = "dispatch"
+
+"--- Vim Autoformat ----------------------------------------------------------------"
+au BufWritePre * :%s/\s\+$//e " Automatically remove all trailing spaces
+au BufWrite * :Autoformat " Autoformat on save
+
+"--- Vim Commentary ----------------------------------------------------------------"
+noremap <leader>/ :Commentary<cr>
+
+"--- Vim Spelling ----------------------------------------------------------------"
+nnoremap <leader>se :setlocal spell!  spelllang=en<CR>
+nnoremap <leader>ss :setlocal spell!  spelllang=es<CR>
+nnoremap <leader>sn :setlocal nospell!<CR>
+
+
+"--- Vim Make ----------------------------------------------------------------"
+""" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+"--- Colorscheme settings -----------------------------------------------------------------"
+" Others: tender, grubvox, atom, nord
+colorscheme nord
+let g:lightline = { 'colorscheme': 'nord' }
