@@ -1,22 +1,23 @@
 BasedOnStyle: LLVM
 ---
-Language: Cpp
-BreakBeforeBraces: Stroustrup
-DerivePointerAlignment: false
-PointerAlignment: Left
-#IndentWidth: 4
-AllowShortIfStatementsOnASingleLine: WithoutElse
+# Language: Cpp
+# BreakBeforeBraces: Stroustrup
+# DerivePointerAlignment: false
+# PointerAlignment: Left
+# IndentWidth: 4
+# AllowShortIfStatementsOnASingleLine: WithoutElse
 
 # ---
-# Language: Cpp
-# IndentWidth: 8
-# UseTab: Always
-# BreakBeforeBraces: Linux
-# AllowShortIfStatementsOnASingleLine: WithoutElse
-# IndentCaseLabels: false
----
-Language: JavaScript
-ColumnLimit: 100
+Language: Cpp
+IndentWidth: 8
+UseTab: Never
+BreakBeforeBraces: Linux
+IndentCaseLabels: false
+AllowShortIfStatementsOnASingleLine: WithoutElse
+BinPackArguments: false
+BinPackParameters: false
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveDeclarations: Consecutive
 ---
 Language: Proto
 DisableFormat: true

@@ -4,29 +4,19 @@
 #set -x
 PATH=/usr/local/sbin:$PATH
 PATH=/usr/local/bin:$PATH
-PATH=~/Bin:$PATH
 
-# Set vcprompt executable path for scm advance info in prompt (demula theme)
-# https://github.com/xvzf/vcprompt
-#export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
-
-#export ANDROID_HOME=~/Library/Android/sdk
-#PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+PATH="$HOME/bin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/bin/go/bin:$PATH"
+PATH="$HOME/bin/zig:$PATH"
+PATH="$HOME/cmake/zig:$PATH"
+export PATH
 
 # aliases to hosts
-. $HOME/.aliases
-
-# Golang
-#export GOPATH=$HOME/go
-#PATH=$GOPATH/bin:$PATH
-#export PATH
-
-# Rust
-PATH="$HOME/.cargo/bin:$PATH"
+. "$HOME/.aliases"
 
 # Editors
 export EDITOR=vim
-alias vi=$EDITOR
 
 # Languages
 export LANGUAGE=en_US.UTF-8
@@ -38,32 +28,53 @@ export GIT_EDITOR=$EDITOR
 export GIT_HOSTING='git@github.com'
 export SCM_CHECK=true
 
-# VirtualEnv
-export WORKON_HOME=~/.envs
-export PIP_VIRTUALENV_BASE=$WORKON_HOME
-export PIP_RESPECT_VIRTUALENV=true
-export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-#export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-. /usr/local/bin/virtualenvwrapper.sh
-
 # Bash-It
-export BASH_IT=$HOME/.bash_it
-#export BASH_IT_THEME='powerline'
-#export BASH_IT_THEME='powerline-naked'
-#export BASH_IT_THEME='powerline-plain'
-#export BASH_IT_THEME='powerline-multiline'
-export SEXY_THEME_SHOW_PYTHON=true
+export BASH_IT="${HOME}/.bash_it"
+# export BASH_IT_THEME='powerline'
+# export BASH_IT_THEME='powerline-naked'
+# export BASH_IT_THEME='powerline-plain'
+# export BASH_IT_THEME='powerline-multiline'
+# export SEXY_THEME_SHOW_PYTHON=true
 export BASH_IT_THEME='sexy'
-#export BASH_IT_THEME='Iterate'
-source $BASH_IT/bash_it.sh
+# export BASH_IT_THEME='rjorgenson'
+# export BASH_IT_THEME='bakke'
 
-# SSH
-ssh-add -K ~/.ssh/id_rsa
-ssh-add -K ~/.ssh/vsanz_proofpoint
-#ssh-add -l
+# C/C++
 
+# Add ssh key
 
-# Export Modified PATH
+# SSH Agent should be running, once
+# eval "$(ssh-agent -s)"
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+case ":$PATH:" in
+*:/home/v/.juliaup/bin:*) ;;
+
+*)
+  export PATH=/home/v/.juliaup/bin${PATH:+:${PATH}}
+  ;;
+esac
+
+# <<< juliaup initialize <<<
+
+# RUST
+. "$HOME/.cargo/env"
+
+# Golang
+export GOPATH=$HOME/bin/go
+PATH=$GOPATH/bin:$PATH
 export PATH
+
+# k0s configuration
+export KUBECONFIG=~/Code/k8s/k0sctl/kubeconfig
+
+# Fuzzi
+. "$HOME/.fzf.bash"
+
+# ollama
+# export OLLAMA_HOST=0.0.0.0:11435
+
+. "$HOME/.bash_it/bash_it.sh"

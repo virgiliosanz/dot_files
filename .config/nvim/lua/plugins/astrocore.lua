@@ -27,16 +27,22 @@ return {
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
-        relativenumber = true, -- sets vim.opt.relativenumber
+        relativenumber = false, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
+        tabstop = 4,
+        shiftwidth = 4,
+        softtabstop = 4,
+        expandtab = true,
+        mouse = "",
+        showtabline = 0,
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
-        -- This can be found in the `lua/lazy_setup.lua` file
+        -- This can be found in the `lua/lazy_setup.lua`  ile
       },
     },
     -- Mappings can be configured through AstroCore as well.
@@ -44,28 +50,15 @@ return {
     mappings = {
       -- first key is the mode
       n = {
-        -- second key is the lefthand side of the map
+        -- GenAI using ollama y plugin gen
+        ["<leader>G"] = { ":Gen<CR>", desc = "Interact with ollama using Gen" },
 
+        -- better buffer navigation
+        --
         -- navigate buffer tabs with `H` and `L`
         L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
 
-        -- mappings seen under group name "Buffer"
-        ["<Leader>bD"] = {
-          function()
-            require("astroui.status.heirline").buffer_picker(
-              function(bufnr) require("astrocore.buffer").close(bufnr) end
-            )
-          end,
-          desc = "Pick to close",
-        },
-        -- tables with just a `desc` key will be registered with which-key if it's installed
-        -- this is useful for naming menus
-        ["<Leader>b"] = { desc = "Buffers" },
-        -- quick save
-        -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
-        --
-        -- better buffer navigation
         -- buffer switching
         ["<Tab>"] = {
           function()
@@ -77,7 +70,7 @@ return {
         },
 
         -- Emulate Ctrl+P in my previous vim
-        ["<C-p>"] = { "<cmd>Telescope fd<CR>", desc = "Search files in dir/project" },
+        -- ["<C-p>"] = { "<cmd>Telescope fd<CR>", desc = "Search files in dir/project" },
       },
       t = {
         ["<esc><esc>"] = { "<cmd>ToggleTerm<CR>", desc = "Toggle Terminal on esc + esc" },

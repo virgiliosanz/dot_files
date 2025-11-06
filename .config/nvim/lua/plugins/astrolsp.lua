@@ -16,6 +16,7 @@ return {
       codelens = true, -- enable/disable codelens refresh on start
       inlay_hints = true, -- enable/disable inlay hints on start
       semantic_tokens = true, -- enable/disable semantic token highlighting
+      signature_help = true, -- enable automatic signature help popup globally on startup
     },
     -- customize lsp formatting options
     formatting = {
@@ -68,13 +69,13 @@ return {
               parameterNames = true,
               rangeVariableTypes = true,
             },
-            analyses = {
-              fieldalignment = true,
-              nilness = true,
-              unusedparams = true,
-              unusedwrite = true,
-              useany = true,
-            },
+            -- analyses = {
+            --   fieldalignment = true,
+            --   nilness = true,
+            --   unusedparams = true,
+            --   unusedwrite = true,
+            --   useany = true,
+            -- },
             gofumpt = true,
             usePlaceholders = true,
             completeUnimported = true,
