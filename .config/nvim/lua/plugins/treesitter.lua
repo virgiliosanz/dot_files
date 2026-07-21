@@ -1,4 +1,4 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- Customize Treesitter
 
@@ -10,9 +10,13 @@ return {
     opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
       "lua",
       "vim",
+<<<<<<< HEAD
       "c",
       "cpp",
       "python",
+=======
+      "templ",
+>>>>>>> 53116e98f6049ca0b92470bbc280dd57d529cd00
       -- add more arguments for adding more treesitter parsers
     })
   end,

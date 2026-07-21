@@ -22,6 +22,20 @@ return {
   -- { import = "astrocommunity.pack.java" },
   -- { import = "astrocommunity.pack.zig" },
 
+  -- { import = "astrocommunity.pack.cpp" },
+  -- { import = "astrocommunity.pack.cmake" },
+
+  -- { import = "astrocommunity.pack.go" },
+  -- { import = "astrocommunity.pack.templ" },
+
+  { import = "astrocommunity.pack.bash" },
+  -- { import = "astrocommunity.pack.julia" },
+  -- { import = "astrocommunity.pack.java" },
+  -- { import = "astrocommunity.pack.rust" },
+  -- { import = "astrocommunity.pack.zig" },
+  { import = "astrocommunity.pack.python" },
+
+  -- { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.html-css" },
   -- { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.json" },
@@ -30,7 +44,6 @@ return {
   { import = "astrocommunity.pack.markdown" },
 
   -- { import = "astrocommunity.pack.terraform" },
-  { import = "astrocommunity.pack.cmake" },
   -- { import = "astrocommunity.git.fugit2-nvim" },
 
   { import = "astrocommunity.diagnostics.trouble-nvim" },

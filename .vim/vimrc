@@ -64,7 +64,7 @@ function! s:packager_init(packager) abort
   " Misc helper plugins
   call a:packager.add('liuchengxu/vim-which-key')
 
-  call a:packager.add('vim-autoformat/vim-autoformat')
+  " call a:packager.add('vim-autoformat/vim-autoformat')
   call a:packager.add('tpope/vim-commentary')
   call a:packager.add('christoomey/vim-tmux-navigator')
 
@@ -79,7 +79,6 @@ endfunction
 
 packadd vim-packager
 call packager#setup(function('s:packager_init'))
-
 
 "--- WhichKey settings --------------------------------------------------------"
 let g:mapleader = "\<Space>"

@@ -28,15 +28,25 @@ return {
     options = {
       opt = { -- vim.opt.<key>
         relativenumber = false, -- sets vim.opt.relativenumber
+<<<<<<< HEAD
         number = false, -- sets vim.opt.number
+=======
+        number = true, -- sets vim.opt.number
+>>>>>>> 53116e98f6049ca0b92470bbc280dd57d529cd00
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
+        tabstop = 4,
+        shiftwidth = 4,
+        softtabstop = 4,
+        expandtab = true,
+        mouse = "",
+        showtabline = 0,
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
-        -- This can be found in the `lua/lazy_setup.lua` file
+        -- This can be found in the `lua/lazy_setup.lua`  ile
       },
     },
     -- Mappings can be configured through AstroCore as well.
@@ -44,12 +54,16 @@ return {
     mappings = {
       -- first key is the mode
       n = {
-        -- second key is the lefthand side of the map
+        -- GenAI using ollama y plugin gen
+        ["<leader>G"] = { ":Gen<CR>", desc = "Interact with ollama using Gen" },
 
+        -- better buffer navigation
+        --
         -- navigate buffer tabs with `H` and `L`
         L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
 
+<<<<<<< HEAD
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },
@@ -57,6 +71,8 @@ return {
         -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
         --
         -- better buffer navigation
+=======
+>>>>>>> 53116e98f6049ca0b92470bbc280dd57d529cd00
         -- buffer switching
         ["<Tab>"] = {
           function()

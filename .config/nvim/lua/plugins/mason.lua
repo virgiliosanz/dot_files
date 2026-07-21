@@ -36,7 +36,11 @@ return {
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
         "python",
+<<<<<<< HEAD
 	"clangd",
+=======
+        "codelldb",
+>>>>>>> 53116e98f6049ca0b92470bbc280dd57d529cd00
         -- add more arguments for adding more debuggers
       })
     end,
