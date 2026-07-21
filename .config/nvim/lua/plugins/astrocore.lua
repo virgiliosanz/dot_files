@@ -27,8 +27,8 @@ return {
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
-        relativenumber = true, -- sets vim.opt.relativenumber
-        number = true, -- sets vim.opt.number
+        relativenumber = false, -- sets vim.opt.relativenumber
+        number = false, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
@@ -50,15 +50,6 @@ return {
         L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
 
-        -- mappings seen under group name "Buffer"
-        ["<Leader>bD"] = {
-          function()
-            require("astroui.status.heirline").buffer_picker(
-              function(bufnr) require("astrocore.buffer").close(bufnr) end
-            )
-          end,
-          desc = "Pick to close",
-        },
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },
@@ -70,14 +61,17 @@ return {
         ["<Tab>"] = {
           function()
             if #vim.t.bufs > 1 then
-              require("telescope.builtin").buffers { sort_mru = true, ignore_current_buffer = true }
+              require("telescope.builtin").buffers { sort_mru = false, ignore_current_buffer = true }
             end
           end,
           desc = "Switch Buffers",
         },
 
+        -- Use Gen with ollama
+        ["<leader>G"] = { "<cmd>Gen<CR>", desc = "Using ollama from vim" },
+
         -- Emulate Ctrl+P in my previous vim
-        ["<C-p>"] = { "<cmd>Telescope fd<CR>", desc = "Search files in dir/project" },
+        -- ["<C-p>"] = { "<cmd>Telescope fd<CR>", desc = "Search files in dir/project" },
       },
       t = {
         ["<esc><esc>"] = { "<cmd>ToggleTerm<CR>", desc = "Toggle Terminal on esc + esc" },

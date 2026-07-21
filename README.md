@@ -12,18 +12,21 @@ rm ~/.git
 
 # BASH
 
-# Instala plugins y demas ejecutando bash-it
+## Starship
 
-git clone https://github.com/revans/bash-it.git ~/.bash_it
+follow starship install instructions at: https://starship.rs/
 
-# Por defecto en mi mac
 
-bash-it enable plugin ssh python osx less-pretty-cat git base alias-completion
-bash-it enable completion defaults git pip ssh system vagrant
-bash-it enable alias general osx
-
-# FISH
+## FISH
 
 If you want to use fish instead... do:
 
-cp config.fish ~/.config/fish/config.fish
+ cp config.fish ~/.config/fish/config.fish
+
+## Some alias and modern tooling
+
+ alias cat="bat -pp"
+ alias more=bat
+ alias less=bat
+ alias grep="rg -p"
+ alias ls='eza --icons --group-directories-first'
